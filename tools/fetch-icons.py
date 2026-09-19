@@ -17,3 +17,11 @@ def obtain(s):
     (cache/f'{s["id"]}.rgba').write_bytes(struct.pack('<ii',im.width,im.height)+im.tobytes())
 list(concurrent.futures.ThreadPoolExecutor(6).map(obtain,spells))
 print(f'{len(spells)} official icons ready for local preview.')
+for icon in [62124,62125]:
+    f=cache/f'{icon}.png'
+    if not f.exists():
+        req=urllib.request.Request(f'https://v2.xivapi.com/api/asset?path=ui/icon/062000/0{icon}.tex&format=png',headers={'User-Agent':'CycleOpener-local-preview'})
+        f.write_bytes(urllib.request.urlopen(req,timeout=20).read())
+    im=Image.open(f).convert('RGBA')
+    (cache/f'{icon}.rgba').write_bytes(struct.pack('<ii',im.width,im.height)+im.tobytes())
+print('2 job icons ready for local preview (XIVAPI).')

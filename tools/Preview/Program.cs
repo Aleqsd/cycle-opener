@@ -24,13 +24,18 @@ unsafe class Program
         cases.Add(($"guide-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,1040,0,"guide"));
         cases.Add(($"guide-minimum-{job}-{scale*100:0}",Layout.Focus,new(50,3,Job:job),scale,320,0,"guide-manual"));
         cases.Add(($"guide-minimum-english-{job}-{scale*100:0}",Layout.Focus,new(50,3,Job:job),scale,320,0,"guide-manual-english"));
+        cases.Add(($"guide-minheight-{job}-{scale*100:0}",Layout.Focus,new(50,3,Job:job),scale,320,0,"guide-manual-english-short"));
         cases.Add(($"guide-english-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,1040,0,"guide-english"));
+        cases.Add(($"guide-healing-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,780,0,"guide-healing"));
+        cases.Add(($"guide-folded-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,500,0,"guide-folded"));
         cases.Add(($"settings-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,490,0,"settings"));
         cases.Add(($"settings-minimum-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,360,0,"settings-manual"));
         cases.Add(($"settings-appearance-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,360,0,"settings-appearance"));
         cases.Add(($"popup-{job}-{scale*100:0}",Layout.Focus,new(50,Job:job),scale,410,0,"popup"));
     }
     cases.Add(("guide-whm-area",Layout.Priorites,new(100,3,Job:GuideJob.WhiteMage),1,1040,4,"guide-english"));
+    cases.Add(("guide-whm-healing-detail",Layout.Focus,new(Job:GuideJob.WhiteMage),1,780,0,"guide-healing-detail"));
+    cases.Add(("guide-footer-minimum",Layout.Focus,new(50,3,Job:GuideJob.WhiteMage),2,320,0,"guide-footer"));
     cases.Add(("settings-offline",Layout.Focus,new(Available:false),1,360,0,"settings"));
     cases.Add(("settings-offline-manual",Layout.Focus,new(Available:false),1,360,0,"settings-manual"));
     var filter=args.ElementAtOrDefault(2);
@@ -58,21 +63,34 @@ unsafe class Program
                 }
             }
             float height=0;float overflow=0;
-            for(var frame=0;frame<3;frame++) {
+            var guideState=new GuidePanelState{Folded=c.Panel=="guide-folded",Healing=c.Panel.Contains("healing")};
+            for(var frame=0;frame<4;frame++) {
+                overflow=0;
                 UploadFontTextures();
                 ImGui.NewFrame();ImGui.SetNextWindowPos(new(16*c.Scale,16*c.Scale));ImGui.SetNextWindowSize(new(c.Width*c.Scale,c.Panel.StartsWith("guide")?840*c.Scale:0));
-                if(c.Panel!="hud")Panels.PushTheme();
+                if(c.Panel.StartsWith("guide"))GuidePanel.PushStyle(Configuration.Create());else if(c.Panel!="hud")Panels.PushTheme();
                 var windowOpen=true;
-                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel.StartsWith("guide")?"Cycle & Opener · Guide":"Cycle & Opener · Réglages",ref windowOpen,(c.Panel.StartsWith("guide")?ImGuiWindowFlags.None:ImGuiWindowFlags.AlwaysAutoResize)|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
+                if(c.Panel=="guide-folded")ImGui.SetNextWindowSize(new(c.Width*c.Scale,62*c.Scale));
+                if(c.Panel.EndsWith("short"))ImGui.SetNextWindowSize(new(c.Width*c.Scale,560*c.Scale));
+                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel.StartsWith("guide")?"Cycle & Opener · Guide":"Cycle & Opener · Réglages",ref windowOpen,(c.Panel.StartsWith("guide")?Panels.GuideFlags(false):ImGuiWindowFlags.AlwaysAutoResize)|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
                 if(c.Panel=="hud") Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),c.Step,true);
                 else if(c.Panel.StartsWith("guide")) {
                     var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Layout=c.Mode;cfg.Targets=c.State.Targets;cfg.ManualLevel=c.Panel.Contains("manual");cfg.PreviewLevel=c.State.Level;cfg.ManualJob=c.State.Job;var step=c.Step;
-                    Panels.GuideToolbar(cfg,()=>{},ref step,c.State);
-                    Panels.GuideContent(cfg,cfg.Resolve(c.State),id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),ref step);
+                    var ui=guideState;
+                    if(c.Panel.Contains("healing"))cfg.View=GuideView.Cycle;
+                    ImTextureID? Icon(uint id)=>textures.ContainsKey(id)?new ImTextureID(id):null;
+                    GuidePanel.Header(cfg,c.State,ui,Icon,()=>{});
+                    if(!ui.Folded){
+                        GuidePanel.Controls(cfg,c.State,ref step);
+                        ImGui.BeginChild("Lecture du guide",Vector2.Zero,false);
+                        GuidePanel.Content(cfg,cfg.Resolve(c.State),ui,Icon,new(c.Scale),ref step);
+                        if(c.Panel=="guide-footer"||c.Panel=="guide-healing-detail")ImGui.SetScrollY(ImGui.GetScrollMaxY());
+                        overflow=Math.Max(overflow,ImGui.GetScrollMaxX());ImGui.EndChild();
+                    }
                 }
                 else if(c.Panel.StartsWith("settings")) {var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.ManualJob=c.State.Job;cfg.ManualLevel=c.Panel=="settings-manual";var step=0;if(c.Panel=="settings-appearance")ImGui.GetStateStorage().SetInt(ImGui.GetID("Apparence du guide"),1);Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref step,()=>{},()=>{});}
                 else {var disabled=false;Panels.Prompt(c.State,c.Mode,ref disabled);}
-                height=ImGui.GetWindowSize().Y;overflow=ImGui.GetScrollMaxX();ImGui.End();if(c.Panel!="hud")Panels.PopTheme();ImGui.Render();
+                height=ImGui.GetWindowSize().Y;overflow=Math.Max(overflow,ImGui.GetScrollMaxX());ImGui.End();if(c.Panel.StartsWith("guide"))GuidePanel.PopStyle();else if(c.Panel!="hud")Panels.PopTheme();ImGui.Render();
             }
             // ImGui may rebake fonts at requested draw-list sizes during a frame.
             // Always sample the final atlas, never its pre-frame pointer.

@@ -3,15 +3,33 @@ public enum Layout { Focus, Ruban, Priorites, Cycle, Ouverture }
 public enum GuideJob { BlackMage, WhiteMage }
 public enum GuideView { Both, Cycle, Opening }
 public sealed record GuideContext(int Level = 100, int Targets = 1, bool Available = true, GuideJob Job = GuideJob.BlackMage);
-public sealed record Step(uint Action, string Note = "", int Count = 1);
-public sealed record Reminder(uint Action,string Text,string Threshold="");
+public sealed record Step(uint Action, string Note = "", int Count = 1, uint[]? Weaves = null);
+public sealed record Reminder(uint Action,string Text,string Threshold="",bool Healing=false);
 public sealed record CyclePlan(Step[] Ice,Step[] Fire,string Note);
+public sealed record OpeningGroup(int Start,int Count,Step Step);
 
 public static class Guide
 {
     public static GuideJob? JobFromId(uint id)=>id switch{7 or 25=>GuideJob.BlackMage,6 or 24=>GuideJob.WhiteMage,_=>null};
     public static string JobName(GuideJob job)=>job==GuideJob.WhiteMage?"Mage blanc":"Mage noir";
+    public static uint JobIcon(GuideJob job)=>job==GuideJob.WhiteMage?62124u:62125u;
+    public static int? MultiThreshold(GuideContext s)=>s.Job==GuideJob.WhiteMage
+        ?s.Level<45?null:WhiteMage.AreaThreshold(s.Level):s.Level<12?null:AreaThreshold(s.Level);
+    public static string LevelHint(GuideContext s){
+        uint[] milestones=s.Job==GuideJob.WhiteMage?[139,16531,3571,16535,16534,37009,37011]:[149,152,162,3576,3577,7422,16505,16507,25797,36989];
+        var missing=milestones.Where(id=>Spells.Get(id).Level>s.Level).Take(2).Select(id=>$"{Spells.Name(id)} (niv. {Spells.Get(id).Level})");
+        return s.Level>=100?"":"À ce niveau : sans "+string.Join(" · ",missing);
+    }
     public static List<Step> Opener(GuideContext s)=>s.Job==GuideJob.WhiteMage?WhiteMage.Opener(s):Opener(s.Level,s.Targets);
+    public static List<OpeningGroup> OpeningGroups(GuideContext s){
+        var steps=Opener(s);var groups=new List<OpeningGroup>();
+        for(var i=0;i<steps.Count;i++){
+            var start=i;var item=steps[i];
+            while(i+1<steps.Count&&item.Note.Length==0&&(item.Weaves?.Length??0)==0&&steps[i+1].Note.Length==0&&(steps[i+1].Weaves?.Length??0)==0&&steps[i+1].Action==item.Action)i++;
+            groups.Add(new(start,i-start+1,item));
+        }
+        return groups;
+    }
     public static string Threshold(GuideContext s)=>s.Job==GuideJob.WhiteMage?WhiteMage.Threshold(s):s.Level<12?"Pas de cycle de zone avant le niveau 12.":s.Level>=100?"ZONE : 2 cibles · Giga Glace à 2 / Gel à 3+":s.Targets==2?"2 cibles : base mono · zone complète dès 3+":"ZONE : au moins 3 cibles regroupées";
     // Reference sheets only: no gauge, target, cooldown or next-action engine.
     public static int AreaThreshold(int level) => level >= 100 ? 2 : 3;
@@ -77,7 +95,8 @@ public static class Guide
         if(level==100&&targets==1) {
             uint[] ids=[152,36986,3577,3577,3577,3577,3577,16507,3577,36989,3577,3577,36986,3577,3577,3577,3577,36989,16505,154,3576,25797,25797,152];
             var notes=new Dictionary<int,string>{[0]="Précast : env. 4 s avant le pull",[1]="Insère Magie prompte + Amplificateur",[2]="Insère potion + Manalignements",[7]="Insère Vasque de mana",[12]="Foudre : adapter au DoT et aux buffs",[18]="Insère Transposition + Triple sort",[21]="Insère Transposition",[22]="Paradoxe de feu",[23]="Méga Feu sous Pyromane"};
-            return ids.Select((id,index)=>new Step(id,notes.GetValueOrDefault(index,""))).ToList();
+            var weaves=new Dictionary<int,uint[]>{[1]=[7561,25796],[2]=[3573],[7]=[158],[18]=[149,7421],[21]=[149]};
+            return ids.Select((id,index)=>new Step(id,notes.GetValueOrDefault(index,""),Weaves:weaves.GetValueOrDefault(index))).ToList();
         }
         var cycle=Cycle(s);var result=new List<Step>();
         if(Area(s)) {

@@ -80,3 +80,24 @@ Check(Observe(80,true)==null&&Observe(80,true)==null,"Level increase inside duty
 Check(Observe(60,false,true)==null&&Observe(60,true)==60,"Duty flag may arrive after synced level during loading");
 clock=clock.AddSeconds(3);Check(duty.Observe(60,clock,true,false,false,true)==null&&duty.Pending==null,"Disabling while busy cancels proposal immediately");
 Console.WriteLine($"PASS {count} total checks: both jobs, 1–100 / 1–8 targets, English names, source links and duty-only downward sync.");
+foreach(var job in Enum.GetValues<GuideJob>())for(var level=1;level<=100;level++)foreach(var targets in new[]{1,2,3}){
+ var context=new GuideContext(level,targets,Job:job);var steps=Guide.Opener(context);var groups=Guide.OpeningGroups(context);
+ Check(groups.SelectMany(g=>Enumerable.Repeat(g.Step.Action,g.Count)).SequenceEqual(steps.Select(s=>s.Action)),"Compact opening preserves every action and its order");
+ foreach(var group in groups){
+  Check(group.Count==1||(group.Step.Note.Length==0&&(group.Step.Weaves?.Length??0)==0),"Conditional steps and weaving never disappear into a repetition");
+  foreach(var action in group.Step.Weaves??[])Check(Spells.Get(action).Level<=level,"Weaving is available at displayed level");
+ }
+ Check(Guide.Reminders(context).Where(r=>r.Healing).All(r=>job==GuideJob.WhiteMage),"Healing reminders only apply to WHM");
+}
+Check(Guide.Opener(new())[1].Weaves!.SequenceEqual(new uint[]{7561,25796}),"BLM Swiftcast then Amplifier after Thunder");
+Check(Guide.Opener(new())[18].Weaves!.SequenceEqual(new uint[]{149,7421}),"BLM Transpose then Triplecast after Despair");
+Check(Guide.Opener(new(Job:GuideJob.WhiteMage))[3].Weaves!.Single()==136,"WHM Presence of Mind timing retained");
+Check(Guide.Reminders(new(Job:GuideJob.WhiteMage)).Single(r=>r.Action==140).Healing,"Benediction belongs in healing section");
+Check(!Guide.Reminders(new(Job:GuideJob.WhiteMage)).Single(r=>r.Action==3571).Healing,"Assize remains in damage priorities");
+Check(Guide.MultiThreshold(new(44,Job:GuideJob.WhiteMage))==null&&Guide.MultiThreshold(new(45,Job:GuideJob.WhiteMage))==2&&Guide.MultiThreshold(new(72,Job:GuideJob.WhiteMage))==3,"WHM multi buttons follow breakpoints");
+Check(Guide.MultiThreshold(new(11))==null&&Guide.MultiThreshold(new(99))==3&&Guide.MultiThreshold(new(100))==2,"BLM multi buttons follow breakpoints");
+Spells.ConfigureNames(id=>Spells.Get(id).EnglishName);
+Check(Guide.LevelHint(new(50)).Contains("Blizzard IV")&&!Guide.LevelHint(new(50)).Contains("Giga Glace"),"Sync hint follows client language");
+Check(Guide.LevelHint(new(100))=="","No missing-spell hint at level cap");
+Spells.ConfigureNames(_=>null);
+Console.WriteLine($"PASS {count} total checks including grouped openers, weaving, healing sections and level hints.");

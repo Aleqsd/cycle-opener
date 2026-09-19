@@ -10,7 +10,7 @@ public static class Hud
  public static readonly Vector4 Purple=new(.647f,.475f,.839f,1);
  const uint White=0xFFF2EFF5,Muted=0xFFB6ABB9,Violet=0xFFD679A5,Fire=0xFF83A8F0,Ice=0xFFF0C38B,Line=0xFF3B343F,PhaseBg=0x482B2530;
  public static Vector2 Preferred(Layout mode)=>mode switch{Layout.Focus=>new(490,400),Layout.Ruban=>new(770,380),Layout.Priorites=>new(560,600),Layout.Cycle=>new(640,500),_=>new(600,520)};
- public static float Draw(Layout mode,GuideContext context,Func<uint,ImTextureID?> texture,HudLook look,int selectedStep=0,bool preview=false,Action<int>? selectStep=null)
+ public static float Draw(Layout mode,GuideContext context,Func<uint,ImTextureID?> texture,HudLook look,int selectedStep=0,bool preview=false,Action<int>? selectStep=null,bool embedded=false,bool healingOnly=false)
  {
   var origin=ImGui.GetCursorScreenPos();var dl=ImGui.GetWindowDrawList();float scale=look.Scale,w=Math.Max(240,ImGui.GetContentRegionAvail().X/scale);
   var plan=Guide.Cycle(context);var healer=context.Job==GuideJob.WhiteMage;
@@ -80,25 +80,45 @@ public static class Hud
    if(!string.IsNullOrEmpty(r.Threshold)){h+=4+Text(r.Threshold,60,y+h+4,Violet,13,w-76);}
    return y+Math.Max(49,h+17);
   }
-  Text($"{Guide.JobName(context.Job).ToUpperInvariant()} · NIVEAU {context.Level}",12,8,accent,15,w-24);
-  Text(Guide.Mode(context)+(preview?" · niveau manuel":" · niveau synchronisé"),12,34,Muted,13,w-24);
-  float y=68;
+  float y=8;
+  if(!embedded){
+   y+=Text($"{Guide.JobName(context.Job).ToUpperInvariant()} · NIVEAU {context.Level}",12,y,accent,15,w-24)+7;
+   y+=Text(Guide.Mode(context)+(preview?" · niveau manuel":" · niveau synchronisé"),12,y,Muted,13,w-24)+20;
+  }else if(!healingOnly&&mode!=Layout.Ouverture)y+=Text(healer?"DÉGÂTS / PRIORITÉS":"CYCLE / PRIORITÉS",12,y,accent,15,w-24)+12;
+  if(healingOnly){
+   foreach(var reminder in Guide.Reminders(context).Where(r=>r.Healing))y=ReminderRow(reminder,y);
+   ImGui.Dummy(new Vector2(w*scale,y*scale));return y*scale;
+  }
   if(mode==Layout.Ouverture){
    var steps=Guide.Opener(context);
    if(steps.Count>0){
     selectedStep=Math.Clamp(selectedStep,0,steps.Count-1);var selected=steps[selectedStep];
-    y+=Text(Guide.OpenerName(context),12,y,Violet,16,w-24)+13;
-    Icon(selected.Action,12,y,45);var height=Text(Spells.Name(selected.Action),73,y,White,21,w-88);
-    y+=Math.Max(73,height+8+Text(string.IsNullOrWhiteSpace(selected.Note)?"Séquence de référence · lecture libre":selected.Note,73,y+height+7,Muted,14,w-88)+12);
-    int cols=Math.Max(3,(int)((w-24)/67));float cell=(w-24)/cols;
-    for(int n=0;n<steps.Count;n++){float x=12+n%cols*cell,yy=y+n/cols*77;
-     if(n==selectedStep)Rect(x-4,yy-4,49,73,PhaseBg);
-     Icon(steps[n].Action,x,yy,41,steps[n].Note);Text($"{n+1:00}"+(steps[n].Note.Length>0?" ·":""),x+5,yy+46,n==selectedStep?Violet:Muted,14);if(n==selectedStep)Rect(x,yy+67,41,2,Violet);
-     if(n%cols!=cols-1&&n<steps.Count-1)Text("→",x+cell-21,yy+12,Muted,13);
-     if(selectStep!=null&&ImGui.IsWindowHovered()&&ImGui.IsMouseHoveringRect(origin+new Vector2(x,yy)*scale,origin+new Vector2(x+41,yy+67)*scale)&&ImGui.IsMouseClicked(ImGuiMouseButton.Left))selectStep(n);
+    y+=Text(Guide.OpenerName(context),12,y,accent,15,w-24)+13;
+    var groups=Guide.OpeningGroups(context);
+    int cols=Math.Max(2,(int)((w-24)/94));float cell=(w-24)/cols;
+    for(int n=0;n<groups.Count;n++){var group=groups[n];float x=12+n%cols*cell,yy=y+n/cols*106;
+     var active=selectedStep>=group.Start&&selectedStep<group.Start+group.Count;
+     if(active)Rect(x-4,yy-3,cell-7,99,PhaseBg);
+     Text(group.Count>1?$"{group.Start+1:00}–{group.Start+group.Count:00}":$"{group.Start+1:00}",x,yy,active?accent:Muted,12);
+     Icon(group.Step.Action,x,yy+22,group.Step.Action==149?26:39,group.Step.Note);
+     if(group.Count>1)Text("×"+group.Count,x+44,yy+32,accent,14);
+     if(group.Step.Weaves is {Length:>0} weaves){
+      Rect(x+3,yy+68,1,12,Muted);Rect(x+3,yy+79,10,1,Muted);
+      for(var k=0;k<weaves.Length;k++)Icon(weaves[k],x+19+k*25,yy+68,21,"À insérer après ce sort ; "+group.Step.Note);
+     }
+     if(active)Rect(x,yy+94,cell-16,2,accent);
+     if(n%cols!=cols-1&&n<groups.Count-1)Text("→",x+cell-22,yy+32,Muted,13);
+     if(selectStep!=null){
+      // Native hit target for keyboard navigation as well as mouse selection.
+      var restore=ImGui.GetCursorScreenPos();ImGui.SetCursorScreenPos(origin+new Vector2(x,yy)*scale);
+      if(ImGui.InvisibleButton("Étape##"+group.Start,new Vector2(cell-14,64)*scale))selectStep(group.Start);
+      ImGui.SetCursorScreenPos(restore);
+     }
     }
-    y+=(steps.Count+cols-1)/cols*77;
-    y+=Text("Clique une icône pour lire l’étape. Le point · signale une précision ou une insertion.",12,y,Muted,13,w-24)+15;
+    y+=(groups.Count+cols-1)/cols*106;
+    y+=Text($"{selectedStep+1:00} · {Spells.Name(selected.Action)}",12,y,White,16,w-24)+5;
+    y+=Text(string.IsNullOrWhiteSpace(selected.Note)?"Reprendre la séquence ; adapter les priorités si nécessaire.":selected.Note,12,y,Muted,13,w-24)+12;
+    y+=Text("Petites icônes : aptitudes à insérer · clic : détail de l’étape",12,y,Muted,12,w-24)+10;
    }
   }else if(mode==Layout.Cycle){
    bool stacked=w<510;float cw=stacked?w-24:(w-48)/2;
@@ -118,7 +138,7 @@ public static class Hud
    y+=Text((healer?"Dégâts : ":"Glace : ")+Sequence(plan.Ice),12,y,healer?accent:Ice,15,w-24)+10;
    if(plan.Fire.Length>0)y+=Text((healer?"Selon ressources : ":"Feu : ")+Sequence(plan.Fire),12,y,healer?accent:Fire,15,w-24)+20;
    Rect(12,y,w-24,1,Line);y+=18;Text("PRIORITÉS CONDITIONNELLES",12,y,Violet,14);y+=29;
-   int n=0;foreach(var reminder in Guide.Reminders(context))y=ReminderRow(reminder,y,true,n++);
+   int n=0;foreach(var reminder in Guide.Reminders(context).Where(r=>!embedded||!r.Healing))y=ReminderRow(reminder,y,true,n++);
   }else{
    y=Phase(first,plan.Ice,y,healer?accent:Ice,mode==Layout.Focus);
    y=Phase(second,plan.Fire,y+4,healer?accent:Fire,mode==Layout.Focus);
@@ -127,11 +147,12 @@ public static class Hud
   if(mode!=Layout.Ouverture){
    Rect(12,y,w-24,1,Line);y+=15;y+=Text(plan.Note,12,y,Muted,14,w-24)+17;
    if(mode!=Layout.Priorites){
-    var reminders=Guide.Reminders(context).Take(2).ToArray();
+    var reminders=Guide.Reminders(context).Where(r=>!embedded||!r.Healing).Take(2).ToArray();
     if(reminders.Length>0){Text("PRIORITÉS À GARDER EN TÊTE",12,y,Violet,13);y+=28;}
     foreach(var reminder in reminders)y=ReminderRow(reminder,y);
    }
   }
+  if(embedded){ImGui.Dummy(new Vector2(w*scale,y*scale));return y*scale;}
   Rect(12,y,w-24,1,Line);y+=13;
   var threshold=Guide.Threshold(context);
   y+=Text(threshold,12,y,Muted,13,w-24)+12;
@@ -151,5 +172,33 @@ public static class Hud
   y+=24;
   y+=Text("Vérifié le 19/09/2026 · noms et icônes : jeu local",12,y,Muted,12,w-24)+10;
   ImGui.Dummy(new Vector2(w*scale,y*scale));return y*scale;
+ }
+ public static void Sources(GuideContext state,bool opening,bool both,HudLook look){
+  ImGui.Spacing();ImGui.Separator();ImGui.Spacing();
+  var origin=ImGui.GetCursorScreenPos();var dl=ImGui.GetWindowDrawList();var size=12*look.Scale;var width=ImGui.GetContentRegionAvail().X;var y=0f;
+  void Line(string value){
+   var line="";
+   foreach(var word in value.Split(' ')){
+    var next=line.Length==0?word:line+" "+word;
+    if(line.Length>0&&ImGui.CalcTextSize(next).X*size/ImGui.GetFontSize()>width){dl.AddText(ImGui.GetFont(),size,origin+new Vector2(0,y),Muted,line);y+=size*1.4f;line=word;}else line=next;
+   }
+   dl.AddText(ImGui.GetFont(),size,origin+new Vector2(0,y),Muted,line);y+=size*1.6f;
+  }
+  Line(Spells.LocalizeText(Guide.Threshold(state)));
+  Line("Sources · Icy Veins 7.55 / The Balance · vérifié le 19/09/2026");
+  var links=GuideSources.For(state.Job,opening).ToList();
+  if(both){links.RemoveAt(2);links.AddRange(GuideSources.For(state.Job,true).Take(2).Select(s=>s with{Label=s.Label+" · ouverture"}));links.Add(GuideSources.For(state.Job,false)[2]);}
+  if(!opening&&state.Job==GuideJob.WhiteMage)links.Add(new("Soins · The Balance","https://www.thebalanceffxiv.com/jobs/healers/white-mage/basic-guide/"));
+  var x=0f;
+  foreach(var source in links){
+   var linkWidth=ImGui.CalcTextSize(source.Label).X*size/ImGui.GetFontSize();
+   if(x>0&&x+linkWidth>width){x=0;y+=size*1.8f;}
+   var position=origin+new Vector2(x,y);dl.AddText(ImGui.GetFont(),size,position,Muted,source.Label);
+   ImGui.SetCursorScreenPos(position);
+   if(ImGui.InvisibleButton(source.Label,new Vector2(linkWidth,size*1.5f)))Dalamud.Utility.Util.OpenLink(source.Url);
+   if(ImGui.IsItemHovered())ImGui.SetTooltip(source.Url);
+   x+=linkWidth+16*look.Scale;
+  }
+  ImGui.SetCursorScreenPos(origin);ImGui.Dummy(new Vector2(width,y+size*2));
  }
 }

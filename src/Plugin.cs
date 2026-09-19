@@ -67,6 +67,7 @@ public sealed class Plugin : IDalamudPlugin
     private readonly Configuration config;
     private readonly WindowSystem windows=new("CycleOpener");
     private readonly SyncPromptPolicy sync=new();
+    private readonly GuidePanelState guideUi=new();
     private readonly Dictionary<uint,ISharedImmediateTexture> icons=new();
     private readonly HudWindow hud;
     private readonly SettingsWindow settings;
@@ -91,13 +92,14 @@ public sealed class Plugin : IDalamudPlugin
             var icon=sheet?.GetRowOrDefault(spell.Id)?.Icon ?? spell.Icon;
             icons[spell.Id]=Textures.GetFromGameIcon(new GameIconLookup(icon));
         }
+        foreach(var job in Enum.GetValues<GuideJob>()){var id=Guide.JobIcon(job);icons[id]=Textures.GetFromGameIcon(new GameIconLookup(id));}
         Spells.ConfigureNames(id=>sheet?.GetRowOrDefault(id)?.Name.ToString());
         expresswayPath=FindExpressway();RefreshFont();
         hud=new(this);settings=new(this);prompt=new(this);
         windows.AddWindow(hud);windows.AddWindow(settings);windows.AddWindow(prompt);
         Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guides Mage noir / Mage blanc. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
         Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenSettings;Framework.Update+=Update;Client.Logout+=Logout;
-        Log.Information($"Cycle & Opener 0.2.1 — {Pi.AssemblyLocation.FullName}");
+        Log.Information($"Cycle & Opener 0.3.0 — {Pi.AssemblyLocation.FullName}");
     }
     private static string? FindExpressway()
     {
@@ -178,20 +180,30 @@ public sealed class Plugin : IDalamudPlugin
             ImGui.SetNextWindowBgAlpha(p.config.BackgroundOpacity);
             var sc=ImGuiHelpers.GlobalScale*p.config.HudScale;
             var maximum=ImGui.GetMainViewport().WorkSize-new Vector2(20);
-            ImGui.SetNextWindowSizeConstraints(Vector2.Min(new Vector2(320,260)*ImGuiHelpers.GlobalScale*Math.Max(1,p.config.HudScale),maximum),maximum);
-            var size=Vector2.Min(new Vector2(p.config.View==GuideView.Both?1000:570,800)*ImGuiHelpers.GlobalScale,maximum);
+            var minimum=new Vector2(320,560)*ImGuiHelpers.GlobalScale*Math.Max(1,p.config.HudScale);
+            if(p.guideUi.Folded)minimum.Y=p.guideUi.HeaderHeight;
+            ImGui.SetNextWindowSizeConstraints(Vector2.Min(minimum,maximum),maximum);
+            var size=Vector2.Min(new Vector2(900,780)*ImGuiHelpers.GlobalScale,maximum);
             ImGui.SetNextWindowSize(size,ImGuiCond.FirstUseEver);
+            if(p.guideUi.Folded)ImGui.SetNextWindowSize(new(0,p.guideUi.HeaderHeight));
+            else if(p.guideUi.RestoreSize){ImGui.SetNextWindowSize(Vector2.Min(p.guideUi.ExpandedSize,maximum));p.guideUi.RestoreSize=false;}
             var position=ImGui.GetMainViewport().WorkPos+Vector2.Max(Vector2.Zero,Vector2.Min(new Vector2(60,80)*ImGuiHelpers.GlobalScale,maximum-size));
             ImGui.SetNextWindowPos(position,ImGuiCond.FirstUseEver);
             if(p.resetPosition){ImGui.SetNextWindowPos(position);p.resetPosition=false;}
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding,new Vector2(8)*sc);
             ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding,3*sc);
+            GuidePanel.PushStyle(p.config);
         }
-        public override void PostDraw()=>ImGui.PopStyleVar(2);
+        public override void PostDraw(){GuidePanel.PopStyle();ImGui.PopStyleVar(2);}
         public override void Draw(){
-            if(Panels.GuideToolbar(p.config,p.OpenSettings,ref p.openerStep,p.state))p.dirty=true;
-            using var pushed=p.font is {Available:true}?p.font.Push():null;
-            Panels.GuideContent(p.config,p.DisplayState,p.Icon,new(ImGuiHelpers.GlobalScale*p.config.HudScale,p.config.BackgroundOpacity,p.config.TextOutline),ref p.openerStep);
+            if(GuidePanel.Header(p.config,p.state,p.guideUi,p.Icon,p.OpenSettings))p.dirty=true;
+            if(p.guideUi.Folded)return;
+            if(GuidePanel.Controls(p.config,p.state,ref p.openerStep))p.dirty=true;
+            ImGui.BeginChild("Lecture du guide",Vector2.Zero,false);
+            try {
+                using var pushed=p.font is {Available:true}?p.font.Push():null;
+                GuidePanel.Content(p.config,p.DisplayState,p.guideUi,p.Icon,new(ImGuiHelpers.GlobalScale*p.config.HudScale,p.config.BackgroundOpacity,p.config.TextOutline),ref p.openerStep);
+            }finally{ImGui.EndChild();}
         }
     }
     private sealed class SettingsWindow : Window

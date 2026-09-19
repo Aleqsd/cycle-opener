@@ -3,7 +3,7 @@ using Dalamud.Bindings.ImGui;
 namespace CycleOpener;
 
 public static class Panels {
- public static ImGuiWindowFlags GuideFlags(bool locked)=>ImGuiWindowFlags.NoFocusOnAppearing|(locked?ImGuiWindowFlags.NoMove|ImGuiWindowFlags.NoResize:0);
+ public static ImGuiWindowFlags GuideFlags(bool locked)=>ImGuiWindowFlags.NoTitleBar|ImGuiWindowFlags.NoCollapse|ImGuiWindowFlags.NoMove|ImGuiWindowFlags.NoScrollbar|ImGuiWindowFlags.NoScrollWithMouse|ImGuiWindowFlags.NoFocusOnAppearing|(locked?ImGuiWindowFlags.NoResize:0);
  static readonly Vector4 Muted=new(.72f,.72f,.75f,1);
  static readonly Vector4 Accent=new(.68f,.49f,.86f,1);
  public static void PushTheme() {
@@ -28,22 +28,14 @@ public static class Panels {
   var clicked=ImGui.Button(label,new(width,0));
   if(primary)ImGui.PopStyleColor();return clicked;
  }
- // Stack when translated labels or global font scale cannot fit side by side.
- static void Pair(string left,Action onLeft,string right,Action onRight){
-  var width=ImGui.GetContentRegionAvail().X;var gap=ImGui.GetStyle().ItemSpacing.X;
-  var minimum=Math.Max(ImGui.CalcTextSize(left).X,ImGui.CalcTextSize(right).X)+2*ImGui.GetStyle().FramePadding.X;
-  var beside=(width-gap)/2>=minimum;
-  if(Button(left,beside?(width-gap)/2:width))onLeft();
-  if(beside)ImGui.SameLine();
-  if(Button(right,beside?(width-gap)/2:width))onRight();
- }
- public static bool Targets(Configuration config){
-  var changed=false;string[] labels=["Mono","2 cibles","3+ cibles"];
+ public static bool Targets(Configuration config,GuideContext? context=null){
+  var threshold=context==null?null:Guide.MultiThreshold(context);
+  var changed=false;string[] labels=["1 cible",threshold==2?"Multi · 2":"2 cibles",threshold==3?"Multi · 3+":"3+ cibles"];
   var width=(ImGui.GetContentRegionAvail().X-2*ImGui.GetStyle().ItemSpacing.X)/3;
   for(var n=0;n<3;n++){
    if(n>0)ImGui.SameLine();
    var selected=Math.Min(config.Targets-1,2)==n;
-   if(Button(labels[n],width,selected)){config.Targets=n+1;changed=true;}
+   if(Button(labels[n],width,selected)&&!selected){config.Targets=n+1;changed=true;}
   }
   return changed;
  }
@@ -76,52 +68,16 @@ public static class Panels {
   if(changed)selectedStep=0;
   ImGui.PopID();return changed;
  }
- public static bool GuideToolbar(Configuration config,Action settings,ref int selectedStep,GuideContext actual) {
-  PushTheme();var changed=false;
-  Pair("Réglages",settings,"Fermer le guide",()=>{config.ShowGuide=false;changed=true;});
-  changed|=LevelSelector(config,actual,ref selectedStep);
-  if(Targets(config)){changed=true;selectedStep=0;}
-  changed|=ViewSelector(config);
-  if(config.View!=GuideView.Opening){
-   var layout=(int)config.Layout;ImGui.SetNextItemWidth(-1);
-   if(ImGui.Combo("##Vue du cycle",ref layout,Hud.CycleNames,Hud.CycleNames.Length)){config.Layout=(Layout)layout;changed=true;}
-  }
-  ImGui.Spacing();ImGui.Separator();ImGui.Spacing();PopTheme();return changed;
- }
- static bool ViewSelector(Configuration config){
+ public static bool ViewSelector(Configuration config){
   string[] labels=["Les deux","Cycle","Ouverture"];var changed=false;
   var width=(ImGui.GetContentRegionAvail().X-2*ImGui.GetStyle().ItemSpacing.X)/3;
   for(var n=0;n<3;n++){if(n>0)ImGui.SameLine();if(Button(labels[n],width,(int)config.View==n)){config.View=(GuideView)n;changed=true;}}
   return changed;
  }
- public static void GuideContent(Configuration config,GuideContext state,Func<uint,ImTextureID?> icon,HudLook look,ref int step){
-  var selected=step;
-  void Cycle(){ImGui.TextUnformatted("CYCLE / PRIORITÉS");Hud.Draw(config.Layout,state,icon,look,selected,config.ManualLevel);}
-  void Opening(){ImGui.TextUnformatted("OUVERTURE");PushTheme();OpenerToolbar(ref selected,state);PopTheme();Hud.Draw(Layout.Ouverture,state,icon,look,selected,config.ManualLevel,n=>selected=n);}
-  var paired=config.View==GuideView.Both;
-  if(paired&&ImGui.GetContentRegionAvail().X>=760*look.Scale&&ImGui.BeginTable("GuideColumns",2,ImGuiTableFlags.SizingStretchSame|ImGuiTableFlags.BordersInnerV)){
-   ImGui.TableNextColumn();ImGui.BeginChild("CycleSheet",new(0,Math.Max(200*look.Scale,ImGui.GetContentRegionAvail().Y-16*look.Scale)),false);Cycle();ImGui.EndChild();
-   ImGui.TableNextColumn();ImGui.BeginChild("OpeningSheet",new(0,Math.Max(200*look.Scale,ImGui.GetContentRegionAvail().Y-16*look.Scale)),false);Opening();ImGui.EndChild();
-   ImGui.EndTable();
-  }else{
-   if(config.View!=GuideView.Opening)Cycle();
-   if(paired){ImGui.Spacing();ImGui.Separator();ImGui.Spacing();}
-   if(config.View!=GuideView.Cycle)Opening();
-  }
-  step=selected;
- }
- public static void OpenerToolbar(ref int selectedStep,GuideContext context){
-  var count=Guide.Opener(context).Count;selectedStep=Math.Clamp(selectedStep,0,Math.Max(0,count-1));
-  var width=(ImGui.GetContentRegionAvail().X-2*ImGui.GetStyle().ItemSpacing.X)/3;
-  ImGui.BeginDisabled(selectedStep==0);if(Button("←",width))selectedStep--;ImGui.EndDisabled();
-  ImGui.SameLine();if(Button("Début",width))selectedStep=0;
-  ImGui.SameLine();ImGui.BeginDisabled(selectedStep>=count-1);if(Button("→",width))selectedStep++;ImGui.EndDisabled();
-  MutedText($"Étape {selectedStep+1} / {count} · sélection libre");
- }
  public static bool Settings(Configuration config, GuideContext state, bool expresswayAvailable, string dllPath, ref int openerStep, Action resetPosition, Action rebuildFont, string? runtimeError=null) {
   var changed=false;
   ImGui.TextColored(Accent,Guide.JobName(config.Resolve(state).Job).ToUpperInvariant());
-  ImGui.SameLine();ImGui.TextColored(Muted,"0.2.1 · expérimental");
+  ImGui.SameLine();ImGui.TextColored(Muted,"0.3.0 · expérimental");
   var level=config.Resolve(state).Level;
   MutedText(config.ManualLevel?$"Fiche niveau {level} · niveau manuel":state.Available?$"Niveau {level} · synchronisation automatique":"Personnage indisponible · choisis un niveau manuel.");
   if(runtimeError!=null)ImGui.TextWrapped(runtimeError);
@@ -131,14 +87,14 @@ public static class Panels {
   if(Button(config.ShowGuide?"Masquer le guide":"Ouvrir le guide",ImGui.GetContentRegionAvail().X,true)){config.ShowGuide=!config.ShowGuide;changed=true;}
   ImGui.EndDisabled();
   changed|=ViewSelector(config);
-  MutedText("Une seule fenêtre pour le cycle et l’ouverture. Fermeture par ×, Échap ou Fermer le guide.");
+  MutedText("Une seule fenêtre pour le cycle et l’ouverture. Fermeture par × ou Échap, même verrouillée.");
 
   Section("FICHE À CONSULTER");
   ImGui.Text("Niveau");
   changed|=LevelSelector(config,state,ref openerStep);
   level=config.Resolve(state).Level;
   ImGui.Spacing();ImGui.Text("Cibles regroupées");
-  if(Targets(config)){changed=true;openerStep=0;}
+  if(Targets(config,config.Resolve(state))){changed=true;openerStep=0;}
   MutedText(Spells.LocalizeText(Guide.Threshold(config.Resolve(state))));
   ImGui.Spacing();ImGui.Text("Présentation du cycle");ImGui.SetNextItemWidth(-1);
   var layout=(int)config.Layout;

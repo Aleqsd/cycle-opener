@@ -32,20 +32,24 @@ internal static unsafe class PanelChecks {
   var context=ImGui.CreateContext();
   try{
    ImGui.StyleColorsDark();ImGui.GetStyle().WindowPadding=new(8,8);
+   var beforeColor=ImGui.GetStyle().Colors[(int)ImGuiCol.WindowBg];var beforePadding=ImGui.GetStyle().FramePadding;var beforeBorder=ImGui.GetStyle().WindowBorderSize;
+   GuidePanel.PushStyle(new Configuration{BackgroundOpacity=.15f,HudScale=1.8f});GuidePanel.PopStyle();
+   Check(ImGui.GetStyle().Colors[(int)ImGuiCol.WindowBg]==beforeColor&&ImGui.GetStyle().FramePadding==beforePadding&&ImGui.GetStyle().WindowBorderSize==beforeBorder,"Guide styling leaves other windows unchanged");
    var io=ImGui.GetIO();io.IniFilename=null;io.DeltaTime=1f/60;io.DisplaySize=new(800,1200);
    var fc=ImGui.ImFontConfig();fc.SizePixels=17;
    ushort[] ranges=[0x20,0x17f,0x2000,0x206f,0x2190,0x21ff,0];
    fixed(ushort* glyphs=ranges){io.Fonts.AddFontFromFileTTF(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts),"segoeui.ttf"),17,fc,glyphs);io.Fonts.Build();}fc.Destroy();
    io.Fonts.SetTexID(0,new ImTextureID(1UL));
-   var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Locked=true;var step=5;var state=new GuideContext(50,Job:GuideJob.WhiteMage);var section="level";var settingsOpened=false;
+   var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Locked=true;var step=5;var state=new GuideContext(50,Job:GuideJob.WhiteMage);var section="level";var settingsOpened=false;var ui=new GuidePanelState();
    Vector2 origin=default;float width=0,row=0;
    void Frame(){
     ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(490,700));Panels.PushTheme();
     ImGui.Begin("Native controls",ImGuiWindowFlags.NoTitleBar|ImGuiWindowFlags.NoMove|ImGuiWindowFlags.NoResize);
     origin=ImGui.GetCursorScreenPos();width=ImGui.GetContentRegionAvail().X;row=ImGui.GetFrameHeightWithSpacing();
     if(section=="level")Panels.LevelSelector(cfg,state,ref step);
-    else if(section=="guide")Panels.GuideToolbar(cfg,()=>settingsOpened=true,ref step,state);
-    else Panels.OpenerToolbar(ref step,cfg.Resolve(state));
+    else if(section=="header")GuidePanel.Header(cfg,state,ui,_=>null,()=>settingsOpened=true);
+    else if(section=="controls")GuidePanel.Controls(cfg,state,ref step);
+    else Hud.Draw(Layout.Ouverture,cfg.Resolve(state),_=>null,new(),step,selectStep:n=>step=n,embedded:true);
     ImGui.End();Panels.PopTheme();ImGui.Render();
    }
    void Click(float x,float y){io.AddMousePosEvent(origin.X+x,origin.Y+y);Frame();io.AddMouseButtonEvent(0,true);Frame();io.AddMouseButtonEvent(0,false);Frame();}
@@ -57,21 +61,24 @@ internal static unsafe class PanelChecks {
    Click(width*.25f,row*.4f);Check(!cfg.ManualLevel&&cfg.Resolve(state).Level==50,"Auto mode restores synchronized level");
    state=new(Available:false);Frame();Click(width*.75f,row*.4f);Check(cfg.ManualLevel,"Manual mode available offline");
    Click(width*.25f,row*.4f);Check(cfg.ManualLevel,"Unavailable auto mode stays disabled");
-   state=new();cfg.ManualLevel=false;section="guide";Frame();
-   Click(width*.75f,row*.4f);Check(!cfg.ShowGuide,"Locked guide can close without settings");
-   Click(width*.25f,row*.4f);Check(settingsOpened,"Locked guide retains settings access");
-   Click(width*.5f,row*2+row*.4f);Check(cfg.Targets==2,"Target choice in unified guide");
-   Click(width*.84f,row*3+row*.4f);Check(cfg.View==GuideView.Opening,"Opening-only view without a second window");
-   Click(width*.16f,row*3+row*.4f);Check(cfg.View==GuideView.Both,"Restore both contents");
-   section="opener";step=0;Frame();Click(width*.84f,row*.4f);Check(step==1,"Next opening step");
-   Click(width*.5f,row*.4f);Check(step==0,"Restart opening");
-   step=Guide.Opener(cfg.Resolve(state)).Count-1;Frame();Click(width*.84f,row*.4f);Check(step==Guide.Opener(cfg.Resolve(state)).Count-1,"Final step cannot advance");
+   state=new();cfg.ManualLevel=false;section="header";Frame();
+   Click(width-14,18);Check(!cfg.ShowGuide,"Locked guide can close without settings");
+   Click(width-47,18);Check(settingsOpened,"Locked guide retains settings access");
+   Click(width-113,18);Check(ui.Folded&&ui.ExpandedSize.Y==700,"Collapse preserves expanded size");
+   cfg.ShowGuide=true;Click(width-14,18);Check(!cfg.ShowGuide&&ui.Folded,"Folded locked guide can still close");
+   Click(width-113,18);Check(!ui.Folded&&ui.RestoreSize,"Expand requests saved size");
+   Click(width-80,18);Check(!cfg.Locked,"Header unlock button");
+   section="controls";Frame();
+   Click(width*.5f,row+row*.4f);Check(cfg.Targets==2,"Target choice in unified guide");
+   step=6;Click(width*.84f,row*2+row*.4f);Check(cfg.View==GuideView.Opening&&step==6,"Opening-only view preserves selected reading step");
+   Click(width*.16f,row*2+row*.4f);Check(cfg.View==GuideView.Both,"Restore both contents");
+   cfg.ManualLevel=true;cfg.ManualJob=GuideJob.BlackMage;cfg.PreviewLevel=99;Frame();
+   Click(112+8+140-14,12);Check(cfg.PreviewLevel==100,"Integrated manual plus button");
+   Click(112+8+140-14,12);Check(cfg.PreviewLevel==100,"Integrated manual level clamp");
+   cfg.Targets=1;section="opener";step=0;Frame();Click(12+112+20,70);Check(step==1,"Native opener step click");
+   Click(12+20,70);Check(step==0,"Native opener returns to first step");
    Check((Panels.GuideFlags(true)&ImGuiWindowFlags.NoInputs)==0,"Lock never removes input handling");
-   var nativeOpen=true;
-   void CloseFrame(){ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(490,200));ImGui.Begin("Locked window",ref nativeOpen,Panels.GuideFlags(true));ImGui.Text("Guide");ImGui.End();ImGui.Render();}
-   for(var i=0;i<3;i++)CloseFrame();
-   io.AddMousePosEvent(491,28);CloseFrame();io.AddMouseButtonEvent(0,true);CloseFrame();io.AddMouseButtonEvent(0,false);CloseFrame();
-   Check(!nativeOpen,"Native titlebar close remains usable while locked");
+   Check((Panels.GuideFlags(true)&ImGuiWindowFlags.NoTitleBar)!=0,"Generic titlebar replaced by integrated header");
   }finally{ImGui.DestroyContext(context);}
   Console.WriteLine($"PASS {count} native panel checks: migration, manual levels, unified guide, locked close and opening controls.");
  }

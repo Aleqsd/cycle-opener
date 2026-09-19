@@ -12,6 +12,8 @@ magick -background none assets/icon.svg -strip -depth 8 -define png:color-type=6
 
 Les captures de documentation sont des rendus du code ImGui hors jeu, avec des données de démonstration. Les icônes de sorts qu’elles montrent appartiennent à Square Enix. Elles ne sont pas empaquetées comme ressources de jeu : le plugin résout les icônes locales par les services Dalamud.
 
+L’en-tête utilise les icônes locales de jobs (62124 / 62125), dont le cache d’aperçu uniquement provient de XIVAPI. Les commandes de fenêtre sont des formes géométriques dessinées par le plugin. Aucun nouvel asset de jeu n’entre dans l’archive.
+
 Ni police, ni assembly Dalamud, ni cache d’icônes ne sont redistribués. Expressway reste une option utilisant une installation locale ; les aperçus hors jeu utilisent Segoe UI.
 
 Le code, les outils de validation et l’icône ont été préparés avec une aide substantielle de Codex, à partir des demandes et retours de design d’Aleqsd. Les contrôles automatisés et rendus hors jeu ne constituent pas une validation humaine en jeu de cette version.
