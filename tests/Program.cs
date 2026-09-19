@@ -36,3 +36,31 @@ Check(Guide.Cycle(new(Level:60)).Fire.All(x=>x.Action!=162),"Fire IV replaces lo
 foreach(var level in new[]{26,44,64,80,91,100})Check(Guide.AreaThunder(new(level,2)),"Two-target area Thunder bracket "+level);
 foreach(var level in new[]{6,25,45,63,92,99})Check(!Guide.AreaThunder(new(level,2)),"Two-target separate Thunder bracket "+level);
 Console.WriteLine($"PASS {count} checks: levels 1–100, 1–8 targets, static cycles, openers and sync popup.");
+for(int level=1;level<=100;level++)for(int targets=1;targets<=8;targets++){
+ var page=new GuideContext(level,targets,Job:GuideJob.WhiteMage);var cycle=Guide.Cycle(page);
+ foreach(var step in cycle.Ice.Concat(cycle.Fire).Concat(Guide.Opener(page)))Check(Spells.Get(step.Action).Level<=level,$"WHM locked action {level}/{targets}/{step.Action}");
+ foreach(var r in Guide.Reminders(page))Check(Spells.Get(r.Action).Level<=level,$"WHM locked reminder {level}/{targets}/{r.Action}");
+ Check(cycle.Ice.Any(x=>x.Action==(WhiteMage.Area(page)?WhiteMage.Holy(level):WhiteMage.Filler(level))),$"WHM filler {level}/{targets}");
+ Check(!cycle.Ice.Concat(cycle.Fire).Any(x=>new uint[]{141,142,149,3577,36989}.Contains(x.Action)),"No BLM actions in WHM cycle");
+}
+Check(!WhiteMage.Area(new(44,8,Job:GuideJob.WhiteMage)),"No Holy before 45");
+Check(WhiteMage.Area(new(45,2,Job:GuideJob.WhiteMage)),"Holy at two targets from 45");
+Check(WhiteMage.Area(new(71,2,Job:GuideJob.WhiteMage)),"Holy at two targets until 71");
+Check(!WhiteMage.Area(new(72,2,Job:GuideJob.WhiteMage)),"Glare at two targets from 72");
+Check(WhiteMage.Area(new(72,3,Job:GuideJob.WhiteMage)),"Holy at three targets from 72");
+var whmOpener=Guide.Opener(new(Job:GuideJob.WhiteMage));
+Check(whmOpener.Select(s=>s.Action).SequenceEqual(new uint[]{25859,16532,25859,25859,37009,16535,37009,37009,25859,25859,25859,25859,25859,16532}),"WHM standard early DoT refresh opener");
+Check(whmOpener[5].Note.Contains("sinon"),"WHM opener requires ready Blood Lily");
+Check(Guide.JobFromId(6)==GuideJob.WhiteMage&&Guide.JobFromId(24)==GuideJob.WhiteMage&&Guide.JobFromId(7)==GuideJob.BlackMage&&Guide.JobFromId(25)==GuideJob.BlackMage&&Guide.JobFromId(1)==null,"Locale independent job IDs");
+Spells.ConfigureNames(id=>Spells.Get(id).EnglishName);
+Check(Spells.Name(25859)=="Glare III"&&Spells.Name(3577)=="Fire IV","English spell names");
+Check(Spells.LocalizeText("Insérer Présence d'esprit puis Assises")=="Insérer Presence of Mind puis Assize","English names in notes");
+Check(Spells.LocalizeText("Extra Soin remplace Soin ; Méga Chatoiement")=="Cure II remplace Cure ; Glare III","Longest name replacement without cascading");
+Check(Spells.LocalizeText("phase de feu ; Glace")=="phase de feu ; Blizzard","French explanatory prose retained");
+Spells.ConfigureNames(_=>null);
+Check(Spells.Name(25859)=="Méga Chatoiement","Missing local data falls back to French");
+foreach(var job in Enum.GetValues<GuideJob>())foreach(var opening in new[]{false,true}){
+ var sources=GuideSources.For(job,opening);Check(sources.Length==3&&sources.All(s=>Uri.TryCreate(s.Url,UriKind.Absolute,out var uri)&&uri.Scheme=="https"),"Three explicit source links");
+ Check(sources[1].Url.Contains(opening?"openers":"leveling-guide"),"Source matches displayed content");
+}
+Console.WriteLine($"PASS {count} total checks: both jobs, 1–100 / 1–8 targets, English names, source links and sync policy.");

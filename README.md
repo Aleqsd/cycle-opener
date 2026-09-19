@@ -2,43 +2,45 @@
 
 <img src="assets/icon.png" width="80" height="80" alt="Icône Cycle & Opener">
 
-Des guides de cycles en français, par niveau : priorités mono/multicible et schémas d’ouverture. Premier job disponible : **Mage noir**. Garde l’ouverture à côté du cycle ou des priorités, dans deux panneaux déplaçables.
+Cycles, priorités et ouvertures par niveau pour **Mage noir et Mage blanc**, du niveau 1 au 100. Mono et multi, avec le nombre minimal de cibles. Le cycle et l’ouverture partagent une seule fenêtre.
 
-![Fiche express Mage noir niveau 100](docs/images/fiche-express.png)
+![Guide Mage blanc : cycle et ouverture](docs/images/fiche-express.png)
 
 *Rendu ImGui hors jeu, avec Segoe UI. Ce n’est pas une capture FFXIV.*
 
-Le niveau du personnage adapte la fiche. Un changement de niveau peut proposer de l’ouvrir après le chargement et hors combat. Le nombre de cibles se choisit manuellement ; le seuil de zone apparaît sur la fiche.
+**Auto** suit le job et le niveau synchronisé. **Manuel** permet de choisir le job et le niveau, avec saisie, boutons −/+ et paliers rapides. Une proposition facultative peut apparaître après un changement de niveau, une fois le chargement ou le combat terminé.
 
-Version expérimentale **0.1.2**, API Dalamud 15. Aucun suivi du combat ni lancement de sort. Les quêtes de job sont supposées terminées.
+Les noms des sorts suivent la langue du client, notamment français et anglais. Les explications et l’interface restent en français. Les sources sont indiquées en petit sur les fiches.
+
+Version expérimentale **0.2.0**, API Dalamud 15. Guide statique : aucun suivi du combat ni lancement de sort. Quêtes de classe et de job supposées terminées.
 
 ## Installation
 
-Dans les réglages de Dalamud, ajouter ce dépôt personnalisé :
+Ajouter ce dépôt personnalisé dans les réglages de Dalamud :
 
 ```text
 https://raw.githubusercontent.com/Aleqsd/dalamud-plugins/main/repo.json
 ```
 
-Rechercher ensuite **Cycle & Opener** dans `/xlplugins`.
+Rechercher **Cycle & Opener** dans `/xlplugins`.
 
-[Télécharger le ZIP 0.1.2](https://github.com/Aleqsd/cycle-opener/releases/download/v0.1.2/CycleOpener-0.1.2.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.1.2)
+[Télécharger le ZIP 0.2.0](https://github.com/Aleqsd/cycle-opener/releases/download/v0.2.0/CycleOpener-0.2.0.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.2.0)
 
-Pour une installation de développement, extraire le ZIP puis ajouter sa DLL aux **Dev Plugin Locations**. Désactiver cette copie avant d’installer celle du dépôt ; garder une seule installation active.
+En développement, extraire le ZIP puis ajouter sa DLL aux **Dev Plugin Locations**. Désactiver cette copie avant l’installation depuis le dépôt ; garder une seule installation active.
 
 ## Utilisation
 
-Ouvrir `/cycle`, puis cliquer sur **Ouvrir les deux panneaux**, **Ouvrir le cycle** ou **Ouvrir l’ouverture**. Chaque panneau se ferme séparément. Les boutons **Mono**, **2 cibles** et **3+ cibles** changent la fiche ; le niveau et les cibles restent communs. Cliquer sur une icône de l’ouverture pour lire son étape.
+Ouvrir `/cycle`, puis **Ouvrir le guide**. Choisir **Les deux**, **Cycle** ou **Ouverture**. Les boutons **Mono**, **2 cibles** et **3+ cibles** changent la fiche. Cliquer sur une icône de l’ouverture pour lire son étape.
 
-![Boutons d’ouverture et réglages](docs/images/reglages.png)
+La fenêtre se ferme avec **×**, **Échap** ou **Fermer le guide**, même si les réglages sont fermés ou sa position verrouillée.
+
+![Réglages et sélection manuelle](docs/images/reglages.png)
 
 *Réglages ImGui hors jeu. Leur apparence reste fixe.*
 
-- `/cycle show` et `/cycle hide` : afficher ou masquer.
+- `/cycle show` et `/cycle hide` : afficher ou masquer le guide.
 - `/cycle next` et `/cycle prev` : parcourir l’ouverture.
-- Dans les réglages : niveau manuel, popup, verrouillage et recentrage.
-
-Les cinq directions sont **Fiche express**, **Frise**, **Priorités**, **Deux phases** et **Ouverture**. Ouvrir `preview/index.html` après génération des rendus pour les comparer.
+- Présentations du cycle : Fiche express, Frise, Priorités ou Deux sections.
 
 L’intégration en jeu reste à tester. Ce dépôt personnalisé est distinct du catalogue officiel Dalamud.
 

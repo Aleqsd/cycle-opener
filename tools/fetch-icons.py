@@ -5,12 +5,11 @@ from PIL import Image
 root=pathlib.Path(__file__).resolve().parents[1]
 cache=root/'.artifacts/icons';cache.mkdir(exist_ok=True,parents=True)
 spells=json.loads((root/'docs/actions.json').read_text(encoding='utf-8'))
-spells.append({'id':7447,'name':'Extra Foudre','icon':468,'level':26})
-soup=BeautifulSoup(urllib.request.urlopen('https://fr.finalfantasyxiv.com/jobguide/blackmage/',timeout=30).read(),'html.parser')
+soups={job:BeautifulSoup(urllib.request.urlopen(f'https://fr.finalfantasyxiv.com/jobguide/{job}/',timeout=30).read(),'html.parser') for job in ['blackmage','whitemage']}
 def obtain(s):
     f=cache/f'{s["id"]}.png'
     if not f.exists():
-        n=soup.find('strong',string=s['name'])
+        n=soups[s.get('job','blackmage')].find('strong',string=s['name'])
         if not n:raise RuntimeError('Icon missing: '+s['name'])
         u=n.find_parent('tr').find('img')['src']
         f.write_bytes(urllib.request.urlopen(u,timeout=20).read())

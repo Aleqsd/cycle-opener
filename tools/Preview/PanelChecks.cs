@@ -7,21 +7,27 @@ internal static unsafe class PanelChecks {
  public static void Run(){
   var count=0;
   void Check(bool condition,string message){if(!condition)throw new Exception(message);count++;}
-  foreach(var mode in Enum.GetValues<Layout>())foreach(var hud in new[]{false,true})foreach(var opening in new[]{false,true}){
-   var old=new Configuration{Version=1,Layout=mode,ShowHud=hud,ShowOpener=opening,Targets=3,HudScale=1.5f,Locked=true};old.Normalize();
-   Check(old.ShowHud==hud&&old.ShowOpener==(hud&&opening&&mode!=Layout.Ouverture),"Migration preserves actual visible panels");
-   Check(old.Layout==mode&&old.Targets==3&&old.HudScale==1.5f&&old.Locked,"Migration preserves user preferences");
+  foreach(var version in new[]{1,2})foreach(var mode in Enum.GetValues<Layout>())foreach(var hud in new[]{false,true})foreach(var opening in new[]{false,true}){
+   var old=new Configuration{Version=version,Layout=mode,ShowHud=hud,ShowOpener=opening,Targets=3,HudScale=1.5f,Locked=true};old.Normalize();
+   var expectedVisible=version==1?hud:hud||opening;
+   var hasCycle=hud&&mode!=Layout.Ouverture;
+   var hasOpening=(version==1?hud&&opening:opening)||(hud&&mode==Layout.Ouverture);
+   var expectedView=hasCycle&&hasOpening?GuideView.Both:hasOpening?GuideView.Opening:hasCycle?GuideView.Cycle:GuideView.Both;
+   Check(old.ShowGuide==expectedVisible&&old.View==expectedView,"Migration preserves visible content in one window");
+   Check(old.Layout==(mode==Layout.Ouverture?Layout.Focus:mode)&&old.Targets==3&&old.HudScale==1.5f&&old.Locked,"Migration preserves preferences");
    var saved=JsonSerializer.Serialize(old,new JsonSerializerOptions{IncludeFields=true});
    var restored=JsonSerializer.Deserialize<Configuration>(saved,new JsonSerializerOptions{IncludeFields=true})!;restored.Normalize();
-   Check(restored.Version==2&&restored.ShowHud==old.ShowHud&&restored.ShowOpener==old.ShowOpener,"Reload does not repeat legacy migration");
+   Check(restored.Version==3&&restored.ShowGuide==old.ShowGuide&&restored.View==old.View,"Reload does not repeat migration");
   }
-  var single=Configuration.Create();single.OpenOpening();single.Normalize();
-  Check(!single.ShowHud&&single.CompanionVisible,"Opening can be visible without cycle");
-  single.Layout=Layout.Ouverture;single.ShowHud=true;single.ShowOpener=false;single.OpenCycle();
-  Check(single.CycleVisible&&single.CompanionVisible,"Opening survives switching its main window back to cycle");
-  single.Layout=Layout.Ouverture;
-  Check(!single.CompanionVisible&&single.OpeningVisible,"No duplicate opening window");
-  single.HideOpening();Check(!single.AnyPanel,"Hide opening works for legacy opening layout");
+  var config=Configuration.Create();config.ManualLevel=true;config.PreviewLevel=64;config.ManualJob=GuideJob.WhiteMage;config.Targets=3;
+  Check(config.Resolve(new(50,Job:GuideJob.BlackMage))==new GuideContext(64,3,true,GuideJob.WhiteMage),"Manual job and level ignore actual sync");
+  Check(config.Resolve(new(Available:false)).Available,"Manual guide works offline");
+  var serialized=JsonSerializer.Serialize(config,new JsonSerializerOptions{IncludeFields=true});
+  var reloaded=JsonSerializer.Deserialize<Configuration>(serialized,new JsonSerializerOptions{IncludeFields=true})!;reloaded.Normalize();
+  Check(reloaded.ManualLevel&&reloaded.ManualJob==GuideJob.WhiteMage&&reloaded.PreviewLevel==64,"Manual selection persists");
+  config.ManualLevel=false;Check(config.Resolve(new(50,Job:GuideJob.BlackMage)).Level==50,"Auto follows sync");
+  Check(!config.Resolve(new(Available:false)).Available,"Unknown actual level is not a usable level 100");
+  foreach(var level in new[]{-50,101,500}){config.PreviewLevel=level;config.Normalize();Check(config.PreviewLevel==Math.Clamp(level,1,100),"Clamp saved level");}
 
   var context=ImGui.CreateContext();
   try{
@@ -31,37 +37,42 @@ internal static unsafe class PanelChecks {
    ushort[] ranges=[0x20,0x17f,0x2000,0x206f,0x2190,0x21ff,0];
    fixed(ushort* glyphs=ranges){io.Fonts.AddFontFromFileTTF(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts),"segoeui.ttf"),17,fc,glyphs);io.Fonts.Build();}fc.Destroy();
    io.Fonts.SetTexID(0,new ImTextureID(1UL));
-   var cfg=Configuration.Create();var demo=false;var step=0;var state=new GuideContext();
+   var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Locked=true;var step=5;var state=new GuideContext(50,Job:GuideJob.WhiteMage);var section="level";var settingsOpened=false;
+   Vector2 origin=default;float width=0,row=0;
    void Frame(){
-    ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(490,1000));Panels.PushTheme();
-    ImGui.Begin("Cycle & Opener · Réglages");Panels.Settings(cfg,state,false,"CycleOpener.dll",ref demo,ref step,()=>{},()=>{});ImGui.End();Panels.PopTheme();ImGui.Render();
+    ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(490,700));Panels.PushTheme();
+    ImGui.Begin("Native controls",ImGuiWindowFlags.NoTitleBar|ImGuiWindowFlags.NoMove|ImGuiWindowFlags.NoResize);
+    origin=ImGui.GetCursorScreenPos();width=ImGui.GetContentRegionAvail().X;row=ImGui.GetFrameHeightWithSpacing();
+    if(section=="level")Panels.LevelSelector(cfg,state,ref step);
+    else if(section=="guide")Panels.GuideToolbar(cfg,()=>settingsOpened=true,ref step,state);
+    else Panels.OpenerToolbar(ref step,cfg.Resolve(state));
+    ImGui.End();Panels.PopTheme();ImGui.Render();
    }
-   void Click(float x,float y){io.AddMousePosEvent(x,y);Frame();io.AddMouseButtonEvent(0,true);Frame();io.AddMouseButtonEvent(0,false);Frame();}
+   void Click(float x,float y){io.AddMousePosEvent(origin.X+x,origin.Y+y);Frame();io.AddMouseButtonEvent(0,true);Frame();io.AddMouseButtonEvent(0,false);Frame();}
    for(var i=0;i<3;i++)Frame();
-   Click(260,113);Check(cfg.CycleVisible&&cfg.OpeningVisible,"Open both button");
-   Click(140,145);Check(!cfg.CycleVisible&&cfg.CompanionVisible,"Hide cycle keeps opening");
-   Click(380,145);Check(!cfg.AnyPanel,"Hide opening button");
-   Click(380,145);Check(!cfg.ShowHud&&cfg.CompanionVisible,"Open only opening button");
-   Click(140,145);Check(cfg.CycleVisible&&cfg.OpeningVisible,"Open cycle keeps opening");
-   Click(380,552);Check(!cfg.AnyPanel,"Hide all button");
-   Click(260,316);Check(cfg.Targets==2,"Two target button");
-   Click(380,258);Check(demo,"Manual level button");
-   Click(140,258);Check(!demo,"Automatic level button");
-   state=new(Available:false);Frame();Click(260,113);Check(!cfg.AnyPanel,"Unavailable player disables panel opening");
-   Click(380,258);Click(260,113);Check(demo&&cfg.CycleVisible&&cfg.OpeningVisible,"Manual mode permits offline consultation");
-   cfg.HideAll();cfg.OpenOpening();step=0;
-   void OpeningFrame(){
-    ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(600,700));Panels.PushTheme();
-    ImGui.Begin("Cycle & Opener · Ouverture");Panels.OpeningPanelToolbar(cfg,()=>{},ref step,100);ImGui.End();Panels.PopTheme();ImGui.Render();
-   }
-   void OpeningClick(float x,float y){io.AddMousePosEvent(x,y);OpeningFrame();io.AddMouseButtonEvent(0,true);OpeningFrame();io.AddMouseButtonEvent(0,false);OpeningFrame();}
-   for(var i=0;i<3;i++)OpeningFrame();
-   OpeningClick(520,133);Check(step==1,"Opening next step button");
-   OpeningClick(120,67);Check(cfg.CycleVisible&&cfg.OpeningVisible&&step==1,"Open cycle preserves reading step");
-   OpeningClick(320,133);Check(step==0,"Opening restart button");
-   step=5;OpeningClick(320,100);Check(cfg.Targets==2&&step==0,"Opening target buttons reset reading step");
-   OpeningClick(120,67);Check(!cfg.CycleVisible&&cfg.OpeningVisible,"Opening hides cycle independently");
+   Click(width*.75f,row*.4f);Check(cfg.ManualLevel&&cfg.ManualJob==GuideJob.WhiteMage&&step==0,"Manual mode picks actual job and resets reading step");
+   var presetWidth=ImGui.CalcTextSize("Paliers").X+20+29;
+   cfg.PreviewLevel=99;Frame();Click(width-presetWidth-8-14,row*2+12);Check(cfg.PreviewLevel==100,"Native level plus button");
+   Click(width-presetWidth-8-14,row*2+12);Check(cfg.PreviewLevel==100,"Native level plus stays at 100");
+   Click(width*.25f,row*.4f);Check(!cfg.ManualLevel&&cfg.Resolve(state).Level==50,"Auto mode restores synchronized level");
+   state=new(Available:false);Frame();Click(width*.75f,row*.4f);Check(cfg.ManualLevel,"Manual mode available offline");
+   Click(width*.25f,row*.4f);Check(cfg.ManualLevel,"Unavailable auto mode stays disabled");
+   state=new();cfg.ManualLevel=false;section="guide";Frame();
+   Click(width*.75f,row*.4f);Check(!cfg.ShowGuide,"Locked guide can close without settings");
+   Click(width*.25f,row*.4f);Check(settingsOpened,"Locked guide retains settings access");
+   Click(width*.5f,row*2+row*.4f);Check(cfg.Targets==2,"Target choice in unified guide");
+   Click(width*.84f,row*3+row*.4f);Check(cfg.View==GuideView.Opening,"Opening-only view without a second window");
+   Click(width*.16f,row*3+row*.4f);Check(cfg.View==GuideView.Both,"Restore both contents");
+   section="opener";step=0;Frame();Click(width*.84f,row*.4f);Check(step==1,"Next opening step");
+   Click(width*.5f,row*.4f);Check(step==0,"Restart opening");
+   step=Guide.Opener(cfg.Resolve(state)).Count-1;Frame();Click(width*.84f,row*.4f);Check(step==Guide.Opener(cfg.Resolve(state)).Count-1,"Final step cannot advance");
+   Check((Panels.GuideFlags(true)&ImGuiWindowFlags.NoInputs)==0,"Lock never removes input handling");
+   var nativeOpen=true;
+   void CloseFrame(){ImGui.NewFrame();ImGui.SetNextWindowPos(new(16,16));ImGui.SetNextWindowSize(new(490,200));ImGui.Begin("Locked window",ref nativeOpen,Panels.GuideFlags(true));ImGui.Text("Guide");ImGui.End();ImGui.Render();}
+   for(var i=0;i<3;i++)CloseFrame();
+   io.AddMousePosEvent(491,28);CloseFrame();io.AddMouseButtonEvent(0,true);CloseFrame();io.AddMouseButtonEvent(0,false);CloseFrame();
+   Check(!nativeOpen,"Native titlebar close remains usable while locked");
   }finally{ImGui.DestroyContext(context);}
-  Console.WriteLine($"PASS {count} panel checks: migration, independent visibility and native button clicks.");
+  Console.WriteLine($"PASS {count} native panel checks: migration, manual levels, unified guide, locked close and opening controls.");
  }
 }

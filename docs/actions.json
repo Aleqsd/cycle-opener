@@ -1,182 +1,546 @@
 [
   {
+    "id": 119,
+    "name": "Terre",
+    "englishName": "Stone",
+    "icon": 403,
+    "level": 1,
+    "job": "whitemage"
+  },
+  {
+    "id": 120,
+    "name": "Soin",
+    "englishName": "Cure",
+    "icon": 405,
+    "level": 2,
+    "job": "whitemage"
+  },
+  {
+    "id": 121,
+    "name": "Vent",
+    "englishName": "Aero",
+    "icon": 401,
+    "level": 4,
+    "job": "whitemage"
+  },
+  {
+    "id": 124,
+    "name": "Médica",
+    "englishName": "Medica",
+    "icon": 408,
+    "level": 10,
+    "job": "whitemage"
+  },
+  {
+    "id": 125,
+    "name": "Vie",
+    "englishName": "Raise",
+    "icon": 411,
+    "level": 12,
+    "job": "whitemage"
+  },
+  {
+    "id": 127,
+    "name": "Extra Terre",
+    "englishName": "Stone II",
+    "icon": 404,
+    "level": 18,
+    "job": "whitemage"
+  },
+  {
+    "id": 131,
+    "name": "Méga Soin",
+    "englishName": "Cure III",
+    "icon": 407,
+    "level": 40,
+    "job": "whitemage"
+  },
+  {
+    "id": 132,
+    "name": "Extra Vent",
+    "englishName": "Aero II",
+    "icon": 402,
+    "level": 46,
+    "job": "whitemage"
+  },
+  {
+    "id": 133,
+    "name": "Extra Médica",
+    "englishName": "Medica II",
+    "icon": 409,
+    "level": 50,
+    "job": "whitemage"
+  },
+  {
+    "id": 135,
+    "name": "Extra Soin",
+    "englishName": "Cure II",
+    "icon": 406,
+    "level": 30,
+    "job": "whitemage"
+  },
+  {
+    "id": 136,
+    "name": "Présence d'esprit",
+    "englishName": "Presence of Mind",
+    "icon": 2626,
+    "level": 30,
+    "job": "whitemage"
+  },
+  {
+    "id": 137,
+    "name": "Récup",
+    "englishName": "Regen",
+    "icon": 2628,
+    "level": 35,
+    "job": "whitemage"
+  },
+  {
+    "id": 139,
+    "name": "Miracle",
+    "englishName": "Holy",
+    "icon": 2629,
+    "level": 45,
+    "job": "whitemage"
+  },
+  {
+    "id": 140,
+    "name": "Bénédiction",
+    "englishName": "Benediction",
+    "icon": 2627,
+    "level": 50,
+    "job": "whitemage"
+  },
+  {
     "id": 141,
     "name": "Feu",
+    "englishName": "Fire",
     "icon": 451,
-    "level": 2
+    "level": 2,
+    "job": "blackmage"
   },
   {
     "id": 142,
     "name": "Glace",
+    "englishName": "Blizzard",
     "icon": 454,
-    "level": 1
+    "level": 1,
+    "job": "blackmage"
   },
   {
     "id": 144,
     "name": "Foudre",
+    "englishName": "Thunder",
     "icon": 457,
-    "level": 6
+    "level": 6,
+    "job": "blackmage"
   },
   {
     "id": 147,
     "name": "Extra Feu",
+    "englishName": "Fire II",
     "icon": 452,
-    "level": 18
+    "level": 18,
+    "job": "blackmage"
   },
   {
     "id": 149,
     "name": "Transposition",
+    "englishName": "Transpose",
     "icon": 466,
-    "level": 4
+    "level": 4,
+    "job": "blackmage"
   },
   {
     "id": 152,
     "name": "Méga Feu",
+    "englishName": "Fire III",
     "icon": 453,
-    "level": 35
+    "level": 35,
+    "job": "blackmage"
   },
   {
     "id": 153,
     "name": "Méga Foudre",
+    "englishName": "Thunder III",
     "icon": 459,
-    "level": 45
+    "level": 45,
+    "job": "blackmage"
   },
   {
     "id": 154,
     "name": "Méga Glace",
+    "englishName": "Blizzard III",
     "icon": 456,
-    "level": 35
+    "level": 35,
+    "job": "blackmage"
   },
   {
     "id": 156,
     "name": "Blessure",
+    "englishName": "Scathe",
     "icon": 462,
-    "level": 15
+    "level": 15,
+    "job": "blackmage"
   },
   {
     "id": 158,
     "name": "Vasque de mana",
+    "englishName": "Manafont",
     "icon": 2651,
-    "level": 30
+    "level": 30,
+    "job": "blackmage"
   },
   {
     "id": 159,
     "name": "Gel",
+    "englishName": "Freeze",
     "icon": 2653,
-    "level": 40
+    "level": 40,
+    "job": "blackmage"
   },
   {
     "id": 162,
     "name": "Brasier",
+    "englishName": "Flare",
     "icon": 2652,
-    "level": 50
+    "level": 50,
+    "job": "blackmage"
+  },
+  {
+    "id": 3568,
+    "name": "Méga Terre",
+    "englishName": "Stone III",
+    "icon": 2631,
+    "level": 54,
+    "job": "whitemage"
+  },
+  {
+    "id": 3569,
+    "name": "Asile",
+    "englishName": "Asylum",
+    "icon": 2632,
+    "level": 52,
+    "job": "whitemage"
+  },
+  {
+    "id": 3570,
+    "name": "Tétragramme",
+    "englishName": "Tetragrammaton",
+    "icon": 2633,
+    "level": 60,
+    "job": "whitemage"
+  },
+  {
+    "id": 3571,
+    "name": "Assises",
+    "englishName": "Assize",
+    "icon": 2634,
+    "level": 56,
+    "job": "whitemage"
   },
   {
     "id": 3573,
     "name": "Manalignements",
+    "englishName": "Ley Lines",
     "icon": 2656,
-    "level": 52
+    "level": 52,
+    "job": "blackmage"
   },
   {
     "id": 3576,
     "name": "Giga Glace",
+    "englishName": "Blizzard IV",
     "icon": 2659,
-    "level": 58
+    "level": 58,
+    "job": "blackmage"
   },
   {
     "id": 3577,
     "name": "Giga Feu",
+    "englishName": "Fire IV",
     "icon": 2660,
-    "level": 60
+    "level": 60,
+    "job": "blackmage"
   },
   {
     "id": 7420,
     "name": "Giga Foudre",
+    "englishName": "Thunder IV",
     "icon": 2662,
-    "level": 64
+    "level": 64,
+    "job": "blackmage"
   },
   {
     "id": 7421,
     "name": "Triple sort",
+    "englishName": "Triplecast",
     "icon": 2663,
-    "level": 66
+    "level": 66,
+    "job": "blackmage"
   },
   {
     "id": 7422,
     "name": "Infect",
+    "englishName": "Foul",
     "icon": 2664,
-    "level": 70
+    "level": 70,
+    "job": "blackmage"
+  },
+  {
+    "id": 7430,
+    "name": "Sponte",
+    "englishName": "Thin Air",
+    "icon": 2636,
+    "level": 58,
+    "job": "whitemage"
+  },
+  {
+    "id": 7431,
+    "name": "Giga Terre",
+    "englishName": "Stone IV",
+    "icon": 2637,
+    "level": 64,
+    "job": "whitemage"
+  },
+  {
+    "id": 7432,
+    "name": "Faveur divine",
+    "englishName": "Divine Benison",
+    "icon": 2638,
+    "level": 66,
+    "job": "whitemage"
+  },
+  {
+    "id": 7433,
+    "name": "Indulgence plénière",
+    "englishName": "Plenary Indulgence",
+    "icon": 2639,
+    "level": 70,
+    "job": "whitemage"
+  },
+  {
+    "id": 7447,
+    "name": "Extra Foudre",
+    "englishName": "Thunder II",
+    "icon": 468,
+    "level": 26,
+    "job": "blackmage"
   },
   {
     "id": 7561,
     "name": "Magie prompte",
+    "englishName": "Swiftcast",
     "icon": 866,
-    "level": 18
+    "level": 18,
+    "job": "blackmage"
+  },
+  {
+    "id": 7562,
+    "name": "Rêve lucide",
+    "englishName": "Lucid Dreaming",
+    "icon": 865,
+    "level": 14,
+    "job": "whitemage"
+  },
+  {
+    "id": 7568,
+    "name": "Guérison",
+    "englishName": "Esuna",
+    "icon": 884,
+    "level": 10,
+    "job": "whitemage"
   },
   {
     "id": 16505,
     "name": "Feu du désespoir",
+    "englishName": "Despair",
     "icon": 2665,
-    "level": 72
+    "level": 72,
+    "job": "blackmage"
   },
   {
     "id": 16506,
     "name": "Âme ombrale",
+    "englishName": "Umbral Soul",
     "icon": 2666,
-    "level": 35
+    "level": 35,
+    "job": "blackmage"
   },
   {
     "id": 16507,
     "name": "Xénoglossie",
+    "englishName": "Xenoglossy",
     "icon": 2667,
-    "level": 80
+    "level": 80,
+    "job": "blackmage"
+  },
+  {
+    "id": 16531,
+    "name": "Offrande de réconfort",
+    "englishName": "Afflatus Solace",
+    "icon": 2640,
+    "level": 52,
+    "job": "whitemage"
+  },
+  {
+    "id": 16532,
+    "name": "Lumen",
+    "englishName": "Dia",
+    "icon": 2641,
+    "level": 72,
+    "job": "whitemage"
+  },
+  {
+    "id": 16533,
+    "name": "Chatoiement",
+    "englishName": "Glare",
+    "icon": 2642,
+    "level": 72,
+    "job": "whitemage"
+  },
+  {
+    "id": 16534,
+    "name": "Offrande de ravissement",
+    "englishName": "Afflatus Rapture",
+    "icon": 2643,
+    "level": 76,
+    "job": "whitemage"
+  },
+  {
+    "id": 16535,
+    "name": "Offrande de misère",
+    "englishName": "Afflatus Misery",
+    "icon": 2644,
+    "level": 74,
+    "job": "whitemage"
+  },
+  {
+    "id": 16536,
+    "name": "Tempérance",
+    "englishName": "Temperance",
+    "icon": 2645,
+    "level": 80,
+    "job": "whitemage"
   },
   {
     "id": 25793,
     "name": "Extra Glace",
+    "englishName": "Blizzard II",
     "icon": 2668,
-    "level": 12
+    "level": 12,
+    "job": "blackmage"
   },
   {
     "id": 25794,
     "name": "Extra Feu majeur",
+    "englishName": "High Fire II",
     "icon": 2669,
-    "level": 82
+    "level": 82,
+    "job": "blackmage"
   },
   {
     "id": 25795,
     "name": "Extra Glace majeure",
+    "englishName": "High Blizzard II",
     "icon": 2670,
-    "level": 82
+    "level": 82,
+    "job": "blackmage"
   },
   {
     "id": 25796,
     "name": "Amplificateur",
+    "englishName": "Amplifier",
     "icon": 2671,
-    "level": 86
+    "level": 86,
+    "job": "blackmage"
   },
   {
     "id": 25797,
     "name": "Paradoxe",
+    "englishName": "Paradox",
     "icon": 2672,
-    "level": 90
+    "level": 90,
+    "job": "blackmage"
+  },
+  {
+    "id": 25859,
+    "name": "Méga Chatoiement",
+    "englishName": "Glare III",
+    "icon": 2646,
+    "level": 82,
+    "job": "whitemage"
+  },
+  {
+    "id": 25860,
+    "name": "Méga Miracle",
+    "englishName": "Holy III",
+    "icon": 2647,
+    "level": 82,
+    "job": "whitemage"
+  },
+  {
+    "id": 25861,
+    "name": "Aquavoile",
+    "englishName": "Aquaveil",
+    "icon": 2648,
+    "level": 86,
+    "job": "whitemage"
+  },
+  {
+    "id": 25862,
+    "name": "Tintinnabule",
+    "englishName": "Liturgy of the Bell",
+    "icon": 2649,
+    "level": 90,
+    "job": "whitemage"
   },
   {
     "id": 36986,
     "name": "Foudre majeure",
+    "englishName": "High Thunder",
     "icon": 2673,
-    "level": 92
+    "level": 92,
+    "job": "blackmage"
   },
   {
     "id": 36987,
     "name": "Extra Foudre majeure",
+    "englishName": "High Thunder II",
     "icon": 2674,
-    "level": 92
+    "level": 92,
+    "job": "blackmage"
   },
   {
     "id": 36989,
     "name": "Astre flamboyant",
+    "englishName": "Flare Star",
     "icon": 2151,
-    "level": 100
+    "level": 100,
+    "job": "blackmage"
+  },
+  {
+    "id": 37009,
+    "name": "Giga Chatoiement",
+    "englishName": "Glare IV",
+    "icon": 2126,
+    "level": 92,
+    "job": "whitemage"
+  },
+  {
+    "id": 37010,
+    "name": "Méga Médica",
+    "englishName": "Medica III",
+    "icon": 2127,
+    "level": 96,
+    "job": "whitemage"
+  },
+  {
+    "id": 37011,
+    "name": "Caresse divine",
+    "englishName": "Divine Caress",
+    "icon": 2128,
+    "level": 100,
+    "job": "whitemage"
   }
 ]

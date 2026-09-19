@@ -18,35 +18,28 @@ unsafe class Program
         using var reader=new BinaryReader(File.OpenRead(file));var w=reader.ReadInt32();var h=reader.ReadInt32();textures[ulong.Parse(Path.GetFileNameWithoutExtension(file))]=(reader.ReadBytes(w*h*4),w,h);
     }
     var cases=new List<(string Name, Layout Mode, GuideContext State,float Scale,int Width,int Step,string Panel)>();
-    foreach(var level in new[]{20,35,50,60,70,80,90,100}) foreach(var targets in new[]{1,2,3}) foreach(var mode in Enum.GetValues<Layout>())
-    {
-        cases.Add(($"{level}-{targets}-{(int)mode}",mode,new GuideContext(level,targets),1,(int)Hud.Preferred(mode).X,0,"hud"));
-        cases.Add(($"duo-{level}-{targets}-{(int)mode}",mode,new GuideContext(level,targets),1,400,0,"hud"));
+    foreach(var job in Enum.GetValues<GuideJob>()) foreach(var level in new[]{20,50,72,90,100}) foreach(var targets in new[]{1,2,3}) foreach(var mode in Enum.GetValues<Layout>())
+        cases.Add(($"{job}-{level}-{targets}-{(int)mode}",mode,new(level,targets,Job:job),1,(int)Hud.Preferred(mode).X,0,"hud"));
+    foreach(var job in Enum.GetValues<GuideJob>()) foreach(var scale in new[]{1f,1.5f,2f}) {
+        cases.Add(($"guide-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,1040,0,"guide"));
+        cases.Add(($"guide-minimum-{job}-{scale*100:0}",Layout.Focus,new(50,3,Job:job),scale,320,0,"guide-manual"));
+        cases.Add(($"guide-minimum-english-{job}-{scale*100:0}",Layout.Focus,new(50,3,Job:job),scale,320,0,"guide-manual-english"));
+        cases.Add(($"guide-english-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,1040,0,"guide-english"));
+        cases.Add(($"settings-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,490,0,"settings"));
+        cases.Add(($"settings-minimum-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,360,0,"settings-manual"));
+        cases.Add(($"settings-appearance-{job}-{scale*100:0}",Layout.Focus,new(Job:job),scale,360,0,"settings-appearance"));
+        cases.Add(($"popup-{job}-{scale*100:0}",Layout.Focus,new(50,Job:job),scale,410,0,"popup"));
     }
-    foreach(var mode in Enum.GetValues<Layout>()) foreach(var scale in new[]{1f,1.5f,2f})
-        cases.Add(($"minimum-{(int)mode}-{scale*100:0}",mode,new GuideContext(100,3),scale,280,0,"hud"));
-    foreach(var mode in Enum.GetValues<Layout>()) foreach(var scale in new[]{1f,1.5f,2f})
-        cases.Add(($"window-{(int)mode}-{scale*100:0}",mode,new GuideContext(100,3),scale,300,0,"window"));
-    cases.Add(("panel-cycle",Layout.Focus,new(),1,490,0,"window"));
-    cases.Add(("panel-opener",Layout.Ouverture,new(),1,600,1,"opening"));
-    cases.Add(("settings-open",Layout.Focus,new(),1,490,0,"settings-open"));
+    cases.Add(("guide-whm-area",Layout.Priorites,new(100,3,Job:GuideJob.WhiteMage),1,1040,4,"guide-english"));
     cases.Add(("settings-offline",Layout.Focus,new(Available:false),1,360,0,"settings"));
-    cases.Add(("settings-manual",Layout.Focus,new(Available:false),1,360,0,"settings-manual"));
-    foreach(var scale in new[]{1f,1.5f,2f}) {
-        cases.Add(($"settings-{scale*100:0}",Layout.Focus,new(),scale,490,0,"settings"));
-        cases.Add(($"popup-{scale*100:0}",Layout.Focus,new(Level:50),scale,410,0,"popup"));
-        cases.Add(($"settings-minimum-{scale*100:0}",Layout.Focus,new(),scale,360,0,"settings"));
-        cases.Add(($"settings-appearance-{scale*100:0}",Layout.Focus,new(),scale,360,0,"settings-appearance"));
-        cases.Add(($"opening-minimum-{scale*100:0}",Layout.Ouverture,new(),scale,300,1,"opening"));
-    }
-    // Exact opening step variants for the interactive comparison.
-    for(var i=0;i<24;i++)cases.Add(($"opener-{i}",Layout.Ouverture,new(),1,590,i,"hud"));
-    for(var i=0;i<24;i++)cases.Add(($"opener-duo-{i}",Layout.Ouverture,new(),1,400,i,"hud"));
+    cases.Add(("settings-offline-manual",Layout.Focus,new(Available:false),1,360,0,"settings-manual"));
     var filter=args.ElementAtOrDefault(2);
+
     if(filter!=null)cases=cases.Where(c=>c.Name.StartsWith(filter,StringComparison.Ordinal)).ToList();
     var metrics=new List<object>();
     foreach(var c in cases)
     {
+        Spells.ConfigureNames(id=>c.Panel.Contains("english")?Spells.Get(id).EnglishName:Spells.Get(id).Name);
         var context=ImGui.CreateContext();
         try {
             ImGui.StyleColorsDark();ImGui.GetStyle().ScaleAllSizes(c.Scale);
@@ -67,12 +60,17 @@ unsafe class Program
             float height=0;float overflow=0;
             for(var frame=0;frame<3;frame++) {
                 UploadFontTextures();
-                ImGui.NewFrame();ImGui.SetNextWindowPos(new(16*c.Scale,16*c.Scale));ImGui.SetNextWindowSize(new(c.Width*c.Scale,0));
+                ImGui.NewFrame();ImGui.SetNextWindowPos(new(16*c.Scale,16*c.Scale));ImGui.SetNextWindowSize(new(c.Width*c.Scale,c.Panel.StartsWith("guide")?840*c.Scale:0));
                 if(c.Panel!="hud")Panels.PushTheme();
-                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel=="window"?"Cycle & Opener · Cycle":c.Panel=="opening"?"Cycle & Opener · Ouverture":"Cycle & Opener · Réglages",ImGuiWindowFlags.AlwaysAutoResize|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
+                var windowOpen=true;
+                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel.StartsWith("guide")?"Cycle & Opener · Guide":"Cycle & Opener · Réglages",ref windowOpen,(c.Panel.StartsWith("guide")?ImGuiWindowFlags.None:ImGuiWindowFlags.AlwaysAutoResize)|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
                 if(c.Panel=="hud") Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),c.Step,true);
-                else if(c.Panel=="window"||c.Panel=="opening") {var cfg=Configuration.Create();cfg.Targets=c.State.Targets;cfg.OpenBoth();cfg.Layout=c.Panel=="opening"?Layout.Focus:c.Mode;var step=c.Step;if(c.Panel=="opening")Panels.OpeningPanelToolbar(cfg,()=>{},ref step,c.State.Level);else Panels.GuideToolbar(cfg,()=>{},ref step,c.State.Level);Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),step,true);}
-                else if(c.Panel.StartsWith("settings")) {var cfg=Configuration.Create();if(c.Panel=="settings-open")cfg.OpenBoth();var demo=c.Panel=="settings-manual";var step=0;if(c.Panel=="settings-appearance")ImGui.GetStateStorage().SetInt(ImGui.GetID("Apparence des panneaux"),1);Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref demo,ref step,()=>{},()=>{});}
+                else if(c.Panel.StartsWith("guide")) {
+                    var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Layout=c.Mode;cfg.Targets=c.State.Targets;cfg.ManualLevel=c.Panel.Contains("manual");cfg.PreviewLevel=c.State.Level;cfg.ManualJob=c.State.Job;var step=c.Step;
+                    Panels.GuideToolbar(cfg,()=>{},ref step,c.State);
+                    Panels.GuideContent(cfg,cfg.Resolve(c.State),id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),ref step);
+                }
+                else if(c.Panel.StartsWith("settings")) {var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.ManualJob=c.State.Job;cfg.ManualLevel=c.Panel=="settings-manual";var step=0;if(c.Panel=="settings-appearance")ImGui.GetStateStorage().SetInt(ImGui.GetID("Apparence du guide"),1);Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref step,()=>{},()=>{});}
                 else {var disabled=false;Panels.Prompt(c.State,c.Mode,ref disabled);}
                 height=ImGui.GetWindowSize().Y;overflow=ImGui.GetScrollMaxX();ImGui.End();if(c.Panel!="hud")Panels.PopTheme();ImGui.Render();
             }
