@@ -4,13 +4,13 @@
 
 Des guides de cycles en français, par niveau : priorités mono/multicible et schémas d’ouverture. Premier job disponible : **Mage noir**. Garde l’ouverture à côté du cycle ou des priorités, dans deux panneaux déplaçables.
 
-![Fiche express et ouverture Mage noir niveau 100](docs/images/fiche-express.png)
+![Fiche express Mage noir niveau 100](docs/images/fiche-express.png)
 
-*Rendu des deux panneaux ImGui hors jeu, avec Segoe UI. Ce n’est pas une capture FFXIV.*
+*Rendu ImGui hors jeu, avec Segoe UI. Ce n’est pas une capture FFXIV.*
 
 Le niveau du personnage adapte la fiche. Un changement de niveau peut proposer de l’ouvrir après le chargement et hors combat. Le nombre de cibles se choisit manuellement ; le seuil de zone apparaît sur la fiche.
 
-Version expérimentale **0.1.1**, API Dalamud 15. Aucun suivi du combat ni lancement de sort. Les quêtes de job sont supposées terminées.
+Version expérimentale **0.1.2**, API Dalamud 15. Aucun suivi du combat ni lancement de sort. Les quêtes de job sont supposées terminées.
 
 ## Installation
 
@@ -22,13 +22,17 @@ https://raw.githubusercontent.com/Aleqsd/dalamud-plugins/main/repo.json
 
 Rechercher ensuite **Cycle & Opener** dans `/xlplugins`.
 
-[Télécharger le ZIP 0.1.1](https://github.com/Aleqsd/cycle-opener/releases/download/v0.1.1/CycleOpener-0.1.1.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.1.1)
+[Télécharger le ZIP 0.1.2](https://github.com/Aleqsd/cycle-opener/releases/download/v0.1.2/CycleOpener-0.1.2.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.1.2)
 
 Pour une installation de développement, extraire le ZIP puis ajouter sa DLL aux **Dev Plugin Locations**. Désactiver cette copie avant d’installer celle du dépôt ; garder une seule installation active.
 
 ## Utilisation
 
-Ouvrir `/cycle`, puis activer le guide. **Fiche express + Ouverture** est la disposition par défaut. La barre du panneau permet de changer de vue et de choisir mono, 2 ou 3+ cibles. Cliquer sur une étape de l’ouverture pour lire ses insertions ; les deux panneaux partagent le niveau et les cibles.
+Ouvrir `/cycle`, puis cliquer sur **Ouvrir les deux panneaux**, **Ouvrir le cycle** ou **Ouvrir l’ouverture**. Chaque panneau se ferme séparément. Les boutons **Mono**, **2 cibles** et **3+ cibles** changent la fiche ; le niveau et les cibles restent communs. Cliquer sur une icône de l’ouverture pour lire son étape.
+
+![Boutons d’ouverture et réglages](docs/images/reglages.png)
+
+*Réglages ImGui hors jeu. Leur apparence reste fixe.*
 
 - `/cycle show` et `/cycle hide` : afficher ou masquer.
 - `/cycle next` et `/cycle prev` : parcourir l’ouverture.

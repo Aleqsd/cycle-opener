@@ -17,6 +17,7 @@ namespace CycleOpener;
 [Serializable]
 public sealed class Configuration : IPluginConfiguration
 {
+    // Keep the legacy default for deserialization; new configurations use Create().
     public int Version {get;set;}=1;
     public Layout Layout=Layout.Focus;
     public int Targets=1;
@@ -29,7 +30,20 @@ public sealed class Configuration : IPluginConfiguration
     public float BackgroundOpacity=.86f;
     public bool TextOutline=true;
     public bool Expressway=true;
-    public void Normalize() {Targets=Math.Clamp(Targets,1,8);PreviewLevel=Math.Clamp(PreviewLevel,1,100);HudScale=Math.Clamp(float.IsFinite(HudScale)?HudScale:1,.8f,1.8f);BackgroundOpacity=Math.Clamp(float.IsFinite(BackgroundOpacity)?BackgroundOpacity:.86f,.15f,1);if(!Enum.IsDefined(Layout))Layout=Layout.Focus;}
+    public static Configuration Create()=>new(){Version=2,ShowOpener=false};
+    public bool AnyPanel=>ShowHud||ShowOpener;
+    public bool CycleVisible=>ShowHud&&Layout!=Layout.Ouverture;
+    public bool OpeningVisible=>ShowOpener||(ShowHud&&Layout==Layout.Ouverture);
+    public bool CompanionVisible=>ShowOpener&&!(ShowHud&&Layout==Layout.Ouverture);
+    public void OpenBoth(){if(Layout==Layout.Ouverture)Layout=Layout.Focus;ShowHud=true;ShowOpener=true;}
+    public void OpenCycle(){if(Layout==Layout.Ouverture){ShowOpener|=ShowHud;Layout=Layout.Focus;}ShowHud=true;}
+    public void OpenOpening(){if(!(ShowHud&&Layout==Layout.Ouverture))ShowOpener=true;}
+    public void HideOpening(){ShowOpener=false;if(Layout==Layout.Ouverture)ShowHud=false;}
+    public void HideAll(){ShowHud=false;ShowOpener=false;}
+    public void Normalize() {
+        if(Version<2){ShowOpener=ShowHud&&ShowOpener&&Layout!=Layout.Ouverture;Version=2;}
+        Targets=Math.Clamp(Targets,1,8);PreviewLevel=Math.Clamp(PreviewLevel,1,100);HudScale=Math.Clamp(float.IsFinite(HudScale)?HudScale:1,.8f,1.8f);BackgroundOpacity=Math.Clamp(float.IsFinite(BackgroundOpacity)?BackgroundOpacity:.86f,.15f,1);if(!Enum.IsDefined(Layout))Layout=Layout.Focus;
+    }
 }
 
 public sealed class Plugin : IDalamudPlugin
@@ -64,7 +78,7 @@ public sealed class Plugin : IDalamudPlugin
 
     public Plugin()
     {
-        config=Pi.GetPluginConfig() as Configuration ?? new();config.Normalize();
+        config=Pi.GetPluginConfig() as Configuration ?? Configuration.Create();var oldVersion=config.Version;config.Normalize();dirty=oldVersion!=config.Version;
         var sheet=Data.GetExcelSheet<Lumina.Excel.Sheets.Action>();
         foreach(var spell in Spells.All.Values) {
             var icon=sheet?.GetRowOrDefault(spell.Id)?.Icon ?? spell.Icon;
@@ -75,7 +89,7 @@ public sealed class Plugin : IDalamudPlugin
         windows.AddWindow(hud);windows.AddWindow(opener);windows.AddWindow(settings);windows.AddWindow(prompt);
         Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guide Mage noir. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
         Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenSettings;Framework.Update+=Update;Client.Logout+=Logout;
-        Log.Information($"Cycle & Opener 0.1.1 — {Pi.AssemblyLocation.FullName}");
+        Log.Information($"Cycle & Opener 0.1.2 — {Pi.AssemblyLocation.FullName}");
     }
     private static string? FindExpressway()
     {
@@ -100,8 +114,8 @@ public sealed class Plugin : IDalamudPlugin
     private void OnCommand(string command,string args)
     {
         switch(args.Trim().ToLowerInvariant()) {
-            case "show":config.ShowHud=true;dirty=true;break;
-            case "hide":config.ShowHud=false;dirty=true;break;
+            case "show":config.OpenBoth();dirty=true;break;
+            case "hide":config.HideAll();dirty=true;break;
             case "next":openerStep=Math.Min(openerStep+1,Guide.Opener(DisplayState.Level,DisplayState.Targets).Count-1);break;
             case "prev":openerStep=Math.Max(0,openerStep-1);break;
             default:settings.IsOpen=true;break;
@@ -116,11 +130,11 @@ public sealed class Plugin : IDalamudPlugin
         busy=Condition[ConditionFlag.InCombat]||Condition[ConditionFlag.BetweenAreas]||Condition[ConditionFlag.BetweenAreas51]||Condition[ConditionFlag.WatchingCutscene]||Condition[ConditionFlag.OccupiedInCutSceneEvent];
         try {
             var player=Objects.LocalPlayer;
-            if(player==null){state=new(Available:false);sync.Observe(null,now,true,config.ShowHud,config.SuggestOnSync);prompt.IsOpen=false;return;}
+            if(player==null){state=new(Available:false);sync.Observe(null,now,true,config.AnyPanel,config.SuggestOnSync);prompt.IsOpen=false;return;}
             if(player.ClassJob.RowId is not (7 or 25)){state=new(Available:false);sync.Reset();prompt.IsOpen=false;return;}
             state=new(player.Level,config.Targets);
             if(lastLevel!=state.Level){openerStep=0;lastLevel=state.Level;}
-            var pending=sync.Observe(state.Level,now,busy,config.ShowHud,config.SuggestOnSync);
+            var pending=sync.Observe(state.Level,now,busy,config.AnyPanel,config.SuggestOnSync);
             prompt.IsOpen=pending!=null && !busy;
             runtimeError=null;
         } catch(Exception e) {
@@ -128,13 +142,14 @@ public sealed class Plugin : IDalamudPlugin
             runtimeError="Niveau indisponible ; la fiche reste consultable en mode manuel.";state=new(Available:false);prompt.IsOpen=false;
         }
     }
-    private GuideContext DisplayState=>demo?new(config.PreviewLevel,config.Targets):state;
+    private GuideContext DisplayState=>demo?new(config.PreviewLevel,config.Targets):state with{Targets=config.Targets};
     private ImTextureID? Icon(uint id)=>icons.GetValueOrDefault(id)?.GetWrapOrDefault()?.Handle;
     private void Draw()
     {
         if(disposed)return;
-        hud.IsOpen=config.ShowHud && (demo||state.Available) && !Condition[ConditionFlag.BetweenAreas] && !Condition[ConditionFlag.BetweenAreas51] && !Condition[ConditionFlag.WatchingCutscene] && !Condition[ConditionFlag.OccupiedInCutSceneEvent];
-        opener.IsOpen=hud.IsOpen && config.ShowOpener && config.Layout!=Layout.Ouverture;
+        var available=(demo||state.Available) && !Condition[ConditionFlag.BetweenAreas] && !Condition[ConditionFlag.BetweenAreas51] && !Condition[ConditionFlag.WatchingCutscene] && !Condition[ConditionFlag.OccupiedInCutSceneEvent];
+        hud.IsOpen=config.ShowHud&&available;
+        opener.IsOpen=config.CompanionVisible&&available;
         windows.Draw();
     }
     public void Dispose()
@@ -168,8 +183,8 @@ public sealed class Plugin : IDalamudPlugin
         public override void PostDraw()=>ImGui.PopStyleVar(2);
         public override void Draw()
         {
-            if(isOpener)Panels.OpenerToolbar(ref p.openerStep,p.DisplayState.Level,p.config.Targets);
-            else if(Panels.GuideToolbar(p.config,p.OpenSettings,ref p.openerStep,p.DisplayState.Level)){p.dirty=true;p.openerStep=0;}
+            if(isOpener){if(Panels.OpeningPanelToolbar(p.config,p.OpenSettings,ref p.openerStep,p.DisplayState.Level))p.dirty=true;}
+            else if(Panels.GuideToolbar(p.config,p.OpenSettings,ref p.openerStep,p.DisplayState.Level))p.dirty=true;
             using var pushed=p.font is {Available:true}?p.font.Push():null;
             Hud.Draw(isOpener?Layout.Ouverture:p.config.Layout,p.DisplayState,p.Icon,new(ImGuiHelpers.GlobalScale*p.config.HudScale,p.config.BackgroundOpacity,p.config.TextOutline),p.openerStep,p.demo,step=>p.openerStep=step);
         }
@@ -196,7 +211,7 @@ public sealed class Plugin : IDalamudPlugin
         {
             var disabled=!p.config.SuggestOnSync;
             var action=Panels.Prompt(p.state,p.config.Layout,ref disabled);
-            if(action==1){p.config.ShowHud=true;p.dirty=true;}
+            if(action==1){p.config.OpenBoth();p.dirty=true;}
             if(action==3){p.config.SuggestOnSync=!disabled;p.dirty=true;}
             if(action!=0){p.sync.Dismiss();IsOpen=false;}
         }

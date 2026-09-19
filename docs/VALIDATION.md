@@ -1,4 +1,4 @@
-# Validation locale — 0.1.1
+# Validation locale — 0.1.2
 
 19 septembre 2026. Compilation locale réussie, **aucun essai FFXIV effectué**. Ces contrôles ne prouvent pas que la DLL est chargée dans le jeu.
 
@@ -22,17 +22,20 @@ python -m http.server 8742 --bind 127.0.0.1 --directory preview
 
 ## Résultats
 
-- Compilation Release : zéro erreur, zéro avertissement. DLL version 0.1.1.0.
+- Compilation Release : zéro erreur, zéro avertissement. DLL version 0.1.2.0.
 - 12 005 assertions : disponibilité des sorts sur tous les niveaux 1–100 et 1–8 cibles, séquences représentatives, paliers de Foudre, ouverture et politique de popup. Ce chiffre compte les invariants parcourus, pas des scénarios manuels indépendants.
-- 327 rendus natifs ImGui produits par les mêmes composants que le plugin. La matrice comprend huit niveaux, trois profils de cibles et les cinq vues, y compris la largeur du duo ; largeur minimale, barre du panneau, réglages et popup à 100/150/200 % ; étapes de l’ouverture. Aucun défilement horizontal détecté dans cette matrice.
-- Inspection visuelle des cinq vues principales, de variantes mono/multi, de largeurs minimales, de réglages et de popup. Vérification d’échantillons à 150/200 %, accents et retours à la ligne. Le rasteriseur hors jeu utilise un filtrage bilinéaire et toutes les pages de l’atlas de police.
-- Comparateur servi sur localhost : changements de vue, niveau et cibles, parcours de l’ouverture, duo cycle/priorités + ouverture et simulation niveau 50 acceptée/refusée. Défilement indépendant des deux fiches à largeur réduite. Aucune erreur ou alerte JavaScript remontée pendant ces parcours.
+- 338 rendus natifs ImGui produits par les mêmes composants que le plugin. La matrice comprend huit niveaux, trois profils de cibles et les cinq vues, y compris la largeur du duo ; largeur minimale, barre du panneau, réglages et popup à 100/150/200 % ; étapes de l’ouverture. Aucun défilement horizontal détecté dans cette matrice.
+- Inspection visuelle de la Fiche express mono/multi et de l’ouverture, de la largeur minimale à 150 %, des réglages normaux/étendus et de la popup. Échantillons des réglages et de l’ouverture à 200 %, accents et retours à la ligne. Le rasteriseur hors jeu utilise un filtrage bilinéaire et toutes les pages de l’atlas de police.
+- 80 assertions de panneaux : migration des 20 combinaisons anciennes, conservation des préférences et rechargement, ouverture indépendante et absence de doublon. Clics envoyés à un contexte natif ImGui : ouvrir les deux, masquer/ouvrir chacun, tout masquer, mono/2 cibles, niveau automatique/manuel, personnage indisponible, suivant/début et changement de cibles dans l’ouverture.
+- Comparateur `http://127.0.0.1:8742/` vérifié dans le navigateur intégré (949 × 969) : page et contenu présents, absence d’écran d’erreur, masquer puis rouvrir l’ouverture en conservant le cycle ; ouvrir l’aperçu des réglages. Captures visuelles contrôlées, aucune erreur ni alerte console. Le navigateur affiche les images natives ; ce contrôle web ne remplace pas les clics ImGui ci-dessus. La largeur minimale du plugin est contrôlée dans la matrice native plutôt que par un viewport mobile web.
+
+Les contrôles de boutons se reproduisent avec la commande de rendu, avant la génération des images. Ils utilisent le vrai code des panneaux dans un contexte cimgui hors jeu.
 
 Les images sont dans `preview/renders/`, les métriques dans `.artifacts/render-metrics.json`. Le navigateur affiche les images du rendu natif ; son popup de simulation est en HTML. Cela valide la proposition visuelle et la navigation du comparateur, pas les clics natifs dans FFXIV.
 
 ## Livrables
 
-`build.ps1` copie et vérifie la DLL dans `plugin/` et `releases/0.1.1/`, avec le manifeste, l’icône originale et la licence. Le ZIP utilise une liste explicite de ces quatre fichiers et ses SHA256 sont écrits dans `releases/SHA256SUMS.txt`. Seul `plugin/CycleOpener.dll` est le chemin stable à renseigner dans Dev Plugin Locations. Conserver une seule entrée active pour ce plugin. Le chemin de l’assembly réellement chargé est disponible dans Diagnostic et dans le journal du plugin.
+`build.ps1` copie et vérifie la DLL dans `plugin/` et `releases/0.1.2/`, avec le manifeste, l’icône originale et la licence. Le ZIP utilise une liste explicite de ces quatre fichiers et ses SHA256 sont écrits dans `releases/SHA256SUMS.txt`. Seul `plugin/CycleOpener.dll` est le chemin stable à renseigner dans Dev Plugin Locations. Conserver une seule entrée active pour ce plugin. Le chemin de l’assembly réellement chargé est disponible dans Diagnostic et dans le journal du plugin.
 
 ## À confirmer en jeu
 

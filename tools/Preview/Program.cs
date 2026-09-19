@@ -12,6 +12,7 @@ unsafe class Program
     var nativeDir=args[0];var root=args[1];var output=Path.Combine(root,"preview","renders");Directory.CreateDirectory(output);
     using var native=new NativeContext(Path.Combine(nativeDir,"cimgui.dll"));
     NativeLibrary.SetDllImportResolver(typeof(ImGui).Assembly,(n,_,_)=>n=="cimgui"?native.Module:nint.Zero);ImGui.InitApi(native);
+    PanelChecks.Run();
     var textures=new Dictionary<ulong,(byte[] Pixels,int Width,int Height)>();
     foreach(var file in Directory.EnumerateFiles(Path.Combine(root,".artifacts","icons"),"*.rgba")) {
         using var reader=new BinaryReader(File.OpenRead(file));var w=reader.ReadInt32();var h=reader.ReadInt32();textures[ulong.Parse(Path.GetFileNameWithoutExtension(file))]=(reader.ReadBytes(w*h*4),w,h);
@@ -26,14 +27,23 @@ unsafe class Program
         cases.Add(($"minimum-{(int)mode}-{scale*100:0}",mode,new GuideContext(100,3),scale,280,0,"hud"));
     foreach(var mode in Enum.GetValues<Layout>()) foreach(var scale in new[]{1f,1.5f,2f})
         cases.Add(($"window-{(int)mode}-{scale*100:0}",mode,new GuideContext(100,3),scale,300,0,"window"));
+    cases.Add(("panel-cycle",Layout.Focus,new(),1,490,0,"window"));
+    cases.Add(("panel-opener",Layout.Ouverture,new(),1,600,1,"opening"));
+    cases.Add(("settings-open",Layout.Focus,new(),1,490,0,"settings-open"));
+    cases.Add(("settings-offline",Layout.Focus,new(Available:false),1,360,0,"settings"));
+    cases.Add(("settings-manual",Layout.Focus,new(Available:false),1,360,0,"settings-manual"));
     foreach(var scale in new[]{1f,1.5f,2f}) {
         cases.Add(($"settings-{scale*100:0}",Layout.Focus,new(),scale,490,0,"settings"));
         cases.Add(($"popup-{scale*100:0}",Layout.Focus,new(Level:50),scale,410,0,"popup"));
         cases.Add(($"settings-minimum-{scale*100:0}",Layout.Focus,new(),scale,360,0,"settings"));
+        cases.Add(($"settings-appearance-{scale*100:0}",Layout.Focus,new(),scale,360,0,"settings-appearance"));
+        cases.Add(($"opening-minimum-{scale*100:0}",Layout.Ouverture,new(),scale,300,1,"opening"));
     }
     // Exact opening step variants for the interactive comparison.
     for(var i=0;i<24;i++)cases.Add(($"opener-{i}",Layout.Ouverture,new(),1,590,i,"hud"));
     for(var i=0;i<24;i++)cases.Add(($"opener-duo-{i}",Layout.Ouverture,new(),1,400,i,"hud"));
+    var filter=args.ElementAtOrDefault(2);
+    if(filter!=null)cases=cases.Where(c=>c.Name.StartsWith(filter,StringComparison.Ordinal)).ToList();
     var metrics=new List<object>();
     foreach(var c in cases)
     {
@@ -59,10 +69,10 @@ unsafe class Program
                 UploadFontTextures();
                 ImGui.NewFrame();ImGui.SetNextWindowPos(new(16*c.Scale,16*c.Scale));ImGui.SetNextWindowSize(new(c.Width*c.Scale,0));
                 if(c.Panel!="hud")Panels.PushTheme();
-                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel=="window"?"Cycle & Opener · Cycle":"Cycle & Opener · Réglages",ImGuiWindowFlags.AlwaysAutoResize|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
+                ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel=="window"?"Cycle & Opener · Cycle":c.Panel=="opening"?"Cycle & Opener · Ouverture":"Cycle & Opener · Réglages",ImGuiWindowFlags.AlwaysAutoResize|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
                 if(c.Panel=="hud") Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),c.Step,true);
-                else if(c.Panel=="window") {var cfg=new Configuration{Layout=c.Mode,Targets=c.State.Targets};var step=c.Step;Panels.GuideToolbar(cfg,()=>{},ref step,c.State.Level);Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),step,true);}
-                else if(c.Panel=="settings") {var cfg=new Configuration();var demo=false;var step=0;Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref demo,ref step,()=>{},()=>{});}
+                else if(c.Panel=="window"||c.Panel=="opening") {var cfg=Configuration.Create();cfg.Targets=c.State.Targets;cfg.OpenBoth();cfg.Layout=c.Panel=="opening"?Layout.Focus:c.Mode;var step=c.Step;if(c.Panel=="opening")Panels.OpeningPanelToolbar(cfg,()=>{},ref step,c.State.Level);else Panels.GuideToolbar(cfg,()=>{},ref step,c.State.Level);Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),step,true);}
+                else if(c.Panel.StartsWith("settings")) {var cfg=Configuration.Create();if(c.Panel=="settings-open")cfg.OpenBoth();var demo=c.Panel=="settings-manual";var step=0;if(c.Panel=="settings-appearance")ImGui.GetStateStorage().SetInt(ImGui.GetID("Apparence des panneaux"),1);Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref demo,ref step,()=>{},()=>{});}
                 else {var disabled=false;Panels.Prompt(c.State,c.Mode,ref disabled);}
                 height=ImGui.GetWindowSize().Y;overflow=ImGui.GetScrollMaxX();ImGui.End();if(c.Panel!="hud")Panels.PopTheme();ImGui.Render();
             }
@@ -76,7 +86,7 @@ unsafe class Program
             metrics.Add(new {c.Name,Width=pw,Height=h,HorizontalScroll=overflow});
         }finally {ImGui.DestroyContext(context);}
     }
-    File.WriteAllText(Path.Combine(root,".artifacts","render-metrics.json"),JsonSerializer.Serialize(metrics,new JsonSerializerOptions{WriteIndented=true}));
+    File.WriteAllText(Path.Combine(root,".artifacts",filter==null?"render-metrics.json":"render-metrics-partial.json"),JsonSerializer.Serialize(metrics,new JsonSerializerOptions{WriteIndented=true}));
     Console.WriteLine($"Rendered {metrics.Count} native ImGui views. No horizontal scrolling.");
  }
  private sealed class NativeContext(string path):INativeContext,IDisposable {

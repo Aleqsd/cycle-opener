@@ -2,7 +2,7 @@
   "Author": "Aleqsd",
   "Name": "Cycle & Opener",
   "InternalName": "CycleOpener",
-  "AssemblyVersion": "0.1.1.0",
+  "AssemblyVersion": "0.1.2.0",
   "Description": "Guides de cycles, priorités et ouvertures par niveau. Première version : Mage noir en français, mono/multicible, Fiche express et ouverture côte à côte. /cycle. Lecture libre, sans suivi du combat.",
   "ApplicableVersion": "any",
   "DalamudApiLevel": 15,
