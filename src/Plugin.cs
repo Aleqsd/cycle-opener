@@ -97,7 +97,7 @@ public sealed class Plugin : IDalamudPlugin
         windows.AddWindow(hud);windows.AddWindow(settings);windows.AddWindow(prompt);
         Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guides Mage noir / Mage blanc. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
         Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenSettings;Framework.Update+=Update;Client.Logout+=Logout;
-        Log.Information($"Cycle & Opener 0.2.0 — {Pi.AssemblyLocation.FullName}");
+        Log.Information($"Cycle & Opener 0.2.1 — {Pi.AssemblyLocation.FullName}");
     }
     private static string? FindExpressway()
     {
@@ -118,6 +118,7 @@ public sealed class Plugin : IDalamudPlugin
         }));
     }
     private void OpenSettings()=>settings.IsOpen=true;
+    private static bool InGuideDuty=>!Client.IsPvP&&(Condition[ConditionFlag.BoundByDuty]||Condition[ConditionFlag.BoundByDuty56]||Condition[ConditionFlag.BoundByDuty95]);
     private void Logout(int type,int code)=>sync.Reset();
     private void OnCommand(string command,string args)
     {
@@ -138,13 +139,13 @@ public sealed class Plugin : IDalamudPlugin
         busy=Condition[ConditionFlag.InCombat]||Condition[ConditionFlag.BetweenAreas]||Condition[ConditionFlag.BetweenAreas51]||Condition[ConditionFlag.WatchingCutscene]||Condition[ConditionFlag.OccupiedInCutSceneEvent];
         try {
             var player=Objects.LocalPlayer;
-            if(player==null){state=new(Available:false);sync.Observe(null,now,true,config.ShowGuide,config.SuggestOnSync);prompt.IsOpen=false;return;}
+            if(player==null){state=new(Available:false);sync.Observe(null,now,true,config.ShowGuide,config.SuggestOnSync,InGuideDuty);prompt.IsOpen=false;return;}
             var job=Guide.JobFromId(player.ClassJob.RowId);
             if(job==null){lastJob=null;state=new(Available:false);sync.Reset();prompt.IsOpen=false;return;}
             if(lastJob!=job){sync.Reset();if(!config.ManualLevel)openerStep=0;lastJob=job;}
             state=new(player.Level,config.Targets,true,job.Value);
             if(lastLevel!=state.Level){if(!config.ManualLevel)openerStep=0;lastLevel=state.Level;}
-            var pending=sync.Observe(state.Level,now,busy,config.ShowGuide,config.SuggestOnSync&&!config.ManualLevel);
+            var pending=sync.Observe(state.Level,now,busy,config.ShowGuide,config.SuggestOnSync&&!config.ManualLevel,InGuideDuty);
             prompt.IsOpen=pending!=null && !busy;
             runtimeError=null;
         } catch(Exception e) {
@@ -158,7 +159,7 @@ public sealed class Plugin : IDalamudPlugin
     {
         if(disposed)return;
         var available=DisplayState.Available && !Condition[ConditionFlag.BetweenAreas] && !Condition[ConditionFlag.BetweenAreas51] && !Condition[ConditionFlag.WatchingCutscene] && !Condition[ConditionFlag.OccupiedInCutSceneEvent];
-        if(config.ManualLevel)prompt.IsOpen=false;
+        if(config.ManualLevel||!InGuideDuty)prompt.IsOpen=false;
         hud.IsOpen=config.ShowGuide&&available;
         windows.Draw();
     }

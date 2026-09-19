@@ -8,11 +8,11 @@ Cycles, priorités et ouvertures par niveau pour **Mage noir et Mage blanc**, du
 
 *Rendu ImGui hors jeu, avec Segoe UI. Ce n’est pas une capture FFXIV.*
 
-**Auto** suit le job et le niveau synchronisé. **Manuel** permet de choisir le job et le niveau, avec saisie, boutons −/+ et paliers rapides. Une proposition facultative peut apparaître après un changement de niveau, une fois le chargement ou le combat terminé.
+**Auto** suit le job et le niveau synchronisé. **Manuel** permet de choisir le job et le niveau, avec saisie, boutons −/+ et paliers rapides. Une proposition facultative peut apparaître quand la synchronisation baisse le niveau en instance PvE, après le chargement ou le combat. Aucune proposition à la sortie du donjon, en ville ou lors d’une hausse de niveau.
 
 Les noms des sorts suivent la langue du client, notamment français et anglais. Les explications et l’interface restent en français. Les sources sont indiquées en petit sur les fiches.
 
-Version expérimentale **0.2.0**, API Dalamud 15. Guide statique : aucun suivi du combat ni lancement de sort. Quêtes de classe et de job supposées terminées.
+Version expérimentale **0.2.1**, API Dalamud 15. Guide statique : aucun suivi du combat ni lancement de sort. Quêtes de classe et de job supposées terminées.
 
 ## Installation
 
@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/Aleqsd/dalamud-plugins/main/repo.json
 
 Rechercher **Cycle & Opener** dans `/xlplugins`.
 
-[Télécharger le ZIP 0.2.0](https://github.com/Aleqsd/cycle-opener/releases/download/v0.2.0/CycleOpener-0.2.0.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.2.0)
+[Télécharger le ZIP 0.2.1](https://github.com/Aleqsd/cycle-opener/releases/download/v0.2.1/CycleOpener-0.2.1.zip) · [Notes de version](https://github.com/Aleqsd/cycle-opener/releases/tag/v0.2.1)
 
 En développement, extraire le ZIP puis ajouter sa DLL aux **Dev Plugin Locations**. Désactiver cette copie avant l’installation depuis le dépôt ; garder une seule installation active.
 

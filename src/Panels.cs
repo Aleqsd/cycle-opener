@@ -121,7 +121,7 @@ public static class Panels {
  public static bool Settings(Configuration config, GuideContext state, bool expresswayAvailable, string dllPath, ref int openerStep, Action resetPosition, Action rebuildFont, string? runtimeError=null) {
   var changed=false;
   ImGui.TextColored(Accent,Guide.JobName(config.Resolve(state).Job).ToUpperInvariant());
-  ImGui.SameLine();ImGui.TextColored(Muted,"0.2.0 · expérimental");
+  ImGui.SameLine();ImGui.TextColored(Muted,"0.2.1 · expérimental");
   var level=config.Resolve(state).Level;
   MutedText(config.ManualLevel?$"Fiche niveau {level} · niveau manuel":state.Available?$"Niveau {level} · synchronisation automatique":"Personnage indisponible · choisis un niveau manuel.");
   if(runtimeError!=null)ImGui.TextWrapped(runtimeError);
@@ -146,7 +146,7 @@ public static class Panels {
   MutedText(layout==3&&config.Resolve(state).Job==GuideJob.WhiteMage?"Dégâts courants et ressources conditionnelles.":Hud.Descriptions[layout]);
 
   Section("COMPORTEMENT");
-  changed|=ImGui.Checkbox("Proposer après un changement de niveau",ref config.SuggestOnSync);
+  changed|=ImGui.Checkbox("Proposer à la synchronisation en instance",ref config.SuggestOnSync);
   changed|=ImGui.Checkbox("Verrouiller la position du guide",ref config.Locked);
   if(config.Locked)MutedText("La fenêtre reste interactive et peut toujours être fermée.");
   if(Button("Recentrer le guide",ImGui.GetContentRegionAvail().X)){resetPosition();changed=true;}

@@ -43,7 +43,7 @@ Chaque fiche affiche en petit Icy Veins 7.55, The Balance, la date de vérificat
 
 ## Comportement de la proposition
 
-La première lecture stable du niveau sert de référence, sans popup de connexion. Après un changement, attendre deux secondes de stabilité et la fin du combat, du chargement ou de la cinématique. Un guide déjà ouvert s’adapte. Sinon, proposer « Ouvrir le guide », « Pas maintenant » ou désactiver les propositions. Un refus vaut pour cette transition ; un nouveau changement peut donner une nouvelle proposition.
+La première lecture stable du niveau sert de référence, sans popup de connexion. La proposition est réservée à une baisse du niveau effectif en instance PvE. Attendre deux secondes de stabilité et la fin du combat, du chargement ou de la cinématique. Une hausse de niveau, la sortie d’instance, un retour en ville ou une synchronisation en monde ouvert restent silencieux. Quitter l’instance annule immédiatement une proposition en attente, même pendant le chargement. Un guide déjà ouvert s’adapte. Sinon, proposer « Ouvrir le guide », « Pas maintenant » ou désactiver les propositions. Un refus vaut pour cette transition ; une nouvelle baisse de niveau éligible peut donner une nouvelle proposition.
 
 Une absence temporaire du personnage pendant le chargement conserve le niveau précédent. Déconnexion et changement de job réinitialisent la référence. Le mode Auto suit le job et le niveau effectif. Le mode Manuel conserve le niveau et le job choisis, fonctionne sans personnage disponible et suspend la proposition automatique. Niveau et cibles restent communs aux deux parties du guide.
 

@@ -97,14 +97,16 @@ public sealed class SyncPromptPolicy
 {
     private int? accepted,candidate;private DateTime since;
     public int? Pending{get;private set;}
-    public int? Observe(int? level,DateTime now,bool busy,bool guideVisible,bool enabled)
+    public int? Observe(int? level,DateTime now,bool busy,bool guideVisible,bool enabled,bool inDuty)
     {
+        // Leaving an instance cancels even a proposal deferred by loading or combat.
+        if(!inDuty||!enabled||guideVisible)Pending=null;
         if(level==null){candidate=null;Pending=null;return null;}
-        if(candidate!=level){candidate=level;since=now;}
+        if(candidate!=level){candidate=level;since=now;Pending=null;}
         if(busy||now-since<TimeSpan.FromSeconds(2))return null;
+        if(!inDuty){accepted=level;return null;}
         if(accepted==null){accepted=level;return null;}
-        if(accepted!=level){accepted=level;Pending=enabled&&!guideVisible?level:null;}
-        if(!enabled||guideVisible)Pending=null;
+        if(accepted!=level){var lower=level<accepted;accepted=level;Pending=lower&&enabled&&!guideVisible?level:null;}
         return Pending;
     }
     public void Dismiss()=>Pending=null;
