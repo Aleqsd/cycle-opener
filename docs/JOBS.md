@@ -1,4 +1,4 @@
-# Jobs et sources — 1.0.0
+# Jobs et sources — 1.1.0
 
 Consultation du 19 septembre 2026. Les 21 jobs de combat et leurs classes de départ sont couverts du niveau 1 au 100. Le Mage bleu reste prévu pour plus tard. Les jobs ajoutés par une extension sont également consultables aux niveaux synchronisés inférieurs à leur niveau de départ.
 

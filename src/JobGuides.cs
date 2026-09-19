@@ -127,7 +127,7 @@ public static partial class JobGuides {
   b.Rule("No Mercy","Garder les grandes attaques et assez de cartouches pour la fenêtre de dégâts.","Burst de 60 s");
   b.Rule("Continuation","Insérer la suite correspondante après chaque coup du combo spécial. Hypervitesse suit Frappe explosive au niv. 86.","Proc requis");
   b.Rule("Bloodfest","Remplir les cartouches quand elles sont vides. Dès niv. 100, donne aussi le combo Règne animal.","Éviter le débordement");
-  b.Rule("Double Down","Placer cette attaque dans le bonus de dégâts ; une cartouche requise.","Burst");
+  b.Rule("Double Down","Placer cette attaque dans le bonus de dégâts ; deux cartouches requises.","Burst");
   b.Seq(b.Open,b.Aoe?"Demon Slice":"Keen Edge",b.Aoe?"Demon Slaughter":"Brutal Shell");
   if(!b.Aoe)b.Add(b.Open,"Solid Barrel");b.Weave("No Mercy");
   if(b.L>=60&&b.T<fangLimit){b.Add(b.Open,"Gnashing Fang");b.Weave("Jugular Rip");b.Add(b.Open,"Savage Claw");b.Weave("Abdomen Tear");b.Add(b.Open,"Wicked Talon");b.Weave("Eye Gouge");}

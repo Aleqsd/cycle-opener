@@ -11,7 +11,6 @@ public sealed class GuidePanelState {
  public bool RestoreSize;
  public float HeaderHeight=56;
  public GuideContext? Context;
- public GuideView? View;
 }
 
 public static class GuidePanel {
@@ -51,7 +50,7 @@ public static class GuidePanel {
    ui.Folded=!ui.Folded;
   }
   ImGui.SameLine(0,gap);
-  if(Tool("Verrouiller la position",config.Locked?"locked":"unlock",size,config.Locked)){config.Locked=!config.Locked;changed=true;}
+  if(Tool("Verrouillage",config.Locked?"locked":"unlock",size,config.Locked)){config.Locked=!config.Locked;changed=true;}
   ImGui.SameLine(0,gap);if(Tool("Réglages","settings",size))settings();
   ImGui.SameLine(0,gap);if(Tool("Fermer le guide","close",size)){config.ShowGuide=false;changed=true;}
   var h=(small?82:46)*scale;
@@ -71,13 +70,23 @@ public static class GuidePanel {
    case "fold":Line(-5,0,5,0);break;
    case "expand":Line(-5,0,5,0);Line(0,-5,0,5);break;
    case "settings":
-    dl.AddCircle(c,4*s,color,12,1.4f*s);
-    for(var i=0;i<8;i++){var a=i*MathF.PI/4;dl.AddLine(c+new Vector2(MathF.Cos(a),MathF.Sin(a))*5*s,c+new Vector2(MathF.Cos(a),MathF.Sin(a))*7*s,color,1.4f*s);}break;
+    // A continuous toothed outline reads as a gear at small sizes.
+    Vector2 GearPoint(int n,float radius)=>c+new Vector2(MathF.Cos(n*MathF.PI/16),MathF.Sin(n*MathF.PI/16))*radius*s;
+    for(var i=0;i<32;i++)dl.PathLineTo(GearPoint(i,i%4 is 1 or 2?8.5f:6));
+    dl.PathStroke(color,ImDrawFlags.Closed,1.6f*s);
+    dl.AddCircle(c,2.6f*s,color,24,1.5f*s);break;
    default:
-    dl.AddRect(c+new Vector2(-5,-1)*s,c+new Vector2(5,6)*s,color,1.5f*s);
-    Line(-3,-1,-3,-5);Line(-3,-5,3,-5);if(glyph=="locked")Line(3,-5,3,-1);else Line(3,-5,5,-7);break;
+    dl.AddRect(c+new Vector2(-6.5f,0)*s,c+new Vector2(6.5f,8)*s,color,2*s,ImDrawFlags.None,1.8f*s);
+    var open=glyph=="unlock";var cx=open?3f:0f;var cy=open?-3f:-1f;
+    Line(cx-4.5f,0,cx-4.5f,cy);
+    for(var i=0;i<16;i++){
+     var a=MathF.PI+i*MathF.PI/16;var b=a+MathF.PI/16;
+     Line(cx+MathF.Cos(a)*4.5f,cy+MathF.Sin(a)*4.5f,cx+MathF.Cos(b)*4.5f,cy+MathF.Sin(b)*4.5f);
+    }
+    Line(cx+4.5f,cy,cx+4.5f,open?-1:0);
+    dl.AddCircleFilled(c+new Vector2(0,3.5f)*s,1.25f*s,color,12);Line(0,4,0,6);break;
   }
-  if(ImGui.IsItemHovered())ImGui.SetTooltip(name=="Replier le guide"&&selected?"Déplier le guide":name);
+  if(ImGui.IsItemHovered())ImGui.SetTooltip(name=="Replier le guide"&&selected?"Déplier le guide":name=="Verrouillage"?selected?"Déverrouiller la position":"Verrouiller la position":name);
   return clicked;
  }
  public static bool Controls(Configuration config,GuideContext actual,ref int step){
@@ -96,36 +105,27 @@ public static class GuidePanel {
    if(ImGui.InputInt("##Niveau",ref level,1,10)){config.PreviewLevel=Math.Clamp(level,1,100);changed=true;}
    if(ImGui.IsItemHovered())ImGui.SetTooltip("Niveau 1 à 100. Saisie directe, −/+ ; Ctrl pour changer de 10 niveaux.");
    if(width>=440*scale)ImGui.SameLine();
-   ImGui.SetNextItemWidth(-1);var job=(int)config.ManualJob;
-   if(ImGui.Combo("##Job",ref job,Jobs.Labels,Jobs.Labels.Length)){config.ManualJob=(GuideJob)job;changed=true;}
+   changed|=JobPicker.Draw(config,"Job",ImGui.GetContentRegionAvail().X);
   }else ImGui.TextColored(Muted,actual.Available?$"Niv. {actual.Level} · synchronisé":"Niveau indisponible");
-  var viewChanged=false;
-  if(width>=700*scale&&ImGui.BeginTable("Choix de lecture",2,ImGuiTableFlags.SizingStretchSame)){
-   ImGui.TableNextColumn();changed|=Panels.Targets(config,config.Resolve(actual));
-   ImGui.TableNextColumn();viewChanged=Panels.ViewSelector(config);ImGui.EndTable();
-  }else{changed|=Panels.Targets(config,config.Resolve(actual));viewChanged=Panels.ViewSelector(config);}
+  changed|=Panels.Targets(config,config.Resolve(actual));
   if(changed)step=0;
   var hint=Guide.LevelHint(config.Resolve(actual));
   if(hint.Length>0){ImGui.PushStyleColor(ImGuiCol.Text,Muted);ImGui.TextWrapped(hint);ImGui.PopStyleColor();}
-  ImGui.Spacing();return changed||viewChanged;
+  ImGui.Spacing();return changed;
  }
  public static void Content(Configuration config,GuideContext state,GuidePanelState ui,Func<uint,ImTextureID?> icon,HudLook look,ref int step){
   var selected=step;
-  if(ui.Context!=state||ui.View!=config.View){ImGui.SetScrollY(0);ui.Context=state;ui.View=config.View;}
-  if(config.View!=GuideView.Cycle){
-   Hud.Draw(Layout.Ouverture,state,icon,look,selected,config.ManualLevel,n=>selected=n,embedded:true);
-   ImGui.Spacing();ImGui.Separator();ImGui.Spacing();
-  }
-  if(config.View!=GuideView.Opening){
-   Hud.Draw(config.Layout,state,icon,look,selected,config.ManualLevel,embedded:true);
+  if(ui.Context!=state){ImGui.SetScrollY(0);ui.Context=state;}
+  Hud.Draw(Layout.Ouverture,state,icon,look,selected,config.ManualLevel,n=>selected=n,embedded:true);
+  ImGui.Spacing();ImGui.Separator();ImGui.Spacing();
+  Hud.Draw(config.Layout==Layout.Ouverture?Layout.Focus:config.Layout,state,icon,look,selected,config.ManualLevel,embedded:true);
    if(Jobs.Healer(state.Job)||Jobs.Tank(state.Job)){
     if(ImGui.CollapsingHeader(Jobs.Tank(state.Job)?"Protection et tanking":"Soins et urgences",ui.Healing?ImGuiTreeNodeFlags.DefaultOpen:ImGuiTreeNodeFlags.None)){
      ImGui.TextWrapped("Des réponses à une situation, pas un cycle fixe. Anticiper les dégâts et garder une réponse disponible.");
      Hud.Draw(config.Layout,state,icon,look,embedded:true,healingOnly:true);
     }
    }
-  }
-  Hud.Sources(state,config.View==GuideView.Opening,config.View==GuideView.Both,look);
+  Hud.Sources(state,false,true,look);
   step=selected;
  }
 }

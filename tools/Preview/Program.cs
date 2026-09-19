@@ -38,6 +38,9 @@ unsafe class Program
     cases.Add(("guide-footer-minimum",Layout.Focus,new(50,3,Job:GuideJob.WhiteMage),2,320,0,"guide-footer"));
     cases.Add(("settings-offline",Layout.Focus,new(Available:false),1,360,0,"settings"));
     cases.Add(("settings-offline-manual",Layout.Focus,new(Available:false),1,360,0,"settings-manual"));
+    foreach(var scale in new[]{1f,1.5f,2f})foreach(var panel in new[]{"picker","picker-favorites","picker-empty"})
+        cases.Add(($"{panel}-{scale*100:0}",Layout.Focus,new(Job:GuideJob.Paladin),scale,320,0,panel));
+    foreach(var scale in new[]{1f,1.5f,2f})cases.Add(($"guide-locked-WhiteMage-{scale*100:0}",Layout.Focus,new(Job:GuideJob.WhiteMage),scale,500,0,"guide-locked"));
     var filter=args.ElementAtOrDefault(2);
 
     if(filter!=null)cases=cases.Where(c=>c.Name.StartsWith(filter,StringComparison.Ordinal)).ToList();
@@ -64,8 +67,14 @@ unsafe class Program
             }
             float height=0;float overflow=0;
             var guideState=new GuidePanelState{Folded=c.Panel=="guide-folded",Healing=c.Panel.Contains("healing")};
-            for(var frame=0;frame<4;frame++) {
+            var pickerConfig=Configuration.Create();pickerConfig.ManualJob=GuideJob.Paladin;
+            if(c.Panel=="picker-favorites")pickerConfig.FavoriteJobs=[GuideJob.BlackMage,GuideJob.Sage,GuideJob.Paladin];
+            Vector2 pickerPosition=default;
+            for(var frame=0;frame<(c.Panel.StartsWith("picker")?6:4);frame++) {
                 overflow=0;
+                if(c.Panel.StartsWith("picker")&&frame==1)io.AddMousePosEvent(pickerPosition.X+40*c.Scale,pickerPosition.Y+14*c.Scale);
+                if(c.Panel.StartsWith("picker")&&frame==2)io.AddMouseButtonEvent(0,true);
+                if(c.Panel.StartsWith("picker")&&frame==3)io.AddMouseButtonEvent(0,false);
                 UploadFontTextures();
                 ImGui.NewFrame();ImGui.SetNextWindowPos(new(16*c.Scale,16*c.Scale));ImGui.SetNextWindowSize(new(c.Width*c.Scale,c.Panel.StartsWith("guide")?840*c.Scale:0));
                 if(c.Panel.StartsWith("guide"))GuidePanel.PushStyle(Configuration.Create());else if(c.Panel!="hud")Panels.PushTheme();
@@ -75,20 +84,25 @@ unsafe class Program
                 ImGui.Begin(c.Panel=="hud"?"Cycle & Opener###Preview":c.Panel=="popup"?"Cycle & Opener · Niveau adapté":c.Panel.StartsWith("guide")?"Cycle & Opener · Guide":"Cycle & Opener · Réglages",ref windowOpen,(c.Panel.StartsWith("guide")?Panels.GuideFlags(false):ImGuiWindowFlags.AlwaysAutoResize)|(c.Panel=="hud"?ImGuiWindowFlags.NoTitleBar:0));
                 if(c.Panel=="hud") Hud.Draw(c.Mode,c.State,id=>textures.ContainsKey(id)?new ImTextureID(id):null,new(c.Scale),c.Step,true);
                 else if(c.Panel.StartsWith("guide")) {
-                    var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Layout=c.Mode;cfg.Targets=c.State.Targets;cfg.ManualLevel=c.Panel.Contains("manual");cfg.PreviewLevel=c.State.Level;cfg.ManualJob=c.State.Job;var step=c.Step;
+                    var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.Locked=c.Panel.Contains("locked");cfg.Layout=c.Mode;cfg.Targets=c.State.Targets;cfg.ManualLevel=c.Panel.Contains("manual");cfg.PreviewLevel=c.State.Level;cfg.ManualJob=c.State.Job;var step=c.Step;
                     var ui=guideState;
-                    if(c.Panel.Contains("healing"))cfg.View=GuideView.Cycle;
                     ImTextureID? Icon(uint id)=>textures.ContainsKey(id)?new ImTextureID(id):null;
                     GuidePanel.Header(cfg,c.State,ui,Icon,()=>{});
                     if(!ui.Folded){
                         GuidePanel.Controls(cfg,c.State,ref step);
                         ImGui.BeginChild("Lecture du guide",Vector2.Zero,false);
                         GuidePanel.Content(cfg,cfg.Resolve(c.State),ui,Icon,new(c.Scale),ref step);
-                        if(c.Panel=="guide-footer"||c.Panel=="guide-healing-detail")ImGui.SetScrollY(ImGui.GetScrollMaxY());
+                        if(c.Panel=="guide-footer"||c.Panel.Contains("healing"))ImGui.SetScrollY(ImGui.GetScrollMaxY());
                         overflow=Math.Max(overflow,ImGui.GetScrollMaxX());ImGui.EndChild();
                     }
                 }
                 else if(c.Panel.StartsWith("settings")) {var cfg=Configuration.Create();cfg.ShowGuide=true;cfg.ManualJob=c.State.Job;cfg.ManualLevel=c.Panel=="settings-manual";var step=0;if(c.Panel=="settings-appearance")ImGui.GetStateStorage().SetInt(ImGui.GetID("Apparence du guide"),1);Panels.Settings(cfg,c.State,false,"CycleOpener.dll",ref step,()=>{},()=>{});}
+                else if(c.Panel.StartsWith("picker")){
+                    ImGui.Text("Job à consulter");pickerPosition=ImGui.GetCursorScreenPos();
+                    ImGui.PushID("Demo");ImGui.GetStateStorage().SetInt(ImGui.GetID("Filtre de rôle"),c.Panel=="picker"?2:1);ImGui.PopID();
+                    JobPicker.Draw(pickerConfig,"Demo",ImGui.GetContentRegionAvail().X);
+                    if(frame==5&&!ImGui.IsPopupOpen("",ImGuiPopupFlags.AnyPopupId|ImGuiPopupFlags.AnyPopupLevel))throw new Exception($"Picker popup did not open: {c.Name}");
+                }
                 else {var disabled=false;Panels.Prompt(c.State,c.Mode,ref disabled);}
                 height=ImGui.GetWindowSize().Y;overflow=Math.Max(overflow,ImGui.GetScrollMaxX());ImGui.End();if(c.Panel.StartsWith("guide"))GuidePanel.PopStyle();else if(c.Panel!="hud")Panels.PopTheme();ImGui.Render();
             }
@@ -97,6 +111,7 @@ unsafe class Program
             io.Fonts.GetTexDataAsRGBA32(0,&atlas,&aw,&ah);
             UploadFontTextures();
             var h=(int)Math.Ceiling(height+32*c.Scale);
+            if(c.Panel.StartsWith("picker"))h=(int)(570*c.Scale);
             CpuRenderer.Save(ImGui.GetDrawData(),pw,h,atlas,aw,ah,Path.Combine(output,c.Name+".png"),textures);
             if(overflow>0.5f)throw new Exception($"Horizontal overflow {c.Name}: {overflow}");
             metrics.Add(new {c.Name,Width=pw,Height=h,HorizontalScroll=overflow});

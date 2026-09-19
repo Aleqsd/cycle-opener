@@ -59,8 +59,7 @@ public static class Panels {
   if(!stacked)ImGui.SameLine();
   if(Button(config.ManualLevel?"Manuel · actif":"Manuel",stacked?width:half,config.ManualLevel)&&!config.ManualLevel){config.ManualLevel=true;if(actual.Available)config.ManualJob=actual.Job;changed=true;}
   if(config.ManualLevel){
-   var job=(int)config.ManualJob;ImGui.SetNextItemWidth(-1);
-   if(ImGui.Combo("##Job manuel",ref job,Jobs.BilingualLabels,Jobs.BilingualLabels.Length)){config.ManualJob=(GuideJob)job;changed=true;}
+   changed|=JobPicker.Draw(config,"Job manuel",ImGui.GetContentRegionAvail().X);
    // Exact typing plus native +/- buttons; Ctrl uses the ten-level increment.
    var presetWidth=ImGui.CalcTextSize("Paliers").X+2*ImGui.GetStyle().FramePadding.X+ImGui.GetFrameHeight();
    ImGui.SetNextItemWidth(width-presetWidth-gap);var level=config.PreviewLevel;
@@ -76,17 +75,11 @@ public static class Panels {
   if(changed)selectedStep=0;
   ImGui.PopID();return changed;
  }
- public static bool ViewSelector(Configuration config){
-  string[] labels=["Les deux","Cycle","Ouverture"];var changed=false;
-  var width=(ImGui.GetContentRegionAvail().X-2*ImGui.GetStyle().ItemSpacing.X)/3;
-  for(var n=0;n<3;n++){if(n>0)ImGui.SameLine();if(Button(labels[n],width,(int)config.View==n)){config.View=(GuideView)n;changed=true;}}
-  return changed;
- }
  public static bool Settings(Configuration config, GuideContext state, bool expresswayAvailable, string dllPath, ref int openerStep, Action resetPosition, Action rebuildFont, string? runtimeError=null) {
   var changed=false;
   ImGui.TextColored(Accent,Guide.JobName(config.Resolve(state).Job).ToUpperInvariant());
-  if(ImGui.GetContentRegionAvail().X>ImGui.CalcTextSize(Guide.JobName(config.Resolve(state).Job).ToUpperInvariant()).X+ImGui.CalcTextSize("1.0.0 · expérimental").X+ImGui.GetStyle().ItemSpacing.X)ImGui.SameLine();
-  ImGui.TextColored(Muted,"1.0.0 · expérimental");
+  if(ImGui.GetContentRegionAvail().X>ImGui.CalcTextSize(Guide.JobName(config.Resolve(state).Job).ToUpperInvariant()).X+ImGui.CalcTextSize("1.1.0 · expérimental").X+ImGui.GetStyle().ItemSpacing.X)ImGui.SameLine();
+  ImGui.TextColored(Muted,"1.1.0 · expérimental");
   var level=config.Resolve(state).Level;
   MutedText(config.ManualLevel?$"Fiche niveau {level} · niveau manuel":state.Available?$"Niveau {level} · synchronisation automatique":"Personnage indisponible · choisis un niveau manuel.");
   if(runtimeError!=null)ImGui.TextWrapped(runtimeError);
@@ -95,7 +88,6 @@ public static class Panels {
   ImGui.BeginDisabled(!config.ManualLevel&&!state.Available);
   if(Button(config.ShowGuide?"Masquer le guide":"Ouvrir le guide",ImGui.GetContentRegionAvail().X,true)){config.ShowGuide=!config.ShowGuide;changed=true;}
   ImGui.EndDisabled();
-  changed|=ViewSelector(config);
   MutedText("Une seule fenêtre pour le cycle et l’ouverture. Fermeture par × ou Échap, même verrouillée.");
 
   Section("FICHE À CONSULTER");

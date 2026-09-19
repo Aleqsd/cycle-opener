@@ -24,6 +24,7 @@ public sealed class Configuration : IPluginConfiguration {
  public bool ShowOpener=true;
  public bool ShowGuide;
  public GuideView View=GuideView.Both;
+ public List<GuideJob> FavoriteJobs=[];
  public bool Locked;
  public int PreviewLevel=100;
  public bool ManualLevel;
@@ -33,22 +34,20 @@ public sealed class Configuration : IPluginConfiguration {
  public float BackgroundOpacity=.86f;
  public bool TextOutline=true;
  public bool Expressway=true;
- public static Configuration Create()=>new(){Version=3};
+ public static Configuration Create()=>new(){Version=4};
  public GuideContext Resolve(GuideContext actual)=>ManualLevel?new(PreviewLevel,Targets,true,ManualJob):actual with{Targets=Targets};
  public void Normalize(){
   if(Version<3){
-   var cycle=ShowHud&&Layout!=Layout.Ouverture;
-   var opening=(Version<2?ShowHud&&ShowOpener:ShowOpener)||(ShowHud&&Layout==Layout.Ouverture);
    ShowGuide=Version<2?ShowHud:ShowHud||ShowOpener;
-   View=cycle&&opening?GuideView.Both:opening?GuideView.Opening:cycle?GuideView.Cycle:GuideView.Both;
    if(Layout==Layout.Ouverture)Layout=Layout.Focus;
-   Version=3;
   }
+  // View is retained only to read old configurations. Both sections are now mandatory.
+  View=GuideView.Both;Version=4;
+  FavoriteJobs=(FavoriteJobs??[]).Where(j=>Enum.IsDefined(j)).Distinct().ToList();
   Targets=Math.Clamp(Targets,1,8);PreviewLevel=Math.Clamp(PreviewLevel,1,100);
   HudScale=Math.Clamp(float.IsFinite(HudScale)?HudScale:1,.8f,1.8f);
   BackgroundOpacity=Math.Clamp(float.IsFinite(BackgroundOpacity)?BackgroundOpacity:.86f,.15f,1);
   if(!Enum.IsDefined(Layout)||Layout==Layout.Ouverture)Layout=Layout.Focus;
-  if(!Enum.IsDefined(View))View=GuideView.Both;
   if(!Enum.IsDefined(ManualJob))ManualJob=GuideJob.BlackMage;
  }
 }
@@ -97,9 +96,9 @@ public sealed class Plugin : IDalamudPlugin
         expresswayPath=FindExpressway();RefreshFont();
         hud=new(this);settings=new(this);prompt=new(this);
         windows.AddWindow(hud);windows.AddWindow(settings);windows.AddWindow(prompt);
-        Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guides des 21 jobs de combat. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
-        Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenSettings;Framework.Update+=Update;Client.Logout+=Logout;
-        Log.Information($"Cycle & Opener 1.0.0 — {Pi.AssemblyLocation.FullName}");
+        Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="/cycle : ouvrir le guide ; /cycle config|cfg|setup : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
+        Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenGuide;Framework.Update+=Update;Client.Logout+=Logout;
+        Log.Information($"Cycle & Opener 1.1.0 — {Pi.AssemblyLocation.FullName}");
     }
     private static string? FindExpressway()
     {
@@ -120,16 +119,21 @@ public sealed class Plugin : IDalamudPlugin
         }));
     }
     private void OpenSettings()=>settings.IsOpen=true;
+    private void OpenGuide(){
+        config.ShowGuide=true;dirty=true;
+        if(guideUi.Folded){guideUi.Folded=false;guideUi.RestoreSize=true;}
+    }
     private static bool InGuideDuty=>!Client.IsPvP&&(Condition[ConditionFlag.BoundByDuty]||Condition[ConditionFlag.BoundByDuty56]||Condition[ConditionFlag.BoundByDuty95]);
     private void Logout(int type,int code)=>sync.Reset();
     private void OnCommand(string command,string args)
     {
         switch(args.Trim().ToLowerInvariant()) {
-            case "show":config.ShowGuide=true;dirty=true;break;
+            case "config":case "cfg":case "setup":OpenSettings();break;
+            case "":case "show":OpenGuide();break;
             case "hide":config.ShowGuide=false;dirty=true;break;
             case "next":openerStep=Math.Min(openerStep+1,Guide.Opener(DisplayState).Count-1);break;
             case "prev":openerStep=Math.Max(0,openerStep-1);break;
-            default:settings.IsOpen=true;break;
+            default:OpenGuide();break;
         }
     }
     private void Update(IFramework framework)
@@ -167,7 +171,7 @@ public sealed class Plugin : IDalamudPlugin
     }
     public void Dispose()
     {
-        disposed=true;Framework.Update-=Update;Client.Logout-=Logout;Pi.UiBuilder.Draw-=Draw;Pi.UiBuilder.OpenConfigUi-=OpenSettings;Pi.UiBuilder.OpenMainUi-=OpenSettings;Commands.RemoveHandler("/cycle");windows.RemoveAllWindows();font?.Dispose();
+        disposed=true;Framework.Update-=Update;Client.Logout-=Logout;Pi.UiBuilder.Draw-=Draw;Pi.UiBuilder.OpenConfigUi-=OpenSettings;Pi.UiBuilder.OpenMainUi-=OpenGuide;Commands.RemoveHandler("/cycle");windows.RemoveAllWindows();font?.Dispose();
         if(dirty)Pi.SavePluginConfig(config);
     }
     private sealed class HudWindow : Window {

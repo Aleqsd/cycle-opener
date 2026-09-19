@@ -9,6 +9,7 @@ public static class Hud
  public static readonly string[] Descriptions=["Le cycle condensé, avec ses répétitions.","L’enchaînement complet, comme un schéma.","Les règles conditionnelles et la boucle de base.","La récupération en glace face à la dépense en feu.","L’ouverture illustrée, à étudier à ton rythme."];
  public static readonly Vector4 Purple=new(.647f,.475f,.839f,1);
  const uint White=0xFFF2EFF5,Muted=0xFFB6ABB9,Violet=0xFFD679A5,Fire=0xFF83A8F0,Ice=0xFFF0C38B,Line=0xFF3B343F,PhaseBg=0x482B2530;
+ const uint Required=0xFFAACFEF,RequiredBackground=0xFF29251F;
  public static Vector2 Preferred(Layout mode)=>mode switch{Layout.Focus=>new(490,400),Layout.Ruban=>new(770,380),Layout.Priorites=>new(560,600),Layout.Cycle=>new(640,500),_=>new(600,520)};
  public static float Draw(Layout mode,GuideContext context,Func<uint,ImTextureID?> texture,HudLook look,int selectedStep=0,bool preview=false,Action<int>? selectStep=null,bool embedded=false,bool healingOnly=false)
  {
@@ -20,7 +21,13 @@ public static class Hud
   var loop=plan.Loop;
   List<string> Wrap(string value,float width,float fs) {
    var lines=new List<string>();var line="";
-   foreach(var word in value.Split(' ')){var next=line.Length==0?word:line+" "+word;if(width>0&&line.Length>0&&ImGui.CalcTextSize(next).X*fs/ImGui.GetFontSize()>width*scale){lines.Add(line);line=word;}else line=next;}
+   bool Fits(string text)=>width<=0||ImGui.CalcTextSize(text).X*fs/ImGui.GetFontSize()<=width*scale;
+   foreach(var word in value.Split(' ')){
+    var next=line.Length==0?word:line+" "+word;
+    if(Fits(next)){line=next;continue;}
+    if(line.Length>0){lines.Add(line);line="";}
+    foreach(var ch in word){if(line.Length>0&&!Fits(line+ch)){lines.Add(line);line="";}line+=ch;}
+   }
    lines.Add(line);return lines;
   }
   float Text(string value,float x,float y,uint col=White,float size=16,float max=0){
@@ -30,12 +37,21 @@ public static class Hud
    return lines.Count*size*1.25f;
   }
   void Rect(float x,float y,float width,float height,uint col)=>dl.AddRectFilled(origin+new Vector2(x,y)*scale,origin+new Vector2(x+width,y+height)*scale,col);
+  float RequiredHeight(uint id,float width){var r=Requirements.For(context,id);return r==null?0:Wrap(Spells.LocalizeText(r.Badge),Math.Max(20,width-10),13*scale).Count*16.25f+8;}
+  float Badge(uint id,float x,float y,float width){
+   var r=Requirements.For(context,id);if(r==null)return 0;
+   var h=RequiredHeight(id,width);var text=Spells.LocalizeText(r.Badge);
+   var actualWidth=Math.Min(width,ImGui.CalcTextSize(text).X*13/ImGui.GetFontSize()+10);
+   Rect(x,y,actualWidth,h,RequiredBackground);Text(text,x+5,y+4,Required,13,width-10);
+   return h;
+  }
   void Icon(uint id,float x,float y,float size=40,string note=""){
    var p=origin+new Vector2(x,y)*scale;var end=p+new Vector2(size)*scale;Rect(x-1,y-1,size+2,size+2,Line);
    var t=texture(id);if(t.HasValue)dl.AddImage(t.Value,p,end);else{Rect(x,y,size,size,Line);Text("?",x+10,y+5);}
    if(ImGui.IsMouseHoveringRect(p,end)&&ImGui.IsWindowHovered()){
     ImGui.BeginTooltip();ImGui.PushTextWrapPos(ImGui.GetFontSize()*23);
     var spell=Spells.Get(id);ImGui.TextUnformatted(Spells.Name(id));ImGui.TextDisabled($"Disponible au niveau {spell.Level}");
+    if(Requirements.For(context,id) is {} requirement)ImGui.TextWrapped("Prérequis : "+Spells.LocalizeText(requirement.Detail));
     if(note.Length>0)ImGui.TextWrapped(Spells.LocalizeText(note));
     ImGui.PopTextWrapPos();ImGui.EndTooltip();
    }
@@ -48,6 +64,7 @@ public static class Hud
     var st=steps[n];float x=12+n%cols*cell,yy=y;Icon(st.Action,x,yy,icon);
     if(st.Count>1){Rect(x+icon-12,yy+icon-15,30,21,0xFF29212F);Text("×"+st.Count,x+icon-9,yy+icon-14,Violet,15);}
     var name=Spells.Name(st.Action);var textHeight=Text(name,x,yy+icon+8,White,14,cell-14);
+    if(Requirements.For(context,st.Action)!=null)textHeight+=5+Badge(st.Action,x,yy+icon+13+textHeight,cell-14);
     if(st.Note.Length>0)textHeight+=5+Text(st.Note,x,yy+icon+13+textHeight,Muted,12,cell-14);
     rowHeight=Math.Max(rowHeight,icon+8+textHeight+22);
     if(n%cols<cols-1&&n<steps.Length-1)Text("→",x+cell-21,yy+12,color,17);
@@ -67,7 +84,9 @@ public static class Hud
     Icon(st.Action,x,y,32,st.Note);
     var h=Text(Spells.Name(st.Action),x+42,y,White,14,cell-58);
     if(st.Count>1)h+=Text("×"+st.Count,x+42,y+h,color,14,cell-58);
-    rowHeight=Math.Max(rowHeight,Math.Max(32,h)+18);
+    h=Math.Max(32,h);
+    if(Requirements.For(context,st.Action)!=null)h+=6+Badge(st.Action,x,y+h+6,cell-18);
+    rowHeight=Math.Max(rowHeight,h+18);
     if(n%cols!=cols-1&&n<steps.Length-1)Text("→",x+cell-17,y+8,color,14);
     if(n%cols==cols-1||n==steps.Length-1){y+=rowHeight;rowHeight=0;}
    }
@@ -77,6 +96,7 @@ public static class Hud
   }
   float ReminderRow(Reminder r,float y,bool numbered=false,int index=0){
    Icon(r.Action,12,y,34);var h=Text((numbered?$"{index+1}. ":"")+r.Text,60,y,White,15,w-76);
+   if(Requirements.For(context,r.Action)!=null)h+=5+Badge(r.Action,60,y+h+5,w-76);
    if(!string.IsNullOrEmpty(r.Threshold)){h+=4+Text(r.Threshold,60,y+h+4,Violet,13,w-76);}
    return y+Math.Max(49,h+17);
   }
@@ -95,36 +115,57 @@ public static class Hud
     selectedStep=Math.Clamp(selectedStep,0,steps.Count-1);var selected=steps[selectedStep];
     y+=Text(Guide.OpenerName(context),12,y,accent,15,w-24)+13;
     var groups=Guide.OpeningGroups(context);
-    int cols=Math.Max(2,(int)((w-24)/94));float cell=(w-24)/cols;
-    for(int n=0;n<groups.Count;n++){var group=groups[n];float x=12+n%cols*cell,yy=y+n/cols*106;
+    int cols=Math.Max(2,(int)((w-24)/110));float cell=(w-24)/cols;
+    float GroupHeight(OpeningGroup group){
+     var main=RequiredHeight(group.Step.Action,cell-18);var height=61+(main>0?6+main:0);
+     if(group.Step.Weaves is {Length:>0} weaves){
+      height+=7;
+      height+=weaves.Any(id=>Requirements.For(context,id)!=null)?weaves.Sum(id=>Math.Max(21,RequiredHeight(id,cell-42))+4):21;
+     }
+     return Math.Max(99,height+14);
+    }
+    for(int start=0;start<groups.Count;start+=cols){
+     var rowHeight=groups.Skip(start).Take(cols).Max(GroupHeight);
+     for(int n=start;n<Math.Min(start+cols,groups.Count);n++){var group=groups[n];float x=12+(n-start)*cell,yy=y;
      var active=selectedStep>=group.Start&&selectedStep<group.Start+group.Count;
-     if(active)Rect(x-4,yy-3,cell-7,99,PhaseBg);
+     if(active)Rect(x-4,yy-3,cell-7,rowHeight,PhaseBg);
      Text(group.Count>1?$"{group.Start+1:00}–{group.Start+group.Count:00}":$"{group.Start+1:00}",x,yy,active?accent:Muted,12);
      Icon(group.Step.Action,x,yy+22,group.Step.Action==149?26:39,group.Step.Note);
      if(group.Count>1)Text("×"+group.Count,x+44,yy+32,accent,14);
+     var next=yy+61;
+     if(Requirements.For(context,group.Step.Action)!=null)next+=6+Badge(group.Step.Action,x,next+6,cell-18);
      if(group.Step.Weaves is {Length:>0} weaves){
-      Rect(x+3,yy+68,1,12,Muted);Rect(x+3,yy+79,10,1,Muted);
-      for(var k=0;k<weaves.Length;k++)Icon(weaves[k],x+19+k*25,yy+68,21,"À insérer après ce sort ; "+group.Step.Note);
+      next+=7;
+      if(weaves.Any(id=>Requirements.For(context,id)!=null)){
+       foreach(var id in weaves){Icon(id,x,next,21,"À insérer après ce sort ; "+group.Step.Note);var h=Badge(id,x+27,next,cell-42);next+=Math.Max(21,h)+4;}
+      }else{
+       Rect(x+3,next,1,12,Muted);Rect(x+3,next+11,10,1,Muted);
+       for(var k=0;k<weaves.Length;k++)Icon(weaves[k],x+19+k*25,next,21,"À insérer après ce sort ; "+group.Step.Note);
+      }
      }
-     if(active)Rect(x,yy+94,cell-16,2,accent);
+     if(active)Rect(x,yy+rowHeight-5,cell-16,2,accent);
      if(n%cols!=cols-1&&n<groups.Count-1)Text("→",x+cell-22,yy+32,Muted,13);
      if(selectStep!=null){
       // Native hit target for keyboard navigation as well as mouse selection.
       var restore=ImGui.GetCursorScreenPos();ImGui.SetCursorScreenPos(origin+new Vector2(x,yy)*scale);
-      if(ImGui.InvisibleButton("Étape##"+group.Start,new Vector2(cell-14,64)*scale))selectStep(group.Start);
+      if(ImGui.InvisibleButton("Étape##"+group.Start,new Vector2(cell-14,rowHeight-8)*scale))selectStep(group.Start);
       ImGui.SetCursorScreenPos(restore);
      }
+     }
+     y+=rowHeight+8;
     }
-    y+=(groups.Count+cols-1)/cols*106;
     y+=Text($"{selectedStep+1:00} · {Spells.Name(selected.Action)}",12,y,White,16,w-24)+5;
+    foreach(var id in new[]{selected.Action}.Concat(selected.Weaves??[]))if(Requirements.For(context,id) is {} required)
+     y+=Text("Prérequis · "+Spells.Name(id)+" : "+required.Detail,12,y,Required,13,w-24)+5;
     y+=Text(string.IsNullOrWhiteSpace(selected.Note)?"Reprendre la séquence ; adapter les priorités si nécessaire.":selected.Note,12,y,Muted,13,w-24)+12;
-    y+=Text("Petites icônes : aptitudes à insérer · clic : détail de l’étape",12,y,Muted,12,w-24)+10;
+    y+=Text("Encarts : prérequis théoriques · petites icônes : aptitudes à insérer · clic : détail",12,y,Muted,12,w-24)+10;
    }
   }else if(mode==Layout.Cycle){
    bool stacked=w<510;float cw=stacked?w-24:(w-48)/2;
    float Column(string label,Step[] steps,float x,float top,uint color){
     Rect(x,top,cw,3,color);top+=13+Text(label,x,top+13,color,15,cw)+13;
     foreach(var st in steps){Icon(st.Action,x,top,34);var h=Text(Spells.Name(st.Action)+(st.Count>1?$" ×{st.Count}":""),x+47,top,White,17,cw-50);
+     if(Requirements.For(context,st.Action)!=null)h+=5+Badge(st.Action,x+47,top+h+5,cw-50);
      if(st.Note.Length>0)h+=4+Text(st.Note,x+47,top+h+4,Muted,13,cw-50);
      top+=Math.Max(58,h+16);}
     return top;
@@ -134,7 +175,7 @@ public static class Hud
    y+=Text(loop,12,y,accent,15,w-24)+15;
   }else if(mode==Layout.Priorites){
    Text("BOUCLE DE BASE",12,y,Violet,14);y+=26;
-   string Sequence(Step[] seq)=>string.Join(" → ",seq.Select(x=>Spells.Name(x.Action)+(x.Count>1?$" ×{x.Count}":"")));
+   string Sequence(Step[] seq)=>string.Join(" → ",seq.Select(x=>Spells.Name(x.Action)+(x.Count>1?$" ×{x.Count}":"")+(Requirements.For(context,x.Action) is {} r?$" [{Spells.LocalizeText(r.Badge)}]":"")));
    y+=Text((plan.First+" : ")+Sequence(plan.Ice),12,y,blm?Ice:accent,15,w-24)+10;
    if(plan.Fire.Length>0)y+=Text((plan.Second+" : ")+Sequence(plan.Fire),12,y,blm?Fire:accent,15,w-24)+20;
    Rect(12,y,w-24,1,Line);y+=18;Text("PRIORITÉS CONDITIONNELLES",12,y,Violet,14);y+=29;

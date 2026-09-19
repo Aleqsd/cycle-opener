@@ -79,8 +79,8 @@ public static class Spells {
  public static string Name(uint id)=>names.GetValueOrDefault(id,Get(id).Name);
  public static void ConfigureNames(Func<uint,string?> resolve){
   names=All.Values.ToDictionary(s=>s.Id,s=>{var value=resolve(s.Id);return string.IsNullOrWhiteSpace(value)?s.Name:value;});
-  replacements=All.Values.Where(s=>s.Name!=names[s.Id]).GroupBy(s=>s.Name).ToDictionary(g=>g.Key,g=>names[g.First().Id]);
-  namePattern=replacements.Count==0?null:new System.Text.RegularExpressions.Regex(@"(?<![\p{L}])("+string.Join("|",replacements.Keys.OrderByDescending(n=>n.Length).Select(System.Text.RegularExpressions.Regex.Escape))+@")(?![\p{L}])");
+  replacements=All.Values.Where(s=>s.Name!=names[s.Id]).GroupBy(s=>s.Name.Replace('’','\'')).ToDictionary(g=>g.Key,g=>names[g.First().Id]);
+  namePattern=replacements.Count==0?null:new System.Text.RegularExpressions.Regex(@"(?<![\p{L}])("+string.Join("|",replacements.Keys.OrderByDescending(n=>n.Length).Select(n=>System.Text.RegularExpressions.Regex.Escape(n).Replace("'","['’]")))+@")(?![\p{L}])");
  }
- public static string LocalizeText(string value)=>namePattern?.Replace(value,m=>replacements[m.Value])??value;
+ public static string LocalizeText(string value)=>namePattern?.Replace(value,m=>replacements[m.Value.Replace('’','\'')])??value;
 }

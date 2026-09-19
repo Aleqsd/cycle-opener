@@ -102,3 +102,4 @@ Check(Guide.LevelHint(new(100))=="","No missing-spell hint at level cap");
 Spells.ConfigureNames(_=>null);
 Console.WriteLine($"PASS {count} total checks including grouped openers, weaving, healing sections and level hints.");
 JobChecks.Run();
+RequirementChecks.Run();

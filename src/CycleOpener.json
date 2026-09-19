@@ -2,7 +2,7 @@
   "Author": "Aleqsd",
   "Name": "Cycle & Opener",
   "InternalName": "CycleOpener",
-  "AssemblyVersion": "1.0.0.0",
+  "AssemblyVersion": "1.1.0.0",
   "Description": "Guides statiques de cycles, priorités et ouvertures par niveau. 21 jobs de combat, mono/multicible, niveau automatique ou manuel, dans une seule fenêtre. Noms des sorts dans la langue du client ; explications en français. /cycle. Sans suivi du combat.",
   "ApplicableVersion": "any",
   "DalamudApiLevel": 15,

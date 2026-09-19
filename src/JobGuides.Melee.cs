@@ -91,7 +91,7 @@ public static partial class JobGuides {
   b.Rule("Gluttony","Garder 50 Âme pour cette attaque puis consommer ses deux charges ; versions Exécuteur au niv. 96.","À chaque recharge");
   b.Rule("Enshroud",b.L>=90?"50 Linceul : alterner quatre attaques transformées, insérer la dépense de Lémures tous les deux coups, puis Communio.":"50 Linceul : cinq coups transformés ; alterner les versions mono ou répéter celle de zone.","Phase rapide");
   b.Rule("Arcane Circle","Regrouper le burst sous le bonus ; Récolte abondante devient utilisable après la préparation de 6 s au niv. 88.","120 s");
-  b.Rule("Perfectio","Après Communio, utiliser la suite avant de reprendre les coups normaux.","Effet requis");
+  b.Rule("Perfectio","Après Récolte abondante puis Communio sous son effet, utiliser la suite avant de reprendre un nouveau Linceul.","Effet requis");
   b.Add(b.Open,b.Aoe&&b.L>=35?"Whorl of Death":"Shadow of Death","Soulsow préparée hors combat si disponible");
   if(b.L>=60){b.Add(b.Open,b.Aoe&&b.L>=65?"Soul Scythe":"Soul Slice");b.Weave("Arcane Circle",b.L>=76?"Gluttony":b.Aoe&&b.L>=55?"Grim Swathe":"Blood Stalk");}
   if(b.L>=70){b.Add(b.Open,b.Aoe?b.Up("Guillotine","Executioner's Guillotine"):b.Up("Gibbet","Executioner's Gibbet"));if(b.L>=76)b.Add(b.Open,b.Aoe?b.Up("Guillotine","Executioner's Guillotine"):b.Up("Gallows","Executioner's Gallows"));}
