@@ -1,26 +1,31 @@
 namespace CycleOpener;
 public enum Layout { Focus, Ruban, Priorites, Cycle, Ouverture }
-public enum GuideJob { BlackMage, WhiteMage }
+// Persisted numeric values: append new jobs; never reorder the first two.
+public enum GuideJob { BlackMage, WhiteMage, Paladin, Warrior, DarkKnight, Gunbreaker, Scholar, Astrologian, Sage, Monk, Dragoon, Ninja, Samurai, Reaper, Viper, Bard, Machinist, Dancer, Summoner, RedMage, Pictomancer }
 public enum GuideView { Both, Cycle, Opening }
 public sealed record GuideContext(int Level = 100, int Targets = 1, bool Available = true, GuideJob Job = GuideJob.BlackMage);
 public sealed record Step(uint Action, string Note = "", int Count = 1, uint[]? Weaves = null);
 public sealed record Reminder(uint Action,string Text,string Threshold="",bool Healing=false);
-public sealed record CyclePlan(Step[] Ice,Step[] Fire,string Note);
+public sealed record CyclePlan(Step[] Ice,Step[] Fire,string Note,string First="GLACE · RÉCUPÉRER",string Second="FEU · DÉPENSER",string Loop="Reprendre depuis la glace");
 public sealed record OpeningGroup(int Start,int Count,Step Step);
 
 public static class Guide
 {
-    public static GuideJob? JobFromId(uint id)=>id switch{7 or 25=>GuideJob.BlackMage,6 or 24=>GuideJob.WhiteMage,_=>null};
-    public static string JobName(GuideJob job)=>job==GuideJob.WhiteMage?"Mage blanc":"Mage noir";
-    public static uint JobIcon(GuideJob job)=>job==GuideJob.WhiteMage?62124u:62125u;
-    public static int? MultiThreshold(GuideContext s)=>s.Job==GuideJob.WhiteMage
+    public static GuideJob? JobFromId(uint id)=>Jobs.FromId(id);
+    public static string JobName(GuideJob job)=>Jobs.Get(job).Name;
+    public static uint JobIcon(GuideJob job)=>62100u+Jobs.Get(job).Id;
+    public static int? MultiThreshold(GuideContext s)=>(int)s.Job>=2?JobGuides.For(s).AreaThreshold:s.Job==GuideJob.WhiteMage
         ?s.Level<45?null:WhiteMage.AreaThreshold(s.Level):s.Level<12?null:AreaThreshold(s.Level);
     public static string LevelHint(GuideContext s){
+        if((int)s.Job>=2){
+            var next=JobActions.For(s.Job).Select(Spells.Get).Where(x=>x.Level>s.Level).OrderBy(x=>x.Level).Take(2).Select(x=>$"{Spells.Name(x.Id)} (niv. {x.Level})");
+            var text=string.Join(" · ",next);return text.Length==0?"":"Prochains outils : "+text;
+        }
         uint[] milestones=s.Job==GuideJob.WhiteMage?[139,16531,3571,16535,16534,37009,37011]:[149,152,162,3576,3577,7422,16505,16507,25797,36989];
         var missing=milestones.Where(id=>Spells.Get(id).Level>s.Level).Take(2).Select(id=>$"{Spells.Name(id)} (niv. {Spells.Get(id).Level})");
         return s.Level>=100?"":"À ce niveau : sans "+string.Join(" · ",missing);
     }
-    public static List<Step> Opener(GuideContext s)=>s.Job==GuideJob.WhiteMage?WhiteMage.Opener(s):Opener(s.Level,s.Targets);
+    public static List<Step> Opener(GuideContext s)=>(int)s.Job>=2?JobGuides.For(s).Opening:s.Job==GuideJob.WhiteMage?WhiteMage.Opener(s):Opener(s.Level,s.Targets);
     public static List<OpeningGroup> OpeningGroups(GuideContext s){
         var steps=Opener(s);var groups=new List<OpeningGroup>();
         for(var i=0;i<steps.Count;i++){
@@ -30,11 +35,11 @@ public static class Guide
         }
         return groups;
     }
-    public static string Threshold(GuideContext s)=>s.Job==GuideJob.WhiteMage?WhiteMage.Threshold(s):s.Level<12?"Pas de cycle de zone avant le niveau 12.":s.Level>=100?"ZONE : 2 cibles · Giga Glace à 2 / Gel à 3+":s.Targets==2?"2 cibles : base mono · zone complète dès 3+":"ZONE : au moins 3 cibles regroupées";
+    public static string Threshold(GuideContext s)=>(int)s.Job>=2?JobGuides.For(s).Threshold:s.Job==GuideJob.WhiteMage?WhiteMage.Threshold(s):s.Level<12?"Pas de cycle de zone avant le niveau 12.":s.Level>=100?"ZONE : 2 cibles · Giga Glace à 2 / Gel à 3+":s.Targets==2?"2 cibles : base mono · zone complète dès 3+":"ZONE : au moins 3 cibles regroupées";
     // Reference sheets only: no gauge, target, cooldown or next-action engine.
     public static int AreaThreshold(int level) => level >= 100 ? 2 : 3;
     public static bool Area(GuideContext s) => s.Level >= 12 && s.Targets >= AreaThreshold(s.Level);
-    public static string Mode(GuideContext s) => s.Targets == 1 ? "MONOCIBLE" : s.Targets == 2 ? "2 CIBLES" : $"{s.Targets}+ CIBLES";
+    public static string Mode(GuideContext s) => s.Targets == 1 ? "MONOCIBLE" : $"{s.Targets} CIBLES";
     public static uint Thunder(int level,bool area) => area && level>=26
         ? level>=92?36987u:level>=64?7420u:7447u : level>=92?36986u:level>=45?153u:144u;
     public static uint Poly(int level,int targets) => level>=80 && targets==1?16507u:7422u;
@@ -42,6 +47,7 @@ public static class Guide
     public static string Band(int level) => level<12?"1–11":level<18?"12–17":level<35?"18–34":level<40?"35–39":level<50?"40–49":level<58?"50–57":level<60?"58–59":level<72?"60–71":level<90?"72–89":level<100?"90–99":"100";
     public static CyclePlan Cycle(GuideContext s)
     {
+        if((int)s.Job>=2)return JobGuides.For(s).Cycle;
         if(s.Job==GuideJob.WhiteMage)return WhiteMage.Cycle(s);
         var l=s.Level;
         if(l is <1 or >100)return new([],[],"Niveau non pris en charge.");
@@ -75,6 +81,7 @@ public static class Guide
     }
     public static List<Reminder> Reminders(GuideContext s)
     {
+        if((int)s.Job>=2)return JobGuides.For(s).Priorities;
         if(s.Job==GuideJob.WhiteMage)return WhiteMage.Reminders(s);
         var r=new List<Reminder>();
         if(s.Level>=6)r.Add(new(Thunder(s.Level,AreaThunder(s)),"Foudre : renouveler à moins de 3 s, avec Électrifié. Éviter si la cible va mourir."+(s.Targets==2&&!AreaThunder(s)?" Alterner entre les deux cibles.":""),AreaThunder(s)&&s.Level>=26?"2+ cibles":"Par cible"));
@@ -110,7 +117,7 @@ public static class Guide
         }
         return result.Where(x=>Spells.Get(x.Action).Level<=level).ToList();
     }
-    public static string OpenerName(GuideContext s)=>s.Job==GuideJob.WhiteMage?WhiteMage.OpenerName(s):Area(s)?"DÉPART MULTICIBLE":s.Level==100&&s.Targets==1?"OUVERTURE 5 + 7":"DÉPART SIMPLE";
+    public static string OpenerName(GuideContext s)=>(int)s.Job>=2?"DÉPART PÉDAGOGIQUE · "+(s.Targets==1?"MONO":"PACK"):s.Job==GuideJob.WhiteMage?WhiteMage.OpenerName(s):Area(s)?"DÉPART MULTICIBLE":s.Level==100&&s.Targets==1?"OUVERTURE 5 + 7":"DÉPART SIMPLE";
 }
 public sealed class SyncPromptPolicy
 {

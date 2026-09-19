@@ -1,45 +1,48 @@
-# Validation locale — 0.3.0
+# Validation locale — 1.0.0
 
-19 septembre 2026. Compilation locale réussie, **aucun essai FFXIV effectué**. Ces contrôles ne prouvent pas que la DLL est chargée dans le jeu.
+19 septembre 2026. Compilation locale réussie, **aucun essai FFXIV effectué pour cette version**. Ces contrôles ne prouvent pas que la DLL est chargée dans le jeu.
 
 ## Reproduire
 
-Prérequis : Windows, SDK .NET 10.0.400, assemblies Dalamud API 15 dans le répertoire Hooks/dev de XIVLauncher. Aucun package NuGet externe requis pour le plugin ou les contrôles métier.
+Windows, SDK .NET 10.0.400, assemblies Dalamud API 15 dans le répertoire Hooks/dev de XIVLauncher. Aucun package NuGet externe requis pour le plugin ou les contrôles métier.
 
 ```powershell
 ./build.ps1
 ```
 
-Sur ce poste, le SDK partagé a été explicitement sélectionné :
+Commandes vérifiées sur le poste de développement :
 
 ```powershell
+python tools/import-actions.py
 ./build.ps1 -Dotnet ../.tools/dotnet/dotnet.exe
 ./tools/render.ps1 -Dotnet ../.tools/dotnet/dotnet.exe
 python -m http.server 8742 --bind 127.0.0.1 --directory preview
 ```
 
-`-DalamudHome` permet de fournir un autre répertoire d’assemblies. Le SDK partagé n’est pas une dépendance du dépôt. Les rendus nécessitent également Python, Pillow, beautifulsoup4, une connexion au guide officiel pour son cache local d’icônes et le cimgui.dll fourni par Dalamud. Le plugin compilé n’utilise pas ces outils.
+`-DalamudHome` accepte un autre répertoire d’assemblies. Le SDK partagé est facultatif. Les rendus utilisent Python et Pillow pour leur cache local d’icônes XIVAPI, puis cimgui.dll fourni par Dalamud. Le plugin compilé n’utilise pas ces outils ni le réseau. Les imports sont versionnés et reproductibles depuis la révision épinglée, avec empreintes des CSV.
 
 ## Résultats
 
-- Compilation Release : zéro erreur, zéro avertissement. DLL version 0.3.0.0.
-- 29 065 assertions métier : niveaux 1–100 et 1–8 cibles pour les deux jobs, disponibilité des sorts, paliers, seuils WHM à 45/72, séquences d’ouverture, noms anglais et annotations, repli français, liens des sources et politique de popup : sortie pendant chargement, retour en ville, autre téléportation, synchronisation en monde ouvert, hausse de niveau et retour dans un autre donjon. Ce chiffre compte les invariants parcourus, pas des scénarios manuels indépendants.
-- 150 assertions de panneaux : migrations v1/v2, sauvegarde/rechargement, mode manuel et bornes, disponibilité hors ligne. Clics natifs sur l’en-tête intégré : fermeture verrouillée et repliée, accès aux réglages, repli/dépli et conservation de taille, verrouillage, cible, vues sans perte de l’étape de lecture, niveau + et sélection des étapes. Vérification de la restauration des styles après le guide.
-- 215 rendus natifs ImGui de la version : cinq niveaux, trois profils de cibles et cinq vues pour chacun des deux jobs ; panneau complet, clients français/anglais, largeur minimale, repli, soins, pied de fiche, réglages et popup à 100/150/200 %. Six rendus supplémentaires couvrent le minimum 320 × 560 en mode manuel anglais, soit **221 rendus** sans défilement horizontal.
-- Inspection visuelle : guide BLM et WHM complet, petites icônes d’aptitudes, répétitions, icônes de jobs, mode manuel anglais à petite largeur et 150/200 %, soins WHM dépliés, pied de fiche avec tous les liens à 200 %, panneau replié et réglages à largeur minimale. Les captures utilisent Segoe UI ; Expressway n’est pas installée.
-- Les règles de regroupement préservent chaque action et son ordre sur les deux jobs, tous les niveaux et les profils 1/2/3 cibles. Les étapes avec condition ou insertion restent séparées. Disponibilité des aptitudes intercalées vérifiée à chaque palier, avec cas précis d’ouverture BLM/WHM. Les soins sont séparés des dégâts sans déplacer Assises hors des priorités de dégâts. Repères de niveau vérifiés en anglais.
-- La galerie web sert uniquement à parcourir les rendus : ce n’est pas un test des interactions du plugin. Aucun nouveau contrôle en jeu ni essai Expressway n’a été effectué.
+- Release : zéro erreur, zéro avertissement ; assembly **1.0.0.0**.
+- **505 950 assertions métier** : 81 903 contrôles existants/généralisés et 424 047 contrôles des jobs importés. Parcours des 21 jobs × niveaux 1–100 × 1–8 cibles ; actions et aptitudes débloquées, listes non vides, classes de départ, valeurs sauvegardées BLM/WHM conservées, exclusion du Mage bleu, noms anglais, paliers de zone et regroupement des étapes. Ce nombre compte les invariants parcourus, pas autant de scénarios indépendants.
+- Régressions ciblées : pas de cartouche inventée pour le combo de zone GNB au niveau 30 ; Faucheur bas niveau commençant par le premier coup ; Pictomancien rouge/vert/bleu ; Tendo au niveau 100 seulement ; surchauffe MCH préparée avant les tirs au niveau 66 ; pas d’attaque enchantée RDM au niveau 1 avant la génération de mana.
+- **175 assertions natives de panneaux** : migration v1/v2 vers une seule fenêtre, persistance des 21 jobs et de huit cibles, Auto/Manuel, bornes de niveau, fermeture verrouillée/repliée sans réglages, repli et taille, accès aux réglages, étape de lecture, styles restaurés. Clics réels cimgui sur la liste des jobs pour sélectionner Paladin et sur le menu des cibles pour passer de trois à huit.
+- **2 273 vues ImGui** dans la matrice : 21 jobs, cinq niveaux, trois profils de cibles, cinq affichages ; guides français/anglais, largeur normale/minimale, hauteur minimale, soins/protections, repli, réglages et popup à 100/150/200 %. Aucun défilement horizontal détecté. Les images concernées sont régénérées après les dernières corrections de texte.
+- Inspection visuelle de plusieurs familles : guide Paladin, Pictomancien et Rôdeur vipère, soins Érudit, Chevalier dragon anglais à largeur minimale et échelle 200 %, réglages Astromancien à 150 %. Les longs noms passent à la ligne ; les commandes restent accessibles. Police d’aperçu Segoe UI ; Expressway absente.
+- Galerie locale : titre 1.0.0, 21 choix, sélection Pictomancien → anglais puis Chevalier dragon → minimum → 200 %. La capture et les sources changent avec le job. Contrôle Playwright à 1440 × 1080 et 390 × 844 : page non vide, images chargées, pas de débordement horizontal, pas d’overlay d’erreur, console sans erreur après correction du favicon absent. Le plugin Browser n’étant pas disponible, les outils Playwright ont été utilisés. La galerie ne teste pas les interactions en jeu.
 
-Les contrôles des boutons utilisent le code des panneaux et cimgui, hors jeu, avant chaque génération des images. Rendus dans `preview/renders/`, métriques dans `.artifacts/render-metrics.json`. La page locale présente ces images ; ses contrôles permettent de choisir une capture, sans simuler un personnage connecté.
+Les métriques locales se trouvent dans `.artifacts/render-metrics.json`, les images dans `preview/renders/`. Ces caches de travail sont ignorés par Git. Le README contient deux captures réelles du code ImGui hors jeu.
 
-Les sources du Mage blanc ont été recoupées avec les guides officiel, Icy Veins et The Balance. Le schéma d’ouverture standard a été inspecté visuellement. Les règles restent une aide pédagogique statique et ne sont pas une certification d’optimalité de chaque situation.
+Les règles et seuils sont une adaptation pédagogique des [sources par job](JOBS.md), avec des contrôles d’actions officiels et des régressions de ressources. Les tests ne simulent pas tout le moteur de combat et ne certifient pas l’optimalité des rotations.
 
 ## Livrables
 
-`build.ps1` copie et vérifie la DLL dans `plugin/` et `releases/0.3.0/`, avec le manifeste, l’icône originale et la licence. Le ZIP utilise une liste explicite de ces quatre fichiers et ses SHA256 sont écrits dans `releases/SHA256SUMS.txt`. Seul `plugin/CycleOpener.dll` est le chemin stable à renseigner dans Dev Plugin Locations. Conserver une seule entrée active pour ce plugin. Le chemin de l’assembly réellement chargé est disponible dans Diagnostic et dans le journal du plugin.
+`build.ps1` copie la même DLL vérifiée dans `plugin/` et `releases/1.0.0/`. Le ZIP contient exactement quatre fichiers : DLL, manifeste, icône originale, licence. Aucune texture de jeu, police, assembly Dalamud, donnée locale ou dépendance de build. Les empreintes sont dans `releases/SHA256SUMS.txt`.
+
+Seul `plugin/CycleOpener.dll` est le chemin stable à renseigner dans Dev Plugin Locations. Garder une seule installation active. Le chemin de l’assembly effectivement chargé reste consultable dans Diagnostic et dans le journal du plugin.
 
 ## À confirmer en jeu
 
-Chargement/déchargement API 15, icônes locales, police Dalamud et Expressway si installée, interaction avec les étapes, déplacement par l’en-tête, redimensionnement, fermeture/recentrage/verrouillage/repli du guide, touche Échap après fermeture des réglages, échelle globale, sauvegarde puis rechargement des réglages et de la position du guide. Vérifier les clients français et anglais avec leurs ressources locales. Expressway n’est pas installée sur le poste de validation. Vérifier les changements de job, déconnexion, entrée/sortie de donjon et synchronisation réelle, absence de popup en ville et dans les transitions après sortie, popup différée après chargement/combat/cinématique, refus et désactivation persistante. Vérifier que l’apparence du guide n’affecte jamais les réglages.
+Chargement/déchargement API 15, ressources locales FR/EN, police Dalamud et Expressway, clics/Échap après fermeture des réglages, déplacement, redimensionnement et restauration de position. Vérifier les changements de job, reconnexion, synchronisation réelle, entrée/sortie de donjon, refus et désactivation de la proposition, popup différée après chargement/combat/cinématique et absence de popup en ville. Vérifier que l’apparence du guide laisse les réglages fixes.
 
-Les contrôles statiques ne certifient ni l’optimalité de toutes les rotations ni l’intégration native. Les nouvelles valeurs de niveaux ou changements de patch nécessitent une révision des sources.
+L’intégration native et les essais personnels en combat restent à effectuer. Les changements de patch nécessitent une révision des fiches et de leurs sources.

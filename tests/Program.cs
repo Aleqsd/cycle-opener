@@ -51,7 +51,7 @@ Check(WhiteMage.Area(new(72,3,Job:GuideJob.WhiteMage)),"Holy at three targets fr
 var whmOpener=Guide.Opener(new(Job:GuideJob.WhiteMage));
 Check(whmOpener.Select(s=>s.Action).SequenceEqual(new uint[]{25859,16532,25859,25859,37009,16535,37009,37009,25859,25859,25859,25859,25859,16532}),"WHM standard early DoT refresh opener");
 Check(whmOpener[5].Note.Contains("sinon"),"WHM opener requires ready Blood Lily");
-Check(Guide.JobFromId(6)==GuideJob.WhiteMage&&Guide.JobFromId(24)==GuideJob.WhiteMage&&Guide.JobFromId(7)==GuideJob.BlackMage&&Guide.JobFromId(25)==GuideJob.BlackMage&&Guide.JobFromId(1)==null,"Locale independent job IDs");
+Check(Guide.JobFromId(6)==GuideJob.WhiteMage&&Guide.JobFromId(24)==GuideJob.WhiteMage&&Guide.JobFromId(7)==GuideJob.BlackMage&&Guide.JobFromId(25)==GuideJob.BlackMage&&Guide.JobFromId(1)==GuideJob.Paladin,"Locale independent job IDs");
 Spells.ConfigureNames(id=>Spells.Get(id).EnglishName);
 Check(Spells.Name(25859)=="Glare III"&&Spells.Name(3577)=="Fire IV","English spell names");
 Check(Spells.LocalizeText("Insérer Présence d'esprit puis Assises")=="Insérer Presence of Mind puis Assize","English names in notes");
@@ -87,7 +87,7 @@ foreach(var job in Enum.GetValues<GuideJob>())for(var level=1;level<=100;level++
   Check(group.Count==1||(group.Step.Note.Length==0&&(group.Step.Weaves?.Length??0)==0),"Conditional steps and weaving never disappear into a repetition");
   foreach(var action in group.Step.Weaves??[])Check(Spells.Get(action).Level<=level,"Weaving is available at displayed level");
  }
- Check(Guide.Reminders(context).Where(r=>r.Healing).All(r=>job==GuideJob.WhiteMage),"Healing reminders only apply to WHM");
+ Check(Guide.Reminders(context).Where(r=>r.Healing).All(r=>Jobs.Healer(job)||Jobs.Tank(job)),"Support reminders only apply to healers and tanks");
 }
 Check(Guide.Opener(new())[1].Weaves!.SequenceEqual(new uint[]{7561,25796}),"BLM Swiftcast then Amplifier after Thunder");
 Check(Guide.Opener(new())[18].Weaves!.SequenceEqual(new uint[]{149,7421}),"BLM Transpose then Triplecast after Despair");
@@ -101,3 +101,4 @@ Check(Guide.LevelHint(new(50)).Contains("Blizzard IV")&&!Guide.LevelHint(new(50)
 Check(Guide.LevelHint(new(100))=="","No missing-spell hint at level cap");
 Spells.ConfigureNames(_=>null);
 Console.WriteLine($"PASS {count} total checks including grouped openers, weaving, healing sections and level hints.");
+JobChecks.Run();

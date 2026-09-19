@@ -2,8 +2,8 @@
   "Author": "Aleqsd",
   "Name": "Cycle & Opener",
   "InternalName": "CycleOpener",
-  "AssemblyVersion": "0.3.0.0",
-  "Description": "Guides statiques de cycles, priorités et ouvertures par niveau. Mage noir et Mage blanc, mono/multicible, niveau automatique ou manuel, dans une seule fenêtre. Noms des sorts dans la langue du client ; explications en français. /cycle. Sans suivi du combat.",
+  "AssemblyVersion": "1.0.0.0",
+  "Description": "Guides statiques de cycles, priorités et ouvertures par niveau. 21 jobs de combat, mono/multicible, niveau automatique ou manuel, dans une seule fenêtre. Noms des sorts dans la langue du client ; explications en français. /cycle. Sans suivi du combat.",
   "ApplicableVersion": "any",
   "DalamudApiLevel": 15,
   "Tags": [
@@ -13,7 +13,7 @@
     "black mage",
     "white mage"
   ],
-  "Punchline": "Cycles et ouvertures par niveau : Mage noir et Mage blanc.",
+  "Punchline": "Cycles et ouvertures par niveau pour 21 jobs de combat.",
   "RepoUrl": "https://github.com/Aleqsd/cycle-opener",
   "IconUrl": "https://raw.githubusercontent.com/Aleqsd/cycle-opener/main/assets/icon.png",
   "ImageUrls": [

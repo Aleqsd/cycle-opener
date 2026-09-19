@@ -1,0 +1,5251 @@
+{
+  "revision": "d71de329cc6ed30c6fb16b9108cdf7d29c653302",
+  "url": "https://github.com/xivapi/ffxiv-datamining/tree/d71de329cc6ed30c6fb16b9108cdf7d29c653302",
+  "imported": "2026-09-19",
+  "csvSha256": {
+    "en": "2e10eb72eb961434893672215e29df98d39a909cc31d01629b95da9f656433db",
+    "fr": "0e79593c601052dd03f94e75d9bda841fda9494c4e4d712b497d1a05b9019f76"
+  },
+  "actions": [
+    {
+      "job": "Summoner",
+      "key": "Aethercharge",
+      "id": 25800,
+      "name": "Infusion d'éther",
+      "englishName": "Aethercharge",
+      "level": 6,
+      "icon": 2751,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Astral Flare",
+      "id": 25821,
+      "name": "Brasier astral",
+      "englishName": "Astral Flare",
+      "level": 58,
+      "icon": 2758,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Astral Flow",
+      "id": 25822,
+      "name": "Flux astral",
+      "englishName": "Astral Flow",
+      "level": 60,
+      "icon": 2759,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Astral Impulse",
+      "id": 25820,
+      "name": "Pulsar astral",
+      "englishName": "Astral Impulse",
+      "level": 58,
+      "icon": 2757,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Deathflare",
+      "id": 3582,
+      "name": "Brasier de mort",
+      "englishName": "Deathflare",
+      "level": 60,
+      "icon": 2685,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Dreadwyrm Trance",
+      "id": 3581,
+      "name": "Transe-Bahamut",
+      "englishName": "Dreadwyrm Trance",
+      "level": 58,
+      "icon": 2684,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Energy Drain",
+      "id": 16508,
+      "name": "Aspiration d'énergie",
+      "englishName": "Energy Drain",
+      "level": 10,
+      "icon": 514,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Enkindle Bahamut",
+      "id": 7429,
+      "name": "Galvanisation Bahamut",
+      "englishName": "Enkindle Bahamut",
+      "level": 70,
+      "icon": 2693,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Enkindle Solar Bahamut",
+      "id": 36998,
+      "name": "Galvanisation Sol Bahamut",
+      "englishName": "Enkindle Solar Bahamut",
+      "level": 100,
+      "icon": 2788,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Fester",
+      "id": 181,
+      "name": "Suppuration",
+      "englishName": "Fester",
+      "level": 10,
+      "icon": 2676,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Gemshine",
+      "id": 25883,
+      "name": "Éclat des gemmes",
+      "englishName": "Gemshine",
+      "level": 6,
+      "icon": 2777,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Necrotize",
+      "id": 36990,
+      "name": "Nécrose",
+      "englishName": "Necrotize",
+      "level": 92,
+      "icon": 2699,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Outburst",
+      "id": 16511,
+      "name": "Fracas élémentaire",
+      "englishName": "Outburst",
+      "level": 26,
+      "icon": 2698,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Painflare",
+      "id": 3578,
+      "name": "Brasier de peine",
+      "englishName": "Painflare",
+      "level": 40,
+      "icon": 2681,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Precious Brilliance",
+      "id": 25884,
+      "name": "Resplendissement des gemmes",
+      "englishName": "Precious Brilliance",
+      "level": 26,
+      "icon": 2778,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Ruin",
+      "id": 163,
+      "name": "Ruine",
+      "englishName": "Ruin",
+      "level": 1,
+      "icon": 501,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Ruin II",
+      "id": 172,
+      "name": "Extra Ruine",
+      "englishName": "Ruin II",
+      "level": 30,
+      "icon": 502,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Ruin III",
+      "id": 3579,
+      "name": "Méga Ruine",
+      "englishName": "Ruin III",
+      "level": 54,
+      "icon": 2682,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Searing Flash",
+      "id": 36991,
+      "name": "Étoile ardente",
+      "englishName": "Searing Flash",
+      "level": 96,
+      "icon": 2781,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Searing Light",
+      "id": 25801,
+      "name": "Éclat ardent",
+      "englishName": "Searing Light",
+      "level": 66,
+      "icon": 2780,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Bahamut",
+      "id": 7427,
+      "name": "Invocation Bahamut",
+      "englishName": "Summon Bahamut",
+      "level": 70,
+      "icon": 2691,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Emerald",
+      "id": 25804,
+      "name": "Invocation Émeraude",
+      "englishName": "Summon Emerald",
+      "level": 22,
+      "icon": 2754,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Garuda",
+      "id": 25807,
+      "name": "Invocation Garuda",
+      "englishName": "Summon Garuda",
+      "level": 45,
+      "icon": 2756,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Garuda II",
+      "id": 25840,
+      "name": "Invocation Garuda II",
+      "englishName": "Summon Garuda II",
+      "level": 90,
+      "icon": 2774,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Ifrit",
+      "id": 25805,
+      "name": "Invocation Ifrit",
+      "englishName": "Summon Ifrit",
+      "level": 30,
+      "icon": 2680,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Ifrit II",
+      "id": 25838,
+      "name": "Invocation Ifrit II",
+      "englishName": "Summon Ifrit II",
+      "level": 90,
+      "icon": 2772,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Phoenix",
+      "id": 25831,
+      "name": "Invocation Phénix",
+      "englishName": "Summon Phoenix",
+      "level": 80,
+      "icon": 2765,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Ruby",
+      "id": 25802,
+      "name": "Invocation Rubis",
+      "englishName": "Summon Ruby",
+      "level": 6,
+      "icon": 2753,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Solar Bahamut",
+      "id": 36992,
+      "name": "Invocation Sol-Bahamut",
+      "englishName": "Summon Solar Bahamut",
+      "level": 100,
+      "icon": 2782,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Titan",
+      "id": 25806,
+      "name": "Invocation Titan",
+      "englishName": "Summon Titan",
+      "level": 35,
+      "icon": 2755,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Titan II",
+      "id": 25839,
+      "name": "Invocation Titan II",
+      "englishName": "Summon Titan II",
+      "level": 90,
+      "icon": 2773,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Summon Topaz",
+      "id": 25803,
+      "name": "Invocation Topaze",
+      "englishName": "Summon Topaz",
+      "level": 15,
+      "icon": 517,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Sunflare",
+      "id": 36996,
+      "name": "Brasier solaire",
+      "englishName": "Sunflare",
+      "level": 100,
+      "icon": 2786,
+      "category": 4
+    },
+    {
+      "job": "Summoner",
+      "key": "Tri-disaster",
+      "id": 25826,
+      "name": "Tri-désastre",
+      "englishName": "Tri-disaster",
+      "level": 74,
+      "icon": 2763,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Umbral Flare",
+      "id": 36995,
+      "name": "Brasier ombral",
+      "englishName": "Umbral Flare",
+      "level": 100,
+      "icon": 2785,
+      "category": 2
+    },
+    {
+      "job": "Summoner",
+      "key": "Umbral Impulse",
+      "id": 36994,
+      "name": "Pulsar ombral",
+      "englishName": "Umbral Impulse",
+      "level": 100,
+      "icon": 2784,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Acceleration",
+      "id": 7518,
+      "name": "Accélération",
+      "englishName": "Acceleration",
+      "level": 50,
+      "icon": 3214,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Contre Sixte",
+      "id": 7519,
+      "name": "Contre de sixte",
+      "englishName": "Contre Sixte",
+      "level": 56,
+      "icon": 3217,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Embolden",
+      "id": 7520,
+      "name": "Enhardissement",
+      "englishName": "Embolden",
+      "level": 58,
+      "icon": 3218,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Moulinet",
+      "id": 7530,
+      "name": "Moulinet enchanté",
+      "englishName": "Enchanted Moulinet",
+      "level": 52,
+      "icon": 3228,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Moulinet Deux",
+      "id": 37002,
+      "name": "Deuxième Moulinet",
+      "englishName": "Enchanted Moulinet Deux",
+      "level": 52,
+      "icon": 3239,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Moulinet Trois",
+      "id": 37003,
+      "name": "Troisième Moulinet",
+      "englishName": "Enchanted Moulinet Trois",
+      "level": 52,
+      "icon": 3240,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Redoublement",
+      "id": 7529,
+      "name": "Redoublement enchanté",
+      "englishName": "Enchanted Redoublement",
+      "level": 50,
+      "icon": 3227,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Riposte",
+      "id": 7527,
+      "name": "Riposte enchantée",
+      "englishName": "Enchanted Riposte",
+      "level": 1,
+      "icon": 3225,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Enchanted Zwerchhau",
+      "id": 7528,
+      "name": "Zwerchhau enchanté",
+      "englishName": "Enchanted Zwerchhau",
+      "level": 35,
+      "icon": 3226,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Fleche",
+      "id": 7517,
+      "name": "Flèche",
+      "englishName": "Fleche",
+      "level": 45,
+      "icon": 3212,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Impact",
+      "id": 16526,
+      "name": "Impact",
+      "englishName": "Impact",
+      "level": 66,
+      "icon": 3222,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Jolt",
+      "id": 7503,
+      "name": "À-coup",
+      "englishName": "Jolt",
+      "level": 2,
+      "icon": 3202,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Jolt II",
+      "id": 7524,
+      "name": "Extra À-coup",
+      "englishName": "Jolt II",
+      "level": 62,
+      "icon": 3220,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Jolt III",
+      "id": 37004,
+      "name": "Méga À-coup",
+      "englishName": "Jolt III",
+      "level": 84,
+      "icon": 3241,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Manafication",
+      "id": 7521,
+      "name": "Manafication",
+      "englishName": "Manafication",
+      "level": 60,
+      "icon": 3219,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Prefulgence",
+      "id": 37007,
+      "name": "Syncristallisation",
+      "englishName": "Prefulgence",
+      "level": 100,
+      "icon": 3244,
+      "category": 4
+    },
+    {
+      "job": "RedMage",
+      "key": "Resolution",
+      "id": 25858,
+      "name": "Résolution",
+      "englishName": "Resolution",
+      "level": 90,
+      "icon": 3238,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Riposte",
+      "id": 7504,
+      "name": "Riposte",
+      "englishName": "Riposte",
+      "level": 1,
+      "icon": 3201,
+      "category": 3
+    },
+    {
+      "job": "RedMage",
+      "key": "Scatter",
+      "id": 7509,
+      "name": "Éparpillement",
+      "englishName": "Scatter",
+      "level": 15,
+      "icon": 3207,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Scorch",
+      "id": 16530,
+      "name": "Calcination",
+      "englishName": "Scorch",
+      "level": 80,
+      "icon": 3234,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Veraero",
+      "id": 7507,
+      "name": "VerVent",
+      "englishName": "Veraero",
+      "level": 10,
+      "icon": 3205,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Veraero II",
+      "id": 16525,
+      "name": "Extra VerVent",
+      "englishName": "Veraero II",
+      "level": 22,
+      "icon": 3230,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Veraero III",
+      "id": 25856,
+      "name": "Méga VerVent",
+      "englishName": "Veraero III",
+      "level": 82,
+      "icon": 3236,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verfire",
+      "id": 7510,
+      "name": "VerFeu",
+      "englishName": "Verfire",
+      "level": 26,
+      "icon": 3208,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verflare",
+      "id": 7525,
+      "name": "VerBrasier",
+      "englishName": "Verflare",
+      "level": 68,
+      "icon": 3223,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verholy",
+      "id": 7526,
+      "name": "VerMiracle",
+      "englishName": "Verholy",
+      "level": 70,
+      "icon": 3224,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verstone",
+      "id": 7511,
+      "name": "VerTerre",
+      "englishName": "Verstone",
+      "level": 30,
+      "icon": 3209,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verthunder",
+      "id": 7505,
+      "name": "VerFoudre",
+      "englishName": "Verthunder",
+      "level": 4,
+      "icon": 3203,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verthunder II",
+      "id": 16524,
+      "name": "Extra VerFoudre",
+      "englishName": "Verthunder II",
+      "level": 18,
+      "icon": 3229,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Verthunder III",
+      "id": 25855,
+      "name": "Méga VerFoudre",
+      "englishName": "Verthunder III",
+      "level": 82,
+      "icon": 3235,
+      "category": 2
+    },
+    {
+      "job": "RedMage",
+      "key": "Vice of Thorns",
+      "id": 37005,
+      "name": "Épine croisée",
+      "englishName": "Vice of Thorns",
+      "level": 92,
+      "icon": 3242,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Aero II in Green",
+      "id": 34657,
+      "name": "Extra Vent en vert",
+      "englishName": "Aero II in Green",
+      "level": 35,
+      "icon": 3808,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Aero in Green",
+      "id": 34651,
+      "name": "Vent en vert",
+      "englishName": "Aero in Green",
+      "level": 5,
+      "icon": 3802,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Blizzard II in Cyan",
+      "id": 34659,
+      "name": "Extra Glace en cyan",
+      "englishName": "Blizzard II in Cyan",
+      "level": 60,
+      "icon": 3810,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Blizzard in Cyan",
+      "id": 34653,
+      "name": "Glace en cyan",
+      "englishName": "Blizzard in Cyan",
+      "level": 60,
+      "icon": 3804,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Comet in Black",
+      "id": 34663,
+      "name": "Comète en noir",
+      "englishName": "Comet in Black",
+      "level": 90,
+      "icon": 3814,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Fire II in Red",
+      "id": 34656,
+      "name": "Extra Feu en rouge",
+      "englishName": "Fire II in Red",
+      "level": 25,
+      "icon": 3807,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Fire in Red",
+      "id": 34650,
+      "name": "Feu en rouge",
+      "englishName": "Fire in Red",
+      "level": 1,
+      "icon": 3801,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Hammer Brush",
+      "id": 34679,
+      "name": "Brossage Marteau",
+      "englishName": "Hammer Brush",
+      "level": 86,
+      "icon": 3830,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Hammer Stamp",
+      "id": 34678,
+      "name": "Tamponnage Marteau",
+      "englishName": "Hammer Stamp",
+      "level": 50,
+      "icon": 3829,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Holy in White",
+      "id": 34662,
+      "name": "Miracle en blanc",
+      "englishName": "Holy in White",
+      "level": 80,
+      "icon": 3813,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Living Muse",
+      "id": 35347,
+      "name": "Imagi Animal",
+      "englishName": "Living Muse",
+      "level": 30,
+      "icon": 3842,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Polishing Hammer",
+      "id": 34680,
+      "name": "Finition Marteau",
+      "englishName": "Polishing Hammer",
+      "level": 86,
+      "icon": 3831,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Pom Muse",
+      "id": 34670,
+      "name": "Imagi Pompon",
+      "englishName": "Pom Muse",
+      "level": 30,
+      "icon": 3821,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Rainbow Drip",
+      "id": 34688,
+      "name": "Gouttes arc-en-ciel",
+      "englishName": "Rainbow Drip",
+      "level": 92,
+      "icon": 3838,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Star Prism",
+      "id": 34681,
+      "name": "Prisme d'étoiles",
+      "englishName": "Star Prism",
+      "level": 100,
+      "icon": 3832,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Starry Muse",
+      "id": 34675,
+      "name": "Imagi Ciel",
+      "englishName": "Starry Muse",
+      "level": 70,
+      "icon": 3826,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Steel Muse",
+      "id": 35348,
+      "name": "Imagi Arme",
+      "englishName": "Steel Muse",
+      "level": 50,
+      "icon": 3843,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Stone II in Yellow",
+      "id": 34660,
+      "name": "Extra Terre en jaune",
+      "englishName": "Stone II in Yellow",
+      "level": 60,
+      "icon": 3811,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Stone in Yellow",
+      "id": 34654,
+      "name": "Terre en jaune",
+      "englishName": "Stone in Yellow",
+      "level": 60,
+      "icon": 3805,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Striking Muse",
+      "id": 34674,
+      "name": "Imagi Marteau",
+      "englishName": "Striking Muse",
+      "level": 50,
+      "icon": 3825,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Subtractive Palette",
+      "id": 34683,
+      "name": "Palette soustractive",
+      "englishName": "Subtractive Palette",
+      "level": 60,
+      "icon": 3833,
+      "category": 4
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Thunder II in Magenta",
+      "id": 34661,
+      "name": "Extra Foudre en magenta",
+      "englishName": "Thunder II in Magenta",
+      "level": 60,
+      "icon": 3812,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Thunder in Magenta",
+      "id": 34655,
+      "name": "Foudre en magenta",
+      "englishName": "Thunder in Magenta",
+      "level": 60,
+      "icon": 3806,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Water II in Blue",
+      "id": 34658,
+      "name": "Extra Eau en bleu",
+      "englishName": "Water II in Blue",
+      "level": 45,
+      "icon": 3809,
+      "category": 2
+    },
+    {
+      "job": "Pictomancer",
+      "key": "Water in Blue",
+      "id": 34652,
+      "name": "Eau en bleu",
+      "englishName": "Water in Blue",
+      "level": 15,
+      "icon": 3803,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Atonement",
+      "id": 16460,
+      "name": "Absolution",
+      "englishName": "Atonement",
+      "level": 76,
+      "icon": 2519,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Blade of Faith",
+      "id": 25748,
+      "name": "Lame de foi",
+      "englishName": "Blade of Faith",
+      "level": 90,
+      "icon": 2952,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Blade of Honor",
+      "id": 36922,
+      "name": "Lame d'honneur",
+      "englishName": "Blade of Honor",
+      "level": 100,
+      "icon": 2956,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Blade of Truth",
+      "id": 25749,
+      "name": "Lame de vérité",
+      "englishName": "Blade of Truth",
+      "level": 90,
+      "icon": 2953,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Blade of Valor",
+      "id": 25750,
+      "name": "Lame de vaillance",
+      "englishName": "Blade of Valor",
+      "level": 90,
+      "icon": 2954,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Circle of Scorn",
+      "id": 23,
+      "name": "Cercle du destin",
+      "englishName": "Circle of Scorn",
+      "level": 50,
+      "icon": 161,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Confiteor",
+      "id": 16459,
+      "name": "Confiteor",
+      "englishName": "Confiteor",
+      "level": 80,
+      "icon": 2518,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Expiacion",
+      "id": 25747,
+      "name": "Expiation",
+      "englishName": "Expiacion",
+      "level": 86,
+      "icon": 2951,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Fast Blade",
+      "id": 9,
+      "name": "Lame rapide",
+      "englishName": "Fast Blade",
+      "level": 1,
+      "icon": 158,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Fight or Flight",
+      "id": 20,
+      "name": "Combat acharné",
+      "englishName": "Fight or Flight",
+      "level": 2,
+      "icon": 166,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Goring Blade",
+      "id": 3538,
+      "name": "Lame étripante",
+      "englishName": "Goring Blade",
+      "level": 54,
+      "icon": 2506,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Guardian",
+      "id": 36920,
+      "name": "Garde extrême",
+      "englishName": "Guardian",
+      "level": 92,
+      "icon": 2524,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Holy Circle",
+      "id": 16458,
+      "name": "Cercle sacré",
+      "englishName": "Holy Circle",
+      "level": 72,
+      "icon": 2517,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Holy Sheltron",
+      "id": 25746,
+      "name": "Schiltron sacré",
+      "englishName": "Holy Sheltron",
+      "level": 82,
+      "icon": 2950,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Holy Spirit",
+      "id": 7384,
+      "name": "Esprit saint",
+      "englishName": "Holy Spirit",
+      "level": 64,
+      "icon": 2514,
+      "category": 2
+    },
+    {
+      "job": "Paladin",
+      "key": "Imperator",
+      "id": 36921,
+      "name": "Imperator",
+      "englishName": "Imperator",
+      "level": 96,
+      "icon": 2955,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Iron Will",
+      "id": 28,
+      "name": "Volonté de fer",
+      "englishName": "Iron Will",
+      "level": 10,
+      "icon": 2505,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Prominence",
+      "id": 16457,
+      "name": "Évidence",
+      "englishName": "Prominence",
+      "level": 40,
+      "icon": 2516,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Rage of Halone",
+      "id": 21,
+      "name": "Rage de Halone",
+      "englishName": "Rage of Halone",
+      "level": 26,
+      "icon": 155,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Requiescat",
+      "id": 7383,
+      "name": "Requiescat",
+      "englishName": "Requiescat",
+      "level": 68,
+      "icon": 2513,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Riot Blade",
+      "id": 15,
+      "name": "Lame déchaînée",
+      "englishName": "Riot Blade",
+      "level": 4,
+      "icon": 156,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Royal Authority",
+      "id": 3539,
+      "name": "Autorité royale",
+      "englishName": "Royal Authority",
+      "level": 60,
+      "icon": 2507,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Sentinel",
+      "id": 17,
+      "name": "Sentinelle",
+      "englishName": "Sentinel",
+      "level": 38,
+      "icon": 151,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Sepulchre",
+      "id": 36919,
+      "name": "Sépulcre",
+      "englishName": "Sepulchre",
+      "level": 76,
+      "icon": 2523,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Sheltron",
+      "id": 3542,
+      "name": "Schiltron",
+      "englishName": "Sheltron",
+      "level": 35,
+      "icon": 2510,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Spirits Within",
+      "id": 29,
+      "name": "Esprits intérieurs",
+      "englishName": "Spirits Within",
+      "level": 30,
+      "icon": 2503,
+      "category": 4
+    },
+    {
+      "job": "Paladin",
+      "key": "Supplication",
+      "id": 36918,
+      "name": "Oraison",
+      "englishName": "Supplication",
+      "level": 76,
+      "icon": 2522,
+      "category": 3
+    },
+    {
+      "job": "Paladin",
+      "key": "Total Eclipse",
+      "id": 7381,
+      "name": "Éclipse totale",
+      "englishName": "Total Eclipse",
+      "level": 6,
+      "icon": 2511,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Berserk",
+      "id": 38,
+      "name": "Berserk",
+      "englishName": "Berserk",
+      "level": 6,
+      "icon": 259,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Bloodwhetting",
+      "id": 25751,
+      "name": "Intuition fougueuse",
+      "englishName": "Bloodwhetting",
+      "level": 82,
+      "icon": 2569,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Chaotic Cyclone",
+      "id": 16463,
+      "name": "Cyclone chaotique",
+      "englishName": "Chaotic Cyclone",
+      "level": 72,
+      "icon": 2566,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Damnation",
+      "id": 36923,
+      "name": "Damnation",
+      "englishName": "Damnation",
+      "level": 92,
+      "icon": 2573,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Decimate",
+      "id": 3550,
+      "name": "Décimation",
+      "englishName": "Decimate",
+      "level": 60,
+      "icon": 2558,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Defiance",
+      "id": 48,
+      "name": "Défi",
+      "englishName": "Defiance",
+      "level": 10,
+      "icon": 2551,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Fell Cleave",
+      "id": 3549,
+      "name": "Sape-fendeur",
+      "englishName": "Fell Cleave",
+      "level": 54,
+      "icon": 2557,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Heavy Swing",
+      "id": 31,
+      "name": "Coup puissant",
+      "englishName": "Heavy Swing",
+      "level": 1,
+      "icon": 260,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Infuriate",
+      "id": 52,
+      "name": "Cri de guerre",
+      "englishName": "Infuriate",
+      "level": 50,
+      "icon": 2555,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Inner Beast",
+      "id": 49,
+      "name": "Bête intérieure",
+      "englishName": "Inner Beast",
+      "level": 35,
+      "icon": 2553,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Inner Chaos",
+      "id": 16465,
+      "name": "Chaos intérieur",
+      "englishName": "Inner Chaos",
+      "level": 80,
+      "icon": 2568,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Inner Release",
+      "id": 7389,
+      "name": "Relâchement bestial",
+      "englishName": "Inner Release",
+      "level": 70,
+      "icon": 2564,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Maim",
+      "id": 37,
+      "name": "Mutilation",
+      "englishName": "Maim",
+      "level": 4,
+      "icon": 255,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Mythril Tempest",
+      "id": 16462,
+      "name": "Tempête de mithril",
+      "englishName": "Mythril Tempest",
+      "level": 40,
+      "icon": 2565,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Orogeny",
+      "id": 25752,
+      "name": "Orogenèse",
+      "englishName": "Orogeny",
+      "level": 86,
+      "icon": 2570,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Overpower",
+      "id": 41,
+      "name": "Domination",
+      "englishName": "Overpower",
+      "level": 10,
+      "icon": 254,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Primal Rend",
+      "id": 25753,
+      "name": "Griffade primitive",
+      "englishName": "Primal Rend",
+      "level": 90,
+      "icon": 2571,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Primal Ruination",
+      "id": 36925,
+      "name": "Dévastateur",
+      "englishName": "Primal Ruination",
+      "level": 100,
+      "icon": 2050,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Primal Wrath",
+      "id": 36924,
+      "name": "Trépidation bestiale",
+      "englishName": "Primal Wrath",
+      "level": 96,
+      "icon": 2574,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Raw Intuition",
+      "id": 3551,
+      "name": "Intuition pure",
+      "englishName": "Raw Intuition",
+      "level": 56,
+      "icon": 2559,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Steel Cyclone",
+      "id": 51,
+      "name": "Cyclone de fer",
+      "englishName": "Steel Cyclone",
+      "level": 45,
+      "icon": 2552,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Storm's Eye",
+      "id": 45,
+      "name": "Œil de la tempête",
+      "englishName": "Storm's Eye",
+      "level": 50,
+      "icon": 264,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Storm's Path",
+      "id": 42,
+      "name": "Couperet de justice",
+      "englishName": "Storm's Path",
+      "level": 26,
+      "icon": 258,
+      "category": 3
+    },
+    {
+      "job": "Warrior",
+      "key": "Upheaval",
+      "id": 7387,
+      "name": "Révolte",
+      "englishName": "Upheaval",
+      "level": 64,
+      "icon": 2562,
+      "category": 4
+    },
+    {
+      "job": "Warrior",
+      "key": "Vengeance",
+      "id": 44,
+      "name": "Représailles",
+      "englishName": "Vengeance",
+      "level": 38,
+      "icon": 267,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Abyssal Drain",
+      "id": 3641,
+      "name": "Drainage abyssal",
+      "englishName": "Abyssal Drain",
+      "level": 56,
+      "icon": 3064,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Blood Weapon",
+      "id": 3625,
+      "name": "Arme de sang",
+      "englishName": "Blood Weapon",
+      "level": 35,
+      "icon": 3071,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Bloodspiller",
+      "id": 7392,
+      "name": "Marée de sang",
+      "englishName": "Bloodspiller",
+      "level": 62,
+      "icon": 3080,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Carve and Spit",
+      "id": 3643,
+      "name": "Tranchage-habillage",
+      "englishName": "Carve and Spit",
+      "level": 60,
+      "icon": 3058,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Comeuppance",
+      "id": 36929,
+      "name": "Punition réciproque",
+      "englishName": "Comeuppance",
+      "level": 96,
+      "icon": 3096,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Delirium",
+      "id": 7390,
+      "name": "Delirium de sang",
+      "englishName": "Delirium",
+      "level": 68,
+      "icon": 3078,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Disesteem",
+      "id": 36932,
+      "name": "Sillon de morgue",
+      "englishName": "Disesteem",
+      "level": 100,
+      "icon": 3099,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Edge of Darkness",
+      "id": 16467,
+      "name": "Tranchant de ténèbres",
+      "englishName": "Edge of Darkness",
+      "level": 40,
+      "icon": 3083,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Edge of Shadow",
+      "id": 16470,
+      "name": "Tranchant d'ombre",
+      "englishName": "Edge of Shadow",
+      "level": 74,
+      "icon": 3086,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Flood of Darkness",
+      "id": 16466,
+      "name": "Déluge de ténèbres",
+      "englishName": "Flood of Darkness",
+      "level": 30,
+      "icon": 3082,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Flood of Shadow",
+      "id": 16469,
+      "name": "Déluge d'ombre",
+      "englishName": "Flood of Shadow",
+      "level": 74,
+      "icon": 3085,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Grit",
+      "id": 3629,
+      "name": "Férocité",
+      "englishName": "Grit",
+      "level": 10,
+      "icon": 3070,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Hard Slash",
+      "id": 3617,
+      "name": "Taillade violente",
+      "englishName": "Hard Slash",
+      "level": 1,
+      "icon": 3051,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Impalement",
+      "id": 36931,
+      "name": "Empalement sanglant",
+      "englishName": "Impalement",
+      "level": 96,
+      "icon": 3098,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Living Shadow",
+      "id": 16472,
+      "name": "Ombre vivante",
+      "englishName": "Living Shadow",
+      "level": 80,
+      "icon": 3088,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Quietus",
+      "id": 7391,
+      "name": "Quietus",
+      "englishName": "Quietus",
+      "level": 64,
+      "icon": 3079,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Salt and Darkness",
+      "id": 25755,
+      "name": "Sel et Ténèbres",
+      "englishName": "Salt and Darkness",
+      "level": 86,
+      "icon": 3090,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Salted Earth",
+      "id": 3639,
+      "name": "Terre salée",
+      "englishName": "Salted Earth",
+      "level": 52,
+      "icon": 3066,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Scarlet Delirium",
+      "id": 36928,
+      "name": "Delirium écarlate",
+      "englishName": "Scarlet Delirium",
+      "level": 96,
+      "icon": 3095,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Shadow Wall",
+      "id": 3636,
+      "name": "Mur d'ombre",
+      "englishName": "Shadow Wall",
+      "level": 38,
+      "icon": 3075,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Shadowbringer",
+      "id": 25757,
+      "name": "Porteur d'ombre",
+      "englishName": "Shadowbringer",
+      "level": 90,
+      "icon": 3091,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Shadowed Vigil",
+      "id": 36927,
+      "name": "Vigile ténébreux",
+      "englishName": "Shadowed Vigil",
+      "level": 92,
+      "icon": 3094,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Souleater",
+      "id": 3632,
+      "name": "Dévoreur d'âme",
+      "englishName": "Souleater",
+      "level": 26,
+      "icon": 3055,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Stalwart Soul",
+      "id": 16468,
+      "name": "Noirceur insoumise",
+      "englishName": "Stalwart Soul",
+      "level": 40,
+      "icon": 3084,
+      "category": 2
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Syphon Strike",
+      "id": 3623,
+      "name": "Frappe siphon",
+      "englishName": "Syphon Strike",
+      "level": 2,
+      "icon": 3054,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "The Blackest Night",
+      "id": 7393,
+      "name": "Nuit noirissime",
+      "englishName": "The Blackest Night",
+      "level": 70,
+      "icon": 3081,
+      "category": 4
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Torcleaver",
+      "id": 36930,
+      "name": "Brise-montagne",
+      "englishName": "Torcleaver",
+      "level": 96,
+      "icon": 3097,
+      "category": 3
+    },
+    {
+      "job": "DarkKnight",
+      "key": "Unleash",
+      "id": 3621,
+      "name": "Déchaînement",
+      "englishName": "Unleash",
+      "level": 6,
+      "icon": 3063,
+      "category": 2
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Abdomen Tear",
+      "id": 16157,
+      "name": "Lacération de l'abdomen",
+      "englishName": "Abdomen Tear",
+      "level": 70,
+      "icon": 3421,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Blasting Zone",
+      "id": 16165,
+      "name": "Zone de destruction",
+      "englishName": "Blasting Zone",
+      "level": 80,
+      "icon": 3429,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Bloodfest",
+      "id": 16164,
+      "name": "Cartouche de sang",
+      "englishName": "Bloodfest",
+      "level": 76,
+      "icon": 3428,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Bow Shock",
+      "id": 16159,
+      "name": "Arc de choc",
+      "englishName": "Bow Shock",
+      "level": 62,
+      "icon": 3423,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Brutal Shell",
+      "id": 16139,
+      "name": "Impact brutal",
+      "englishName": "Brutal Shell",
+      "level": 4,
+      "icon": 3403,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Burst Strike",
+      "id": 16162,
+      "name": "Frappe explosive",
+      "englishName": "Burst Strike",
+      "level": 30,
+      "icon": 3426,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Continuation",
+      "id": 16155,
+      "name": "Consécution",
+      "englishName": "Continuation",
+      "level": 70,
+      "icon": 3419,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Danger Zone",
+      "id": 16144,
+      "name": "Zone de danger",
+      "englishName": "Danger Zone",
+      "level": 18,
+      "icon": 3408,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Demon Slaughter",
+      "id": 16149,
+      "name": "Massacre démoniaque",
+      "englishName": "Demon Slaughter",
+      "level": 40,
+      "icon": 3413,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Demon Slice",
+      "id": 16141,
+      "name": "Tranchage démoniaque",
+      "englishName": "Demon Slice",
+      "level": 10,
+      "icon": 3405,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Double Down",
+      "id": 25760,
+      "name": "Acharnement",
+      "englishName": "Double Down",
+      "level": 90,
+      "icon": 3432,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Eye Gouge",
+      "id": 16158,
+      "name": "Perforation des yeux",
+      "englishName": "Eye Gouge",
+      "level": 70,
+      "icon": 3422,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Fated Brand",
+      "id": 36936,
+      "name": "Insigne fatidique",
+      "englishName": "Fated Brand",
+      "level": 96,
+      "icon": 3436,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Fated Circle",
+      "id": 16163,
+      "name": "Tourbillon fatidique",
+      "englishName": "Fated Circle",
+      "level": 72,
+      "icon": 3427,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Gnashing Fang",
+      "id": 16146,
+      "name": "Croc pugnace",
+      "englishName": "Gnashing Fang",
+      "level": 60,
+      "icon": 3410,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Great Nebula",
+      "id": 36935,
+      "name": "Grande nébuleuse",
+      "englishName": "Great Nebula",
+      "level": 92,
+      "icon": 3435,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Heart of Corundum",
+      "id": 25758,
+      "name": "Cœur de corindon",
+      "englishName": "Heart of Corundum",
+      "level": 82,
+      "icon": 3430,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Heart of Stone",
+      "id": 16161,
+      "name": "Cœur de pierre",
+      "englishName": "Heart of Stone",
+      "level": 68,
+      "icon": 3425,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Hypervelocity",
+      "id": 25759,
+      "name": "Hypervitesse",
+      "englishName": "Hypervelocity",
+      "level": 86,
+      "icon": 3431,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Jugular Rip",
+      "id": 16156,
+      "name": "Arrachage de la jugulaire",
+      "englishName": "Jugular Rip",
+      "level": 70,
+      "icon": 3420,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Keen Edge",
+      "id": 16137,
+      "name": "Tranchant acéré",
+      "englishName": "Keen Edge",
+      "level": 1,
+      "icon": 3401,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Lion Heart",
+      "id": 36939,
+      "name": "Cœur de lion",
+      "englishName": "Lion Heart",
+      "level": 100,
+      "icon": 3439,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Nebula",
+      "id": 16148,
+      "name": "Nébuleuse",
+      "englishName": "Nebula",
+      "level": 38,
+      "icon": 3412,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "No Mercy",
+      "id": 16138,
+      "name": "Sans pitié",
+      "englishName": "No Mercy",
+      "level": 2,
+      "icon": 3402,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Noble Blood",
+      "id": 36938,
+      "name": "Sang noble",
+      "englishName": "Noble Blood",
+      "level": 100,
+      "icon": 3438,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Reign of Beasts",
+      "id": 36937,
+      "name": "Règne animal",
+      "englishName": "Reign of Beasts",
+      "level": 100,
+      "icon": 3437,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Royal Guard",
+      "id": 16142,
+      "name": "Garde royale",
+      "englishName": "Royal Guard",
+      "level": 10,
+      "icon": 3406,
+      "category": 4
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Savage Claw",
+      "id": 16147,
+      "name": "Griffe sauvage",
+      "englishName": "Savage Claw",
+      "level": 60,
+      "icon": 3411,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Solid Barrel",
+      "id": 16145,
+      "name": "Salve tranchante",
+      "englishName": "Solid Barrel",
+      "level": 26,
+      "icon": 3409,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Sonic Break",
+      "id": 16153,
+      "name": "Rupture sonique",
+      "englishName": "Sonic Break",
+      "level": 54,
+      "icon": 3417,
+      "category": 3
+    },
+    {
+      "job": "Gunbreaker",
+      "key": "Wicked Talon",
+      "id": 16150,
+      "name": "Serre vicieuse",
+      "englishName": "Wicked Talon",
+      "level": 60,
+      "icon": 3414,
+      "category": 3
+    },
+    {
+      "job": "Scholar",
+      "key": "Adloquium",
+      "id": 185,
+      "name": "Traité du réconfort",
+      "englishName": "Adloquium",
+      "level": 30,
+      "icon": 2801,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Aetherflow",
+      "id": 166,
+      "name": "Flux d'éther",
+      "englishName": "Aetherflow",
+      "level": 45,
+      "icon": 510,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Art of War",
+      "id": 16539,
+      "name": "Loi de la guerre",
+      "englishName": "Art of War",
+      "level": 46,
+      "icon": 2819,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Art of War II",
+      "id": 25866,
+      "name": "Loi de la guerre II",
+      "englishName": "Art of War II",
+      "level": 82,
+      "icon": 2876,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Baneful Impaction",
+      "id": 37012,
+      "name": "Impaction venimeuse",
+      "englishName": "Baneful Impaction",
+      "level": 92,
+      "icon": 2879,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Bio",
+      "id": 17864,
+      "name": "Bactérie",
+      "englishName": "Bio",
+      "level": 2,
+      "icon": 503,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Bio II",
+      "id": 17865,
+      "name": "Extra Bactérie",
+      "englishName": "Bio II",
+      "level": 26,
+      "icon": 504,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Biolysis",
+      "id": 16540,
+      "name": "Loi de l'infection",
+      "englishName": "Biolysis",
+      "level": 72,
+      "icon": 2820,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Broil",
+      "id": 3584,
+      "name": "Loi de l'ébullition",
+      "englishName": "Broil",
+      "level": 54,
+      "icon": 2807,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Broil II",
+      "id": 7435,
+      "name": "Loi de l'ébullition II",
+      "englishName": "Broil II",
+      "level": 64,
+      "icon": 2814,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Broil III",
+      "id": 16541,
+      "name": "Loi de l'ébullition III",
+      "englishName": "Broil III",
+      "level": 72,
+      "icon": 2821,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Broil IV",
+      "id": 25865,
+      "name": "Loi de l'ébullition IV",
+      "englishName": "Broil IV",
+      "level": 82,
+      "icon": 2875,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Chain Stratagem",
+      "id": 7436,
+      "name": "Stratagèmes entrelacés",
+      "englishName": "Chain Stratagem",
+      "level": 66,
+      "icon": 2815,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Energy Drain",
+      "id": 167,
+      "name": "Aspiration d'énergie",
+      "englishName": "Energy Drain",
+      "level": 45,
+      "icon": 514,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Lucid Dreaming",
+      "id": 7562,
+      "name": "Rêve lucide",
+      "englishName": "Lucid Dreaming",
+      "level": 14,
+      "icon": 865,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Lustrate",
+      "id": 189,
+      "name": "Loi de revivification",
+      "englishName": "Lustrate",
+      "level": 45,
+      "icon": 2805,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Recitation",
+      "id": 16542,
+      "name": "Récitation",
+      "englishName": "Recitation",
+      "level": 74,
+      "icon": 2822,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Ruin",
+      "id": 17869,
+      "name": "Ruine",
+      "englishName": "Ruin",
+      "level": 1,
+      "icon": 501,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Seraphism",
+      "id": 37014,
+      "name": "Séraphisme",
+      "englishName": "Seraphism",
+      "level": 100,
+      "icon": 2881,
+      "category": 4
+    },
+    {
+      "job": "Scholar",
+      "key": "Summon Eos",
+      "id": 17215,
+      "name": "Invocation Eos",
+      "englishName": "Summon Eos",
+      "level": 4,
+      "icon": 2823,
+      "category": 2
+    },
+    {
+      "job": "Scholar",
+      "key": "Whispering Dawn",
+      "id": 16537,
+      "name": "Murmure de l'aurore",
+      "englishName": "Whispering Dawn",
+      "level": 20,
+      "icon": 2852,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Aspected Benefic",
+      "id": 3595,
+      "name": "Bienfaisance aspectée",
+      "englishName": "Aspected Benefic",
+      "level": 34,
+      "icon": 3127,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Astral Draw",
+      "id": 37017,
+      "name": "Tirage astral",
+      "englishName": "Astral Draw",
+      "level": 30,
+      "icon": 3564,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Benefic",
+      "id": 3594,
+      "name": "Bienfaisance",
+      "englishName": "Benefic",
+      "level": 2,
+      "icon": 3126,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Celestial Opposition",
+      "id": 16553,
+      "name": "Opposition céleste",
+      "englishName": "Celestial Opposition",
+      "level": 60,
+      "icon": 3142,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Combust",
+      "id": 3599,
+      "name": "Conjonction supérieure",
+      "englishName": "Combust",
+      "level": 4,
+      "icon": 3124,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Combust II",
+      "id": 3608,
+      "name": "Conjonction supérieure II",
+      "englishName": "Combust II",
+      "level": 46,
+      "icon": 3125,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Combust III",
+      "id": 16554,
+      "name": "Conjonction supérieure III",
+      "englishName": "Combust III",
+      "level": 72,
+      "icon": 3554,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Divination",
+      "id": 16552,
+      "name": "Divination",
+      "englishName": "Divination",
+      "level": 50,
+      "icon": 3553,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Earthly Star",
+      "id": 7439,
+      "name": "Étoile terrestre",
+      "englishName": "Earthly Star",
+      "level": 62,
+      "icon": 3143,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Essential Dignity",
+      "id": 3614,
+      "name": "Dignité essentielle",
+      "englishName": "Essential Dignity",
+      "level": 15,
+      "icon": 3141,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Fall Malefic",
+      "id": 25871,
+      "name": "Malfaisance en chute",
+      "englishName": "Fall Malefic",
+      "level": 82,
+      "icon": 3559,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Gravity",
+      "id": 3615,
+      "name": "Gravité",
+      "englishName": "Gravity",
+      "level": 45,
+      "icon": 3123,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Gravity II",
+      "id": 25872,
+      "name": "Extra Gravité",
+      "englishName": "Gravity II",
+      "level": 82,
+      "icon": 3560,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Lord of Crowns",
+      "id": 7444,
+      "name": "Roi des couronnes",
+      "englishName": "Lord of Crowns",
+      "level": 70,
+      "icon": 3147,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Lucid Dreaming",
+      "id": 7562,
+      "name": "Rêve lucide",
+      "englishName": "Lucid Dreaming",
+      "level": 14,
+      "icon": 865,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Macrocosmos",
+      "id": 25874,
+      "name": "Macrocosme",
+      "englishName": "Macrocosmos",
+      "level": 90,
+      "icon": 3562,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Malefic",
+      "id": 3596,
+      "name": "Malfaisance",
+      "englishName": "Malefic",
+      "level": 1,
+      "icon": 3120,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Malefic II",
+      "id": 3598,
+      "name": "Malfaisance II",
+      "englishName": "Malefic II",
+      "level": 54,
+      "icon": 3122,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Malefic III",
+      "id": 7442,
+      "name": "Malfaisance III",
+      "englishName": "Malefic III",
+      "level": 64,
+      "icon": 3145,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Malefic IV",
+      "id": 16555,
+      "name": "Malfaisance IV",
+      "englishName": "Malefic IV",
+      "level": 72,
+      "icon": 3555,
+      "category": 2
+    },
+    {
+      "job": "Astrologian",
+      "key": "Oracle",
+      "id": 37029,
+      "name": "Oracle",
+      "englishName": "Oracle",
+      "level": 92,
+      "icon": 3566,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "Sun Sign",
+      "id": 37031,
+      "name": "Signe solaire",
+      "englishName": "Sun Sign",
+      "level": 100,
+      "icon": 3109,
+      "category": 4
+    },
+    {
+      "job": "Astrologian",
+      "key": "The Balance",
+      "id": 37023,
+      "name": "La Balance",
+      "englishName": "the Balance",
+      "level": 30,
+      "icon": 3110,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Diagnosis",
+      "id": 24284,
+      "name": "Diagnosis",
+      "englishName": "Diagnosis",
+      "level": 2,
+      "icon": 3652,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Dosis",
+      "id": 24283,
+      "name": "Dosis",
+      "englishName": "Dosis",
+      "level": 1,
+      "icon": 3651,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Dosis II",
+      "id": 24306,
+      "name": "Dosis II",
+      "englishName": "Dosis II",
+      "level": 72,
+      "icon": 3674,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Dosis III",
+      "id": 24312,
+      "name": "Dosis III",
+      "englishName": "Dosis III",
+      "level": 82,
+      "icon": 3680,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Druochole",
+      "id": 24296,
+      "name": "Druochole",
+      "englishName": "Druochole",
+      "level": 45,
+      "icon": 3664,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Dyskrasia",
+      "id": 24297,
+      "name": "Dyskrasia",
+      "englishName": "Dyskrasia",
+      "level": 46,
+      "icon": 3665,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Dyskrasia II",
+      "id": 24315,
+      "name": "Dyskrasia II",
+      "englishName": "Dyskrasia II",
+      "level": 82,
+      "icon": 3683,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Eukrasia",
+      "id": 24290,
+      "name": "Eukrasia",
+      "englishName": "Eukrasia",
+      "level": 30,
+      "icon": 3658,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Eukrasian Dosis",
+      "id": 24293,
+      "name": "Dosis eucrasique",
+      "englishName": "Eukrasian Dosis",
+      "level": 30,
+      "icon": 3661,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Eukrasian Dosis II",
+      "id": 24308,
+      "name": "Dosis eucrasique II",
+      "englishName": "Eukrasian Dosis II",
+      "level": 72,
+      "icon": 3676,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Eukrasian Dosis III",
+      "id": 24314,
+      "name": "Dosis eucrasique III",
+      "englishName": "Eukrasian Dosis III",
+      "level": 82,
+      "icon": 3682,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Eukrasian Dyskrasia",
+      "id": 37032,
+      "name": "Dyskrasia eucrasique",
+      "englishName": "Eukrasian Dyskrasia",
+      "level": 82,
+      "icon": 3687,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Haima",
+      "id": 24305,
+      "name": "Haima",
+      "englishName": "Haima",
+      "level": 70,
+      "icon": 3673,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Kardia",
+      "id": 24285,
+      "name": "Kardia",
+      "englishName": "Kardia",
+      "level": 4,
+      "icon": 3653,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Kerachole",
+      "id": 24298,
+      "name": "Kerachole",
+      "englishName": "Kerachole",
+      "level": 50,
+      "icon": 3666,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Lucid Dreaming",
+      "id": 7562,
+      "name": "Rêve lucide",
+      "englishName": "Lucid Dreaming",
+      "level": 14,
+      "icon": 865,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Philosophia",
+      "id": 37035,
+      "name": "Philosophia",
+      "englishName": "Philosophia",
+      "level": 100,
+      "icon": 3690,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Phlegma",
+      "id": 24289,
+      "name": "Phlegma",
+      "englishName": "Phlegma",
+      "level": 26,
+      "icon": 3657,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Phlegma II",
+      "id": 24307,
+      "name": "Phlegma II",
+      "englishName": "Phlegma II",
+      "level": 72,
+      "icon": 3675,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Phlegma III",
+      "id": 24313,
+      "name": "Phlegma III",
+      "englishName": "Phlegma III",
+      "level": 82,
+      "icon": 3681,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Pneuma",
+      "id": 24318,
+      "name": "Pneuma",
+      "englishName": "Pneuma",
+      "level": 90,
+      "icon": 3686,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Psyche",
+      "id": 37033,
+      "name": "Psyché",
+      "englishName": "Psyche",
+      "level": 92,
+      "icon": 3688,
+      "category": 4
+    },
+    {
+      "job": "Sage",
+      "key": "Toxikon",
+      "id": 24304,
+      "name": "Toxikon",
+      "englishName": "Toxikon",
+      "level": 66,
+      "icon": 3672,
+      "category": 2
+    },
+    {
+      "job": "Sage",
+      "key": "Toxikon II",
+      "id": 24316,
+      "name": "Toxikon II",
+      "englishName": "Toxikon II",
+      "level": 82,
+      "icon": 3684,
+      "category": 2
+    },
+    {
+      "job": "Monk",
+      "key": "Arm of the Destroyer",
+      "id": 62,
+      "name": "Frappe du Destructeur",
+      "englishName": "Arm of the Destroyer",
+      "level": 26,
+      "icon": 215,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Bootshine",
+      "id": 53,
+      "name": "Volée de coups",
+      "englishName": "Bootshine",
+      "level": 1,
+      "icon": 208,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Brotherhood",
+      "id": 7396,
+      "name": "Fraternité",
+      "englishName": "Brotherhood",
+      "level": 70,
+      "icon": 2542,
+      "category": 4
+    },
+    {
+      "job": "Monk",
+      "key": "Demolish",
+      "id": 66,
+      "name": "Démolition",
+      "englishName": "Demolish",
+      "level": 30,
+      "icon": 204,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Dragon Kick",
+      "id": 74,
+      "name": "Tacle du dragon",
+      "englishName": "Dragon Kick",
+      "level": 50,
+      "icon": 2528,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Elixir Burst",
+      "id": 36948,
+      "name": "Onde de vide",
+      "englishName": "Elixir Burst",
+      "level": 92,
+      "icon": 2985,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Elixir Field",
+      "id": 3545,
+      "name": "Champ-élixir",
+      "englishName": "Elixir Field",
+      "level": 60,
+      "icon": 2533,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Fire's Reply",
+      "id": 36950,
+      "name": "Réaction du feu",
+      "englishName": "Fire's Reply",
+      "level": 100,
+      "icon": 2987,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Flint Strike",
+      "id": 25882,
+      "name": "Départ de flammes",
+      "englishName": "Flint Strike",
+      "level": 60,
+      "icon": 2548,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Four-point Fury",
+      "id": 16473,
+      "name": "Furie cardinale",
+      "englishName": "Four-point Fury",
+      "level": 45,
+      "icon": 2544,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Leaping Opo",
+      "id": 36945,
+      "name": "Bond de l'opo-opo",
+      "englishName": "Leaping Opo",
+      "level": 92,
+      "icon": 2982,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Perfect Balance",
+      "id": 69,
+      "name": "Équilibre parfait",
+      "englishName": "Perfect Balance",
+      "level": 50,
+      "icon": 217,
+      "category": 4
+    },
+    {
+      "job": "Monk",
+      "key": "Phantom Rush",
+      "id": 25769,
+      "name": "Rixe évanescente",
+      "englishName": "Phantom Rush",
+      "level": 90,
+      "icon": 2981,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Pouncing Coeurl",
+      "id": 36947,
+      "name": "Plongeon du coeurl",
+      "englishName": "Pouncing Coeurl",
+      "level": 92,
+      "icon": 2984,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Riddle of Fire",
+      "id": 7395,
+      "name": "Énigme du feu",
+      "englishName": "Riddle of Fire",
+      "level": 68,
+      "icon": 2541,
+      "category": 4
+    },
+    {
+      "job": "Monk",
+      "key": "Riddle of Wind",
+      "id": 25766,
+      "name": "Énigme du vent",
+      "englishName": "Riddle of Wind",
+      "level": 72,
+      "icon": 2978,
+      "category": 4
+    },
+    {
+      "job": "Monk",
+      "key": "Rising Phoenix",
+      "id": 25768,
+      "name": "Danse du Phénix",
+      "englishName": "Rising Phoenix",
+      "level": 86,
+      "icon": 2980,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Rising Raptor",
+      "id": 36946,
+      "name": "Percée du raptor",
+      "englishName": "Rising Raptor",
+      "level": 92,
+      "icon": 2983,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Rockbreaker",
+      "id": 70,
+      "name": "Briseur de rocs",
+      "englishName": "Rockbreaker",
+      "level": 30,
+      "icon": 2529,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Shadow of the Destroyer",
+      "id": 25767,
+      "name": "Ombre du Destructeur",
+      "englishName": "Shadow of the Destroyer",
+      "level": 82,
+      "icon": 2979,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Snap Punch",
+      "id": 56,
+      "name": "Coup de poing brusque",
+      "englishName": "Snap Punch",
+      "level": 6,
+      "icon": 210,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Steel Peak",
+      "id": 25761,
+      "name": "Charge d'acier",
+      "englishName": "Steel Peak",
+      "level": 15,
+      "icon": 2530,
+      "category": 4
+    },
+    {
+      "job": "Monk",
+      "key": "Tornado Kick",
+      "id": 3543,
+      "name": "Coup de pied tornade",
+      "englishName": "Tornado Kick",
+      "level": 60,
+      "icon": 2531,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "True Strike",
+      "id": 54,
+      "name": "Coup de poing direct",
+      "englishName": "True Strike",
+      "level": 4,
+      "icon": 209,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Twin Snakes",
+      "id": 61,
+      "name": "Serpents jumeaux",
+      "englishName": "Twin Snakes",
+      "level": 18,
+      "icon": 213,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "Wind's Reply",
+      "id": 36949,
+      "name": "Réaction du vent",
+      "englishName": "Wind's Reply",
+      "level": 96,
+      "icon": 2986,
+      "category": 3
+    },
+    {
+      "job": "Monk",
+      "key": "the Forbidden Chakra",
+      "id": 3547,
+      "name": "Chakra interdit",
+      "englishName": "the Forbidden Chakra",
+      "level": 54,
+      "icon": 2535,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Battle Litany",
+      "id": 3557,
+      "name": "Litanie combattante",
+      "englishName": "Battle Litany",
+      "level": 52,
+      "icon": 2585,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Chaos Thrust",
+      "id": 88,
+      "name": "Percée chaotique",
+      "englishName": "Chaos Thrust",
+      "level": 50,
+      "icon": 308,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Chaotic Spring",
+      "id": 25772,
+      "name": "Floraison chaotique",
+      "englishName": "Chaotic Spring",
+      "level": 86,
+      "icon": 2596,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Coerthan Torment",
+      "id": 16477,
+      "name": "Tourment du Coerthas",
+      "englishName": "Coerthan Torment",
+      "level": 72,
+      "icon": 2590,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Disembowel",
+      "id": 87,
+      "name": "Éventration",
+      "englishName": "Disembowel",
+      "level": 18,
+      "icon": 317,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Doom Spike",
+      "id": 86,
+      "name": "Pointe du destin",
+      "englishName": "Doom Spike",
+      "level": 40,
+      "icon": 306,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Dragonfire Dive",
+      "id": 96,
+      "name": "Piqué du dragon",
+      "englishName": "Dragonfire Dive",
+      "level": 50,
+      "icon": 2578,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Drakesbane",
+      "id": 36952,
+      "name": "Fléau du dragon",
+      "englishName": "Drakesbane",
+      "level": 64,
+      "icon": 2599,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Fang and Claw",
+      "id": 3554,
+      "name": "Croc-et-griffe",
+      "englishName": "Fang and Claw",
+      "level": 56,
+      "icon": 2582,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Full Thrust",
+      "id": 84,
+      "name": "Percée totale",
+      "englishName": "Full Thrust",
+      "level": 26,
+      "icon": 314,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Geirskogul",
+      "id": 3555,
+      "name": "Geirskögul",
+      "englishName": "Geirskogul",
+      "level": 60,
+      "icon": 2583,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Heavens' Thrust",
+      "id": 25771,
+      "name": "Percée céleste",
+      "englishName": "Heavens' Thrust",
+      "level": 86,
+      "icon": 2595,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "High Jump",
+      "id": 16478,
+      "name": "Grand saut",
+      "englishName": "High Jump",
+      "level": 74,
+      "icon": 2591,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Jump",
+      "id": 92,
+      "name": "Saut",
+      "englishName": "Jump",
+      "level": 30,
+      "icon": 2576,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Lance Barrage",
+      "id": 36954,
+      "name": "Percée barrage",
+      "englishName": "Lance Barrage",
+      "level": 96,
+      "icon": 2076,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Lance Charge",
+      "id": 85,
+      "name": "Lance acérée",
+      "englishName": "Lance Charge",
+      "level": 30,
+      "icon": 309,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Life Surge",
+      "id": 83,
+      "name": "Souffle de vie",
+      "englishName": "Life Surge",
+      "level": 6,
+      "icon": 304,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Nastrond",
+      "id": 7400,
+      "name": "Naströnd",
+      "englishName": "Nastrond",
+      "level": 70,
+      "icon": 2589,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Rise of the Dragon",
+      "id": 36953,
+      "name": "Envol du dragon",
+      "englishName": "Rise of the Dragon",
+      "level": 92,
+      "icon": 2075,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Sonic Thrust",
+      "id": 7397,
+      "name": "Percée sonique",
+      "englishName": "Sonic Thrust",
+      "level": 62,
+      "icon": 2586,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Spiral Blow",
+      "id": 36955,
+      "name": "Vrille explosive",
+      "englishName": "Spiral Blow",
+      "level": 96,
+      "icon": 2077,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Starcross",
+      "id": 36956,
+      "name": "Traversée céleste",
+      "englishName": "Starcross",
+      "level": 100,
+      "icon": 2078,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "Stardiver",
+      "id": 16480,
+      "name": "Plongeon céleste",
+      "englishName": "Stardiver",
+      "level": 80,
+      "icon": 2593,
+      "category": 4
+    },
+    {
+      "job": "Dragoon",
+      "key": "True Thrust",
+      "id": 75,
+      "name": "Percée véritable",
+      "englishName": "True Thrust",
+      "level": 1,
+      "icon": 310,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Vorpal Thrust",
+      "id": 78,
+      "name": "Percée vorpale",
+      "englishName": "Vorpal Thrust",
+      "level": 4,
+      "icon": 312,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Wheeling Thrust",
+      "id": 3556,
+      "name": "Percée tournante",
+      "englishName": "Wheeling Thrust",
+      "level": 58,
+      "icon": 2584,
+      "category": 3
+    },
+    {
+      "job": "Dragoon",
+      "key": "Wyrmwind Thrust",
+      "id": 25773,
+      "name": "Percée des dragons anciens",
+      "englishName": "Wyrmwind Thrust",
+      "level": 90,
+      "icon": 2597,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Aeolian Edge",
+      "id": 2255,
+      "name": "Lame éolienne",
+      "englishName": "Aeolian Edge",
+      "level": 26,
+      "icon": 605,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Armor Crush",
+      "id": 3563,
+      "name": "Perce-armure",
+      "englishName": "Armor Crush",
+      "level": 54,
+      "icon": 2915,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Assassinate",
+      "id": 2246,
+      "name": "Assassinement",
+      "englishName": "Assassinate",
+      "level": 40,
+      "icon": 612,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Bhavacakra",
+      "id": 7402,
+      "name": "Bhavacakra",
+      "englishName": "Bhavacakra",
+      "level": 68,
+      "icon": 2921,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Bunshin",
+      "id": 16493,
+      "name": "Bunshin",
+      "englishName": "Bunshin",
+      "level": 80,
+      "icon": 2927,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Death Blossom",
+      "id": 2254,
+      "name": "Roseraie fatale",
+      "englishName": "Death Blossom",
+      "level": 38,
+      "icon": 615,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Dokumori",
+      "id": 36957,
+      "name": "Dokumori",
+      "englishName": "Dokumori",
+      "level": 66,
+      "icon": 619,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Doton",
+      "id": 2270,
+      "name": "Doton",
+      "englishName": "Doton",
+      "level": 45,
+      "icon": 2911,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Dream Within a Dream",
+      "id": 3566,
+      "name": "Rêve dans un rêve",
+      "englishName": "Dream Within a Dream",
+      "level": 56,
+      "icon": 2918,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Fleeting Raiju",
+      "id": 25778,
+      "name": "Croc de Raijû",
+      "englishName": "Fleeting Raiju",
+      "level": 90,
+      "icon": 2932,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Fuma Shuriken",
+      "id": 2265,
+      "name": "Fûma Shuriken",
+      "englishName": "Fuma Shuriken",
+      "level": 30,
+      "icon": 2907,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Goka Mekkyaku",
+      "id": 16491,
+      "name": "Gôka Mekkyaku",
+      "englishName": "Goka Mekkyaku",
+      "level": 76,
+      "icon": 2925,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Gust Slash",
+      "id": 2242,
+      "name": "Tourbillon tailladant",
+      "englishName": "Gust Slash",
+      "level": 4,
+      "icon": 602,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Hakke Mujinsatsu",
+      "id": 16488,
+      "name": "Hakke Mujinsatsu",
+      "englishName": "Hakke Mujinsatsu",
+      "level": 52,
+      "icon": 2923,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Hellfrog Medium",
+      "id": 7401,
+      "name": "Kuchiyose Ogama",
+      "englishName": "Hellfrog Medium",
+      "level": 62,
+      "icon": 2920,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Hyosho Ranryu",
+      "id": 16492,
+      "name": "Hyôshô Ranryû",
+      "englishName": "Hyosho Ranryu",
+      "level": 76,
+      "icon": 2926,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Kassatsu",
+      "id": 2264,
+      "name": "Kassatsu",
+      "englishName": "Kassatsu",
+      "level": 50,
+      "icon": 2906,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Katon",
+      "id": 2266,
+      "name": "Katon",
+      "englishName": "Katon",
+      "level": 35,
+      "icon": 2908,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Kunai's Bane",
+      "id": 36958,
+      "name": "Kunai explosifs",
+      "englishName": "Kunai's Bane",
+      "level": 92,
+      "icon": 620,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Meisui",
+      "id": 16489,
+      "name": "Meisui",
+      "englishName": "Meisui",
+      "level": 72,
+      "icon": 2924,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Mug",
+      "id": 2248,
+      "name": "Rapine",
+      "englishName": "Mug",
+      "level": 15,
+      "icon": 613,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Phantom Kamaitachi",
+      "id": 25774,
+      "name": "Kamaitachi fantôme",
+      "englishName": "Phantom Kamaitachi",
+      "level": 82,
+      "icon": 2929,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Raiton",
+      "id": 2267,
+      "name": "Raiton",
+      "englishName": "Raiton",
+      "level": 35,
+      "icon": 2912,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Spinning Edge",
+      "id": 2240,
+      "name": "Lame tournoyante",
+      "englishName": "Spinning Edge",
+      "level": 1,
+      "icon": 601,
+      "category": 3
+    },
+    {
+      "job": "Ninja",
+      "key": "Suiton",
+      "id": 2271,
+      "name": "Suiton",
+      "englishName": "Suiton",
+      "level": 45,
+      "icon": 2913,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Ten Chi Jin",
+      "id": 7403,
+      "name": "Ten Chi Jin",
+      "englishName": "Ten Chi Jin",
+      "level": 70,
+      "icon": 2922,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Tenri Jindo",
+      "id": 36961,
+      "name": "Tenri Jindô",
+      "englishName": "Tenri Jindo",
+      "level": 100,
+      "icon": 2935,
+      "category": 4
+    },
+    {
+      "job": "Ninja",
+      "key": "Trick Attack",
+      "id": 2258,
+      "name": "Attaque sournoise",
+      "englishName": "Trick Attack",
+      "level": 18,
+      "icon": 618,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Fuga",
+      "id": 7483,
+      "name": "Fûga",
+      "englishName": "Fuga",
+      "level": 26,
+      "icon": 3157,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Fuko",
+      "id": 25780,
+      "name": "Fûkô",
+      "englishName": "Fuko",
+      "level": 86,
+      "icon": 3189,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Gekko",
+      "id": 7481,
+      "name": "Gekkô",
+      "englishName": "Gekko",
+      "level": 30,
+      "icon": 3158,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Gyofu",
+      "id": 36963,
+      "name": "Gyôfû",
+      "englishName": "Gyofu",
+      "level": 92,
+      "icon": 3191,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Hakaze",
+      "id": 7477,
+      "name": "Hakaze",
+      "englishName": "Hakaze",
+      "level": 1,
+      "icon": 3151,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Higanbana",
+      "id": 7489,
+      "name": "Higanbana",
+      "englishName": "Higanbana",
+      "level": 30,
+      "icon": 3160,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Hissatsu: Kyuten",
+      "id": 7491,
+      "name": "Hissatsu : Kyûten",
+      "englishName": "Hissatsu: Kyuten",
+      "level": 62,
+      "icon": 3174,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Hissatsu: Shinten",
+      "id": 7490,
+      "name": "Hissatsu : Shinten",
+      "englishName": "Hissatsu: Shinten",
+      "level": 52,
+      "icon": 3173,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Ikishoten",
+      "id": 16482,
+      "name": "Ikishôten",
+      "englishName": "Ikishoten",
+      "level": 68,
+      "icon": 3179,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Jinpu",
+      "id": 7478,
+      "name": "Jinpû",
+      "englishName": "Jinpu",
+      "level": 4,
+      "icon": 3152,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Kaeshi: Goken",
+      "id": 16485,
+      "name": "Kaeshi Goken",
+      "englishName": "Kaeshi: Goken",
+      "level": 74,
+      "icon": 3182,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Kaeshi: Namikiri",
+      "id": 25782,
+      "name": "Kaeshi Namikiri",
+      "englishName": "Kaeshi: Namikiri",
+      "level": 90,
+      "icon": 3188,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Kaeshi: Setsugekka",
+      "id": 16486,
+      "name": "Kaeshi Setsugekka",
+      "englishName": "Kaeshi: Setsugekka",
+      "level": 74,
+      "icon": 3183,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Kasha",
+      "id": 7482,
+      "name": "Kasha",
+      "englishName": "Kasha",
+      "level": 40,
+      "icon": 3164,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Mangetsu",
+      "id": 7484,
+      "name": "Mangetsu",
+      "englishName": "Mangetsu",
+      "level": 35,
+      "icon": 3163,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Meikyo Shisui",
+      "id": 7499,
+      "name": "Meikyô Shisui",
+      "englishName": "Meikyo Shisui",
+      "level": 50,
+      "icon": 3167,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Midare Setsugekka",
+      "id": 7487,
+      "name": "Midare Setsugekka",
+      "englishName": "Midare Setsugekka",
+      "level": 50,
+      "icon": 3162,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Ogi Namikiri",
+      "id": 25781,
+      "name": "Ôgi : Namikiri",
+      "englishName": "Ogi Namikiri",
+      "level": 90,
+      "icon": 3187,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Oka",
+      "id": 7485,
+      "name": "Ôka",
+      "englishName": "Oka",
+      "level": 45,
+      "icon": 3165,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Shifu",
+      "id": 7479,
+      "name": "Shifû",
+      "englishName": "Shifu",
+      "level": 18,
+      "icon": 3156,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Shoha",
+      "id": 16487,
+      "name": "Shôha",
+      "englishName": "Shoha",
+      "level": 80,
+      "icon": 3184,
+      "category": 4
+    },
+    {
+      "job": "Samurai",
+      "key": "Tendo Kaeshi Setsugekka",
+      "id": 36968,
+      "name": "Tendô Kaeshi Setsugekka",
+      "englishName": "Tendo Kaeshi Setsugekka",
+      "level": 100,
+      "icon": 3196,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Tendo Setsugekka",
+      "id": 36966,
+      "name": "Tendô Setsugekka",
+      "englishName": "Tendo Setsugekka",
+      "level": 100,
+      "icon": 3194,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Tenka Goken",
+      "id": 7488,
+      "name": "Tenka Goken",
+      "englishName": "Tenka Goken",
+      "level": 40,
+      "icon": 3161,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Yukikaze",
+      "id": 7480,
+      "name": "Yukikaze",
+      "englishName": "Yukikaze",
+      "level": 50,
+      "icon": 3166,
+      "category": 3
+    },
+    {
+      "job": "Samurai",
+      "key": "Zanshin",
+      "id": 36964,
+      "name": "Zanshin",
+      "englishName": "Zanshin",
+      "level": 96,
+      "icon": 3192,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Arcane Circle",
+      "id": 24405,
+      "name": "Cercle arcanique",
+      "englishName": "Arcane Circle",
+      "level": 72,
+      "icon": 3633,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Blood Stalk",
+      "id": 24389,
+      "name": "Fétu ensanglanté",
+      "englishName": "Blood Stalk",
+      "level": 50,
+      "icon": 3617,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Communio",
+      "id": 24398,
+      "name": "Communio",
+      "englishName": "Communio",
+      "level": 90,
+      "icon": 3626,
+      "category": 2
+    },
+    {
+      "job": "Reaper",
+      "key": "Cross Reaping",
+      "id": 24396,
+      "name": "Fauchage croisé",
+      "englishName": "Cross Reaping",
+      "level": 80,
+      "icon": 3624,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Enshroud",
+      "id": 24394,
+      "name": "Linceul du lémure",
+      "englishName": "Enshroud",
+      "level": 80,
+      "icon": 3622,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Executioner's Gallows",
+      "id": 36971,
+      "name": "Potence tortionnaire",
+      "englishName": "Executioner's Gallows",
+      "level": 96,
+      "icon": 3636,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Executioner's Gibbet",
+      "id": 36970,
+      "name": "Gibet tortionnaire",
+      "englishName": "Executioner's Gibbet",
+      "level": 96,
+      "icon": 3635,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Executioner's Guillotine",
+      "id": 36972,
+      "name": "Guillotine tortionnaire",
+      "englishName": "Executioner's Guillotine",
+      "level": 96,
+      "icon": 3637,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Gallows",
+      "id": 24383,
+      "name": "Potence",
+      "englishName": "Gallows",
+      "level": 70,
+      "icon": 3611,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Gibbet",
+      "id": 24382,
+      "name": "Gibet",
+      "englishName": "Gibbet",
+      "level": 70,
+      "icon": 3610,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Gluttony",
+      "id": 24393,
+      "name": "Gloutonnerie",
+      "englishName": "Gluttony",
+      "level": 76,
+      "icon": 3621,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Grim Reaping",
+      "id": 24397,
+      "name": "Fauchage sinistre",
+      "englishName": "Grim Reaping",
+      "level": 80,
+      "icon": 3625,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Grim Swathe",
+      "id": 24392,
+      "name": "Andain sinistre",
+      "englishName": "Grim Swathe",
+      "level": 55,
+      "icon": 3620,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Guillotine",
+      "id": 24384,
+      "name": "Guillotine",
+      "englishName": "Guillotine",
+      "level": 70,
+      "icon": 3612,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Infernal Slice",
+      "id": 24375,
+      "name": "Tranchage infernal",
+      "englishName": "Infernal Slice",
+      "level": 30,
+      "icon": 3603,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Lemure's Scythe",
+      "id": 24400,
+      "name": "Faux du lémure",
+      "englishName": "Lemure's Scythe",
+      "level": 86,
+      "icon": 3628,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Lemure's Slice",
+      "id": 24399,
+      "name": "Tranchage du lémure",
+      "englishName": "Lemure's Slice",
+      "level": 86,
+      "icon": 3627,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Nightmare Scythe",
+      "id": 24377,
+      "name": "Faux cauchemardesque",
+      "englishName": "Nightmare Scythe",
+      "level": 45,
+      "icon": 3605,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Perfectio",
+      "id": 36973,
+      "name": "Perfectio",
+      "englishName": "Perfectio",
+      "level": 100,
+      "icon": 3638,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Plentiful Harvest",
+      "id": 24385,
+      "name": "Moisson abondante",
+      "englishName": "Plentiful Harvest",
+      "level": 88,
+      "icon": 3613,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Sacrificium",
+      "id": 36969,
+      "name": "Sacrificium",
+      "englishName": "Sacrificium",
+      "level": 92,
+      "icon": 3634,
+      "category": 4
+    },
+    {
+      "job": "Reaper",
+      "key": "Shadow of Death",
+      "id": 24378,
+      "name": "Ombre de la mort",
+      "englishName": "Shadow of Death",
+      "level": 10,
+      "icon": 3606,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Slice",
+      "id": 24373,
+      "name": "Tranchage",
+      "englishName": "Slice",
+      "level": 1,
+      "icon": 3601,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Soul Scythe",
+      "id": 24381,
+      "name": "Faux animique",
+      "englishName": "Soul Scythe",
+      "level": 65,
+      "icon": 3609,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Soul Slice",
+      "id": 24380,
+      "name": "Tranchage animique",
+      "englishName": "Soul Slice",
+      "level": 60,
+      "icon": 3608,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Spinning Scythe",
+      "id": 24376,
+      "name": "Faux tournoyante",
+      "englishName": "Spinning Scythe",
+      "level": 25,
+      "icon": 3604,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Void Reaping",
+      "id": 24395,
+      "name": "Fauchage du néant",
+      "englishName": "Void Reaping",
+      "level": 80,
+      "icon": 3623,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Waxing Slice",
+      "id": 24374,
+      "name": "Tranchage blafard",
+      "englishName": "Waxing Slice",
+      "level": 5,
+      "icon": 3602,
+      "category": 3
+    },
+    {
+      "job": "Reaper",
+      "key": "Whorl of Death",
+      "id": 24379,
+      "name": "Tourbillon de la mort",
+      "englishName": "Whorl of Death",
+      "level": 35,
+      "icon": 3607,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "First Generation",
+      "id": 34627,
+      "name": "Première ère",
+      "englishName": "First Generation",
+      "level": 90,
+      "icon": 3722,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "First Legacy",
+      "id": 34640,
+      "name": "Premier cycle",
+      "englishName": "First Legacy",
+      "level": 100,
+      "icon": 3735,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Flanksting Strike",
+      "id": 34610,
+      "name": "Saignée du flanc",
+      "englishName": "Flanksting Strike",
+      "level": 30,
+      "icon": 3705,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Fourth Generation",
+      "id": 34630,
+      "name": "Quatrième ère",
+      "englishName": "Fourth Generation",
+      "level": 90,
+      "icon": 3725,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Fourth Legacy",
+      "id": 34643,
+      "name": "Quatrième cycle",
+      "englishName": "Fourth Legacy",
+      "level": 100,
+      "icon": 3738,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Hindsting Strike",
+      "id": 34612,
+      "name": "Saignée de l'échine",
+      "englishName": "Hindsting Strike",
+      "level": 30,
+      "icon": 3707,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Hunter's Bite",
+      "id": 34616,
+      "name": "Morsure prédatrice",
+      "englishName": "Hunter's Bite",
+      "level": 40,
+      "icon": 3711,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Hunter's Coil",
+      "id": 34621,
+      "name": "Anneaux du prédateur",
+      "englishName": "Hunter's Coil",
+      "level": 65,
+      "icon": 3716,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Hunter's Den",
+      "id": 34624,
+      "name": "Tanière du prédateur",
+      "englishName": "Hunter's Den",
+      "level": 70,
+      "icon": 3719,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Hunter's Sting",
+      "id": 34608,
+      "name": "Ponction prédatrice",
+      "englishName": "Hunter's Sting",
+      "level": 5,
+      "icon": 3703,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Jagged Maw",
+      "id": 34618,
+      "name": "Déchiquetage vorace",
+      "englishName": "Jagged Maw",
+      "level": 50,
+      "icon": 3713,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Ouroboros",
+      "id": 34631,
+      "name": "Esprit du Serpent-Monde",
+      "englishName": "Ouroboros",
+      "level": 96,
+      "icon": 3726,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Reaving Fangs",
+      "id": 34607,
+      "name": "Crochets mortels",
+      "englishName": "Reaving Fangs",
+      "level": 10,
+      "icon": 3702,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Reaving Maw",
+      "id": 34615,
+      "name": "Mâchoire mortelle",
+      "englishName": "Reaving Maw",
+      "level": 35,
+      "icon": 3710,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Reawaken",
+      "id": 34626,
+      "name": "Réminiscence",
+      "englishName": "Reawaken",
+      "level": 90,
+      "icon": 3721,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Second Generation",
+      "id": 34628,
+      "name": "Deuxième ère",
+      "englishName": "Second Generation",
+      "level": 90,
+      "icon": 3723,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Second Legacy",
+      "id": 34641,
+      "name": "Deuxième cycle",
+      "englishName": "Second Legacy",
+      "level": 100,
+      "icon": 3736,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Serpent's Ire",
+      "id": 34647,
+      "name": "Communion ophidienne",
+      "englishName": "Serpent's Ire",
+      "level": 86,
+      "icon": 3742,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Serpent's Tail",
+      "id": 35920,
+      "name": "Queue serpentine",
+      "englishName": "Serpent's Tail",
+      "level": 55,
+      "icon": 3743,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Steel Fangs",
+      "id": 34606,
+      "name": "Crochets d'acier",
+      "englishName": "Steel Fangs",
+      "level": 1,
+      "icon": 3701,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Steel Maw",
+      "id": 34614,
+      "name": "Mâchoire d'acier",
+      "englishName": "Steel Maw",
+      "level": 25,
+      "icon": 3709,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Swiftskin's Coil",
+      "id": 34622,
+      "name": "Anneaux de l'écorcheur",
+      "englishName": "Swiftskin's Coil",
+      "level": 65,
+      "icon": 3717,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Swiftskin's Den",
+      "id": 34625,
+      "name": "Tanière de l'écorcheur",
+      "englishName": "Swiftskin's Den",
+      "level": 70,
+      "icon": 3720,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Swiftskin's Sting",
+      "id": 34609,
+      "name": "Ponction véloce",
+      "englishName": "Swiftskin's Sting",
+      "level": 20,
+      "icon": 3704,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Third Generation",
+      "id": 34629,
+      "name": "Troisième ère",
+      "englishName": "Third Generation",
+      "level": 90,
+      "icon": 3724,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Third Legacy",
+      "id": 34642,
+      "name": "Troisième cycle",
+      "englishName": "Third Legacy",
+      "level": 100,
+      "icon": 3737,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Twinblood Bite",
+      "id": 34637,
+      "name": "Morsure frénétique",
+      "englishName": "Twinblood Bite",
+      "level": 75,
+      "icon": 3732,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Twinblood Thresh",
+      "id": 34639,
+      "name": "Vortex frénétique",
+      "englishName": "Twinblood Thresh",
+      "level": 80,
+      "icon": 3734,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Twinfang Bite",
+      "id": 34636,
+      "name": "Morsure vicieuse",
+      "englishName": "Twinfang Bite",
+      "level": 75,
+      "icon": 3731,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Twinfang Thresh",
+      "id": 34638,
+      "name": "Vortex vicieux",
+      "englishName": "Twinfang Thresh",
+      "level": 80,
+      "icon": 3733,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Uncoiled Fury",
+      "id": 34633,
+      "name": "Assaut ophidien",
+      "englishName": "Uncoiled Fury",
+      "level": 82,
+      "icon": 3728,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Uncoiled Twinblood",
+      "id": 34645,
+      "name": "Assaut frénétique",
+      "englishName": "Uncoiled Twinblood",
+      "level": 92,
+      "icon": 3740,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Uncoiled Twinfang",
+      "id": 34644,
+      "name": "Assaut vicieux",
+      "englishName": "Uncoiled Twinfang",
+      "level": 92,
+      "icon": 3739,
+      "category": 4
+    },
+    {
+      "job": "Viper",
+      "key": "Vicepit",
+      "id": 34623,
+      "name": "Fosse de l'effroi",
+      "englishName": "Vicepit",
+      "level": 70,
+      "icon": 3718,
+      "category": 3
+    },
+    {
+      "job": "Viper",
+      "key": "Vicewinder",
+      "id": 34620,
+      "name": "Anneaux de l'effroi",
+      "englishName": "Vicewinder",
+      "level": 65,
+      "icon": 3715,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Apex Arrow",
+      "id": 16496,
+      "name": "Trait alpha",
+      "englishName": "Apex Arrow",
+      "level": 80,
+      "icon": 2619,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Army's Paeon",
+      "id": 116,
+      "name": "Péan martial",
+      "englishName": "Army's Paeon",
+      "level": 40,
+      "icon": 2603,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Barrage",
+      "id": 107,
+      "name": "Rafale de coups",
+      "englishName": "Barrage",
+      "level": 38,
+      "icon": 353,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Battle Voice",
+      "id": 118,
+      "name": "Voix de combat",
+      "englishName": "Battle Voice",
+      "level": 50,
+      "icon": 2601,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Bloodletter",
+      "id": 110,
+      "name": "Hémorragie",
+      "englishName": "Bloodletter",
+      "level": 12,
+      "icon": 361,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Burst Shot",
+      "id": 16495,
+      "name": "Tir éclatant",
+      "englishName": "Burst Shot",
+      "level": 76,
+      "icon": 2618,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Caustic Bite",
+      "id": 7406,
+      "name": "Morsure caustique",
+      "englishName": "Caustic Bite",
+      "level": 64,
+      "icon": 2613,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Empyreal Arrow",
+      "id": 3558,
+      "name": "Flèche empyréenne",
+      "englishName": "Empyreal Arrow",
+      "level": 54,
+      "icon": 2606,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Heartbreak Shot",
+      "id": 36975,
+      "name": "Tir crève-cœur",
+      "englishName": "Heartbreak Shot",
+      "level": 92,
+      "icon": 2623,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Heavy Shot",
+      "id": 97,
+      "name": "Tir à l'arc puissant",
+      "englishName": "Heavy Shot",
+      "level": 1,
+      "icon": 358,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Iron Jaws",
+      "id": 3560,
+      "name": "Mâchoires de fer",
+      "englishName": "Iron Jaws",
+      "level": 56,
+      "icon": 2608,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Ladonsbite",
+      "id": 25783,
+      "name": "Morsure de Ladon",
+      "englishName": "Ladonsbite",
+      "level": 82,
+      "icon": 2620,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Mage's Ballad",
+      "id": 114,
+      "name": "Ballade du mage",
+      "englishName": "Mage's Ballad",
+      "level": 30,
+      "icon": 2602,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Pitch Perfect",
+      "id": 7404,
+      "name": "Ton parfait",
+      "englishName": "Pitch Perfect",
+      "level": 52,
+      "icon": 2611,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Quick Nock",
+      "id": 106,
+      "name": "Salve fulgurante",
+      "englishName": "Quick Nock",
+      "level": 18,
+      "icon": 360,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Radiant Encore",
+      "id": 36977,
+      "name": "Rappel radieux",
+      "englishName": "Radiant Encore",
+      "level": 100,
+      "icon": 2100,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Radiant Finale",
+      "id": 25785,
+      "name": "Final radieux",
+      "englishName": "Radiant Finale",
+      "level": 90,
+      "icon": 2622,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Raging Strikes",
+      "id": 101,
+      "name": "Tir furieux",
+      "englishName": "Raging Strikes",
+      "level": 4,
+      "icon": 352,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Refulgent Arrow",
+      "id": 7409,
+      "name": "Flèche rayonnante",
+      "englishName": "Refulgent Arrow",
+      "level": 70,
+      "icon": 2616,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Resonant Arrow",
+      "id": 36976,
+      "name": "Flèche résonante",
+      "englishName": "Resonant Arrow",
+      "level": 96,
+      "icon": 2624,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Shadowbite",
+      "id": 16494,
+      "name": "Morsure de l'ombre",
+      "englishName": "Shadowbite",
+      "level": 72,
+      "icon": 2617,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Stormbite",
+      "id": 7407,
+      "name": "Morsure de la tempête",
+      "englishName": "Stormbite",
+      "level": 64,
+      "icon": 2614,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Straight Shot",
+      "id": 98,
+      "name": "Tir droit",
+      "englishName": "Straight Shot",
+      "level": 2,
+      "icon": 359,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "The Wanderer's Minuet",
+      "id": 3559,
+      "name": "Menuet du Vagabond",
+      "englishName": "the Wanderer's Minuet",
+      "level": 52,
+      "icon": 2607,
+      "category": 4
+    },
+    {
+      "job": "Bard",
+      "key": "Venomous Bite",
+      "id": 100,
+      "name": "Morsure venimeuse",
+      "englishName": "Venomous Bite",
+      "level": 6,
+      "icon": 363,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Wide Volley",
+      "id": 36974,
+      "name": "Rafale impitoyable",
+      "englishName": "Wide Volley",
+      "level": 25,
+      "icon": 357,
+      "category": 3
+    },
+    {
+      "job": "Bard",
+      "key": "Windbite",
+      "id": 113,
+      "name": "Morsure du vent",
+      "englishName": "Windbite",
+      "level": 30,
+      "icon": 367,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Air Anchor",
+      "id": 16500,
+      "name": "Ancre aérienne",
+      "englishName": "Air Anchor",
+      "level": 76,
+      "icon": 3045,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Auto Crossbow",
+      "id": 16497,
+      "name": "Arbalète automatique",
+      "englishName": "Auto Crossbow",
+      "level": 52,
+      "icon": 3042,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Automaton Queen",
+      "id": 16501,
+      "name": "Automate Reine",
+      "englishName": "Automaton Queen",
+      "level": 80,
+      "icon": 3501,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Barrel Stabilizer",
+      "id": 7414,
+      "name": "Stabilisateur de canon",
+      "englishName": "Barrel Stabilizer",
+      "level": 66,
+      "icon": 3034,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Bioblaster",
+      "id": 16499,
+      "name": "Lance-toxine",
+      "englishName": "Bioblaster",
+      "level": 72,
+      "icon": 3044,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Blazing Shot",
+      "id": 36978,
+      "name": "Tir ardent",
+      "englishName": "Blazing Shot",
+      "level": 68,
+      "icon": 3506,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Chain Saw",
+      "id": 25788,
+      "name": "Tronçonneuses rotatives",
+      "englishName": "Chain Saw",
+      "level": 90,
+      "icon": 3048,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Checkmate",
+      "id": 36980,
+      "name": "Échec et mat",
+      "englishName": "Checkmate",
+      "level": 92,
+      "icon": 3508,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Clean Shot",
+      "id": 2873,
+      "name": "Tir net",
+      "englishName": "Clean Shot",
+      "level": 26,
+      "icon": 3004,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Double Check",
+      "id": 36979,
+      "name": "Double échec",
+      "englishName": "Double Check",
+      "level": 92,
+      "icon": 3507,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Drill",
+      "id": 16498,
+      "name": "Foreuse",
+      "englishName": "Drill",
+      "level": 58,
+      "icon": 3043,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Excavator",
+      "id": 36981,
+      "name": "Excavation",
+      "englishName": "Excavator",
+      "level": 96,
+      "icon": 3500,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Full Metal Field",
+      "id": 36982,
+      "name": "Rafale de métal",
+      "englishName": "Full Metal Field",
+      "level": 100,
+      "icon": 3049,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Gauss Round",
+      "id": 2874,
+      "name": "Décharge Gauss",
+      "englishName": "Gauss Round",
+      "level": 15,
+      "icon": 3005,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Heat Blast",
+      "id": 7410,
+      "name": "Pyro-explosion",
+      "englishName": "Heat Blast",
+      "level": 35,
+      "icon": 3030,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Heated Clean Shot",
+      "id": 7413,
+      "name": "Tir net chauffé",
+      "englishName": "Heated Clean Shot",
+      "level": 64,
+      "icon": 3033,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Heated Slug Shot",
+      "id": 7412,
+      "name": "Tir de balle chauffé",
+      "englishName": "Heated Slug Shot",
+      "level": 60,
+      "icon": 3032,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Heated Split Shot",
+      "id": 7411,
+      "name": "Tir scindé chauffé",
+      "englishName": "Heated Split Shot",
+      "level": 54,
+      "icon": 3031,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Hot Shot",
+      "id": 2872,
+      "name": "Tir déchaîné",
+      "englishName": "Hot Shot",
+      "level": 4,
+      "icon": 3003,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Hypercharge",
+      "id": 17209,
+      "name": "Hypercharge",
+      "englishName": "Hypercharge",
+      "level": 30,
+      "icon": 3041,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Reassemble",
+      "id": 2876,
+      "name": "Réassemblage",
+      "englishName": "Reassemble",
+      "level": 10,
+      "icon": 3022,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Ricochet",
+      "id": 2890,
+      "name": "Ricochet",
+      "englishName": "Ricochet",
+      "level": 50,
+      "icon": 3017,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Rook Autoturret",
+      "id": 2864,
+      "name": "Auto-tourelle Tour",
+      "englishName": "Rook Autoturret",
+      "level": 40,
+      "icon": 3026,
+      "category": 4
+    },
+    {
+      "job": "Machinist",
+      "key": "Scattergun",
+      "id": 25786,
+      "name": "Fusil à pompe",
+      "englishName": "Scattergun",
+      "level": 82,
+      "icon": 3046,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Slug Shot",
+      "id": 2868,
+      "name": "Tir de balle",
+      "englishName": "Slug Shot",
+      "level": 2,
+      "icon": 3002,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Split Shot",
+      "id": 2866,
+      "name": "Tir scindé",
+      "englishName": "Split Shot",
+      "level": 1,
+      "icon": 3001,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Spread Shot",
+      "id": 2870,
+      "name": "Tir dispersé",
+      "englishName": "Spread Shot",
+      "level": 18,
+      "icon": 3014,
+      "category": 3
+    },
+    {
+      "job": "Machinist",
+      "key": "Wildfire",
+      "id": 2878,
+      "name": "Flambée",
+      "englishName": "Wildfire",
+      "level": 45,
+      "icon": 3018,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Bladeshower",
+      "id": 15994,
+      "name": "Averse de lames",
+      "englishName": "Bladeshower",
+      "level": 25,
+      "icon": 3461,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Bloodshower",
+      "id": 15996,
+      "name": "Averse de sang",
+      "englishName": "Bloodshower",
+      "level": 45,
+      "icon": 3465,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Cascade",
+      "id": 15989,
+      "name": "Cascade",
+      "englishName": "Cascade",
+      "level": 1,
+      "icon": 3451,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Closed Position",
+      "id": 16006,
+      "name": "Position rapprochée",
+      "englishName": "Closed Position",
+      "level": 60,
+      "icon": 3470,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Dance of the Dawn",
+      "id": 36985,
+      "name": "Danse de l'aurore",
+      "englishName": "Dance of the Dawn",
+      "level": 100,
+      "icon": 3485,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Devilment",
+      "id": 16011,
+      "name": "Tango endiablé",
+      "englishName": "Devilment",
+      "level": 62,
+      "icon": 3471,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Double Standard Finish",
+      "id": 16192,
+      "name": "Final classique doublé",
+      "englishName": "Double Standard Finish",
+      "level": 15,
+      "icon": 3459,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Fan Dance",
+      "id": 16007,
+      "name": "Danse de l'éventail I",
+      "englishName": "Fan Dance",
+      "level": 30,
+      "icon": 3462,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Fan Dance II",
+      "id": 16008,
+      "name": "Danse de l'éventail II",
+      "englishName": "Fan Dance II",
+      "level": 50,
+      "icon": 3466,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Fan Dance III",
+      "id": 16009,
+      "name": "Danse de l'éventail III",
+      "englishName": "Fan Dance III",
+      "level": 66,
+      "icon": 3472,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Fan Dance IV",
+      "id": 25791,
+      "name": "Danse de l'éventail IV",
+      "englishName": "Fan Dance IV",
+      "level": 86,
+      "icon": 3481,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Finishing Move",
+      "id": 36984,
+      "name": "Mouvement final",
+      "englishName": "Finishing Move",
+      "level": 96,
+      "icon": 3484,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Flourish",
+      "id": 16013,
+      "name": "Apothéose",
+      "englishName": "Flourish",
+      "level": 72,
+      "icon": 3475,
+      "category": 4
+    },
+    {
+      "job": "Dancer",
+      "key": "Fountain",
+      "id": 15990,
+      "name": "Fontaine",
+      "englishName": "Fountain",
+      "level": 2,
+      "icon": 3452,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Fountainfall",
+      "id": 15992,
+      "name": "Fontaine en cascade",
+      "englishName": "Fountainfall",
+      "level": 40,
+      "icon": 3464,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Last Dance",
+      "id": 36983,
+      "name": "Ultime danse",
+      "englishName": "Last Dance",
+      "level": 92,
+      "icon": 3483,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Quadruple Technical Finish",
+      "id": 16196,
+      "name": "Final technique quadruplé",
+      "englishName": "Quadruple Technical Finish",
+      "level": 70,
+      "icon": 3474,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Reverse Cascade",
+      "id": 15991,
+      "name": "Cascade inversée",
+      "englishName": "Reverse Cascade",
+      "level": 20,
+      "icon": 3460,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Rising Windmill",
+      "id": 15995,
+      "name": "Moulin à vent ascendant",
+      "englishName": "Rising Windmill",
+      "level": 35,
+      "icon": 3463,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Saber Dance",
+      "id": 16005,
+      "name": "Danse du sabre",
+      "englishName": "Saber Dance",
+      "level": 76,
+      "icon": 3476,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Standard Step",
+      "id": 15997,
+      "name": "Pas classique",
+      "englishName": "Standard Step",
+      "level": 15,
+      "icon": 3454,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Starfall Dance",
+      "id": 25792,
+      "name": "Danse de la pluie étoilée",
+      "englishName": "Starfall Dance",
+      "level": 90,
+      "icon": 3482,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Technical Step",
+      "id": 15998,
+      "name": "Pas technique",
+      "englishName": "Technical Step",
+      "level": 70,
+      "icon": 3473,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Tillana",
+      "id": 25790,
+      "name": "Tillana",
+      "englishName": "Tillana",
+      "level": 82,
+      "icon": 3480,
+      "category": 3
+    },
+    {
+      "job": "Dancer",
+      "key": "Windmill",
+      "id": 15993,
+      "name": "Moulin à vent",
+      "englishName": "Windmill",
+      "level": 15,
+      "icon": 3453,
+      "category": 3
+    }
+  ]
+}

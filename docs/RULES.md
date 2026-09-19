@@ -2,6 +2,8 @@
 
 Relevé le 19 septembre 2026. Les règles sont versionnées avec le plugin ; elles ne se mettent pas à jour depuis un site pendant le jeu.
 
+Les 19 autres jobs et leurs sources sont détaillés dans [JOBS.md](JOBS.md). Les sections suivantes conservent les règles spécifiques des deux premières fiches.
+
 ## Mage noir — références
 
 - [Guide officiel français](https://fr.finalfantasyxiv.com/jobguide/blackmage/) : noms, actions, niveaux et icônes.
@@ -38,9 +40,9 @@ Le soin reste prioritaire selon les dégâts reçus ou prévus. Les rappels pré
 
 ## Langue et attribution
 
-Les classes/jobs sont reconnus par leurs identifiants (occultiste 7, Mage noir 25, élémentaliste 6, Mage blanc 24), indépendamment de la langue du client. Noms et icônes sont résolus au chargement depuis la feuille Action locale. Les noms présents dans les annotations suivent aussi le client ; l’interface et les explications restent françaises. Les libellés français servent de repli si une ligne locale est absente. Les noms anglais sont également couverts par les contrôles hors jeu.
+Les 21 jobs et leurs classes sont reconnus par leurs identifiants dans `Jobs.cs`, indépendamment de la langue du client. Noms et icônes sont résolus au chargement depuis la feuille Action locale. Les noms présents dans les annotations suivent aussi le client ; l’interface et les explications restent françaises. Les libellés français servent de repli si une ligne locale est absente. Les noms anglais sont également couverts par les contrôles hors jeu.
 
-Chaque fiche affiche en petit Icy Veins 7.55, The Balance, la date de vérification et des liens adaptés au job et au contenu (progression ou ouverture), ainsi que le guide officiel. Le patch précis de chaque référence est détaillé ci-dessus. Le clic ouvre le site dans le navigateur ; le plugin ne télécharge pas de nouvelles règles en cours de jeu.
+Chaque fiche affiche en petit sa source et son patch de référence, la date de consultation et des liens adaptés au job et au contenu (progression ou ouverture), ainsi que le guide officiel. Le patch précis de chaque référence est détaillé ci-dessus. Le clic ouvre le site dans le navigateur ; le plugin ne télécharge pas de nouvelles règles en cours de jeu.
 
 ## Comportement de la proposition
 
@@ -48,13 +50,13 @@ La première lecture stable du niveau sert de référence, sans popup de connexi
 
 Une absence temporaire du personnage pendant le chargement conserve le niveau précédent. Déconnexion et changement de job réinitialisent la référence. Le mode Auto suit le job et le niveau effectif. Le mode Manuel conserve le niveau et le job choisis, fonctionne sans personnage disponible et suspend la proposition automatique. Niveau et cibles restent communs aux deux parties du guide.
 
-Une seule fenêtre propose Les deux / Cycle / Ouverture. L’en-tête intégré et les choix de niveau/cibles restent visibles ; l’ouverture est au-dessus du cycle, avec retour à la ligne selon la largeur. Les répétitions sans condition sont regroupées en ×N ; les petites icônes illustrent les aptitudes des annotations existantes. La potion reste une annotation. Les étapes avec une condition ou une insertion ne sont pas regroupées. Changer de vue conserve l’étape de lecture ; changer de niveau ou de cibles la remet au début. Les soins WHM sont dépliables et la survie reste rappelée dans le cycle de dégâts.
+Une seule fenêtre propose Les deux / Cycle / Ouverture. L’en-tête intégré et les choix de niveau/cibles restent visibles ; l’ouverture est au-dessus du cycle, avec retour à la ligne selon la largeur. Les répétitions sans condition sont regroupées en ×N ; les petites icônes illustrent les aptitudes des annotations existantes. La potion reste une annotation. Les étapes avec une condition ou une insertion ne sont pas regroupées. Changer de vue conserve l’étape de lecture ; changer de niveau ou de cibles la remet au début. Les soins des quatre soigneurs et les protections des tanks sont dépliables et la survie reste rappelée dans le cycle de dégâts.
 
 Le repère « À ce niveau : sans… » montre deux prochains déblocages importants, pas un inventaire exhaustif des actions absentes ni une lecture des quêtes. Fermer les réglages laisse les commandes du guide accessibles. Le verrouillage concerne déplacement et redimensionnement, jamais les clics ni la fermeture. Replier conserve la taille dépliée pendant la session. Les anciennes visibilités v1/v2 migrent vers la vue correspondante, sans réinitialiser les préférences fonctionnelles.
 
 ## Ressources et limites
 
-Dans le jeu, les icônes sont chargées depuis les ressources locales par `ITextureProvider`. Les binaires ne contiennent aucun asset extrait. Pour les aperçus locaux seulement, `tools/fetch-icons.py` utilise les icônes des deux guides officiels et les icônes de jobs via XIVAPI ; ce cache et les rendus de travail sont ignorés par Git. Les icônes restent la propriété de Square Enix. Les captures documentaires montrent le panneau du plugin.
+Dans le jeu, les icônes sont chargées depuis les ressources locales par `ITextureProvider`. Les binaires ne contiennent aucun asset extrait. Pour les aperçus locaux seulement, `tools/fetch-icons.py` utilise les numéros d’icônes sélectionnés et les icônes des 21 jobs via XIVAPI ; ce cache et les rendus de travail sont ignorés par Git. Les icônes restent la propriété de Square Enix. Les captures documentaires montrent le panneau du plugin.
 
 Expressway n’est pas fournie. Si un fichier local est trouvé, le guide peut l’utiliser avec un repli de glyphes ; sinon il utilise la police Dalamud. Les rendus hors jeu utilisent Segoe UI. Les réglages ont une présentation fixe indépendante de l’apparence du guide.
 

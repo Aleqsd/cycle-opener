@@ -17,7 +17,11 @@ public sealed class GuidePanelState {
 public static class GuidePanel {
  public static readonly Vector4 Background=new(.045f,.045f,.05f,1);
  static readonly Vector4 Muted=new(.72f,.72f,.75f,1);
- public static Vector4 Accent(GuideJob job)=>job==GuideJob.WhiteMage?new(1,.941f,.863f,1):Hud.Purple;
+ public static Vector4 Accent(GuideJob job){
+  var rgb=Jobs.Get(job).Color;var c=new Vector4((rgb>>16&255)/255f,(rgb>>8&255)/255f,(rgb&255)/255f,1);
+  // LMeter job hues, lifted only for small text on charcoal (e.g. GNB / NIN / VPR).
+  return Vector4.Lerp(c,Vector4.One,.22f);
+ }
  public static void PushStyle(Configuration config){
   Panels.PushTheme();
   ImGui.PushStyleColor(ImGuiCol.WindowBg,Background with {W=config.BackgroundOpacity});
@@ -34,7 +38,7 @@ public static class GuidePanel {
   var titleWidth=small?width:width-tools-12*scale;var dl=ImGui.GetWindowDrawList();
   var texture=icon(Guide.JobIcon(state.Job));
   if(texture.HasValue)dl.AddImage(texture.Value,start+new Vector2(0,6)*scale,start+new Vector2(30,36)*scale);
-  else dl.AddText(start+new Vector2(0,14)*scale,ImGui.GetColorU32(accent),state.Job==GuideJob.WhiteMage?"WHM":"BLM");
+  else dl.AddText(start+new Vector2(0,14)*scale,ImGui.GetColorU32(accent),Jobs.Get(state.Job).Code);
   var text=start+new Vector2(40,0)*scale;
   dl.AddText(ImGui.GetFont(),12*scale,text,ImGui.GetColorU32(Muted),"CYCLE & OPENER");
   dl.AddText(text+new Vector2(0,18)*scale,ImGui.GetColorU32(accent),$"{Guide.JobName(state.Job)} · {state.Level}");
@@ -93,7 +97,7 @@ public static class GuidePanel {
    if(ImGui.IsItemHovered())ImGui.SetTooltip("Niveau 1 à 100. Saisie directe, −/+ ; Ctrl pour changer de 10 niveaux.");
    if(width>=440*scale)ImGui.SameLine();
    ImGui.SetNextItemWidth(-1);var job=(int)config.ManualJob;
-   if(ImGui.Combo("##Job",ref job,new[]{"Mage noir","Mage blanc"},2)){config.ManualJob=(GuideJob)job;changed=true;}
+   if(ImGui.Combo("##Job",ref job,Jobs.Labels,Jobs.Labels.Length)){config.ManualJob=(GuideJob)job;changed=true;}
   }else ImGui.TextColored(Muted,actual.Available?$"Niv. {actual.Level} · synchronisé":"Niveau indisponible");
   var viewChanged=false;
   if(width>=700*scale&&ImGui.BeginTable("Choix de lecture",2,ImGuiTableFlags.SizingStretchSame)){
@@ -114,8 +118,8 @@ public static class GuidePanel {
   }
   if(config.View!=GuideView.Opening){
    Hud.Draw(config.Layout,state,icon,look,selected,config.ManualLevel,embedded:true);
-   if(state.Job==GuideJob.WhiteMage){
-    if(ImGui.CollapsingHeader("Soins et urgences",ui.Healing?ImGuiTreeNodeFlags.DefaultOpen:ImGuiTreeNodeFlags.None)){
+   if(Jobs.Healer(state.Job)||Jobs.Tank(state.Job)){
+    if(ImGui.CollapsingHeader(Jobs.Tank(state.Job)?"Protection et tanking":"Soins et urgences",ui.Healing?ImGuiTreeNodeFlags.DefaultOpen:ImGuiTreeNodeFlags.None)){
      ImGui.TextWrapped("Des réponses à une situation, pas un cycle fixe. Anticiper les dégâts et garder une réponse disponible.");
      Hud.Draw(config.Layout,state,icon,look,embedded:true,healingOnly:true);
     }

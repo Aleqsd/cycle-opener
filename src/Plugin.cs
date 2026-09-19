@@ -97,9 +97,9 @@ public sealed class Plugin : IDalamudPlugin
         expresswayPath=FindExpressway();RefreshFont();
         hud=new(this);settings=new(this);prompt=new(this);
         windows.AddWindow(hud);windows.AddWindow(settings);windows.AddWindow(prompt);
-        Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guides Mage noir / Mage blanc. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
+        Commands.AddHandler("/cycle",new CommandInfo(OnCommand){HelpMessage="Guides des 21 jobs de combat. /cycle : réglages ; /cycle show|hide ; /cycle next|prev : fiche d’ouverture."});
         Pi.UiBuilder.Draw+=Draw;Pi.UiBuilder.OpenConfigUi+=OpenSettings;Pi.UiBuilder.OpenMainUi+=OpenSettings;Framework.Update+=Update;Client.Logout+=Logout;
-        Log.Information($"Cycle & Opener 0.3.0 — {Pi.AssemblyLocation.FullName}");
+        Log.Information($"Cycle & Opener 1.0.0 — {Pi.AssemblyLocation.FullName}");
     }
     private static string? FindExpressway()
     {

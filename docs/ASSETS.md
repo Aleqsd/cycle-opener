@@ -12,7 +12,9 @@ magick -background none assets/icon.svg -strip -depth 8 -define png:color-type=6
 
 Les captures de documentation sont des rendus du code ImGui hors jeu, avec des données de démonstration. Les icônes de sorts qu’elles montrent appartiennent à Square Enix. Elles ne sont pas empaquetées comme ressources de jeu : le plugin résout les icônes locales par les services Dalamud.
 
-L’en-tête utilise les icônes locales de jobs (62124 / 62125), dont le cache d’aperçu uniquement provient de XIVAPI. Les commandes de fenêtre sont des formes géométriques dessinées par le plugin. Aucun nouvel asset de jeu n’entre dans l’archive.
+L’en-tête utilise les icônes locales des 21 jobs. `tools/fetch-icons.py` prépare uniquement pour les aperçus un cache XIVAPI de 610 icônes d’actions et de jobs. Les commandes de fenêtre sont des formes géométriques dessinées par le plugin. Aucun asset de jeu n’entre dans l’archive.
+
+Les noms français/anglais, identifiants, niveaux et numéros d’icônes sélectionnés sont des métadonnées factuelles, consignées dans `imported-actions.json`. L’import épingle la révision XIVAPI `d71de329cc6ed30c6fb16b9108cdf7d29c653302`. Les CSV complets et les pages consultées restent dans un cache ignoré ; aucun guide ou schéma tiers n’est redistribué. Les explications françaises des nouvelles fiches sont rédigées pour ce plugin.
 
 Ni police, ni assembly Dalamud, ni cache d’icônes ne sont redistribués. Expressway reste une option utilisant une installation locale ; les aperçus hors jeu utilisent Segoe UI.
 

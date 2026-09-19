@@ -71,6 +71,7 @@ public static class Spells {
   [37010]=new(37010,"Méga Médica",96,2127,"Medica III"),
   [37011]=new(37011,"Caresse divine",100,2128,"Divine Caress"),
  };
+ static Spells(){JobActions.Register(All);}
  private static Dictionary<uint,string> names=new();
  private static System.Text.RegularExpressions.Regex? namePattern;
  private static Dictionary<string,string> replacements=new();

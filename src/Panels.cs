@@ -30,12 +30,20 @@ public static class Panels {
  }
  public static bool Targets(Configuration config,GuideContext? context=null){
   var threshold=context==null?null:Guide.MultiThreshold(context);
-  var changed=false;string[] labels=["1 cible",threshold==2?"Multi · 2":"2 cibles",threshold==3?"Multi · 3+":"3+ cibles"];
+  var changed=false;string[] labels=["1 cible",threshold==2?"Multi · 2":"2 cibles",config.Targets>=3?$"{config.Targets} cibles":"3+ cibles"];
   var width=(ImGui.GetContentRegionAvail().X-2*ImGui.GetStyle().ItemSpacing.X)/3;
   for(var n=0;n<3;n++){
    if(n>0)ImGui.SameLine();
    var selected=Math.Min(config.Targets-1,2)==n;
-   if(Button(labels[n],width,selected)&&!selected){config.Targets=n+1;changed=true;}
+   if(Button(labels[n],width,selected)){
+    if(n==2)ImGui.OpenPopup("Nombre de cibles");
+    else if(!selected){config.Targets=n+1;changed=true;}
+   }
+   if(n==2&&ImGui.IsItemHovered())ImGui.SetTooltip("Choisir le nombre exact : de 3 à 8 cibles.");
+  }
+  if(ImGui.BeginPopup("Nombre de cibles")){
+   for(var n=3;n<=8;n++)if(ImGui.Selectable($"{n} cibles"+(threshold==n?" · seuil de zone":""),config.Targets==n)){config.Targets=n;changed=true;}
+   ImGui.EndPopup();
   }
   return changed;
  }
@@ -52,7 +60,7 @@ public static class Panels {
   if(Button(config.ManualLevel?"Manuel · actif":"Manuel",stacked?width:half,config.ManualLevel)&&!config.ManualLevel){config.ManualLevel=true;if(actual.Available)config.ManualJob=actual.Job;changed=true;}
   if(config.ManualLevel){
    var job=(int)config.ManualJob;ImGui.SetNextItemWidth(-1);
-   if(ImGui.Combo("##Job manuel",ref job,new[]{"Mage noir / Black Mage","Mage blanc / White Mage"},2)){config.ManualJob=(GuideJob)job;changed=true;}
+   if(ImGui.Combo("##Job manuel",ref job,Jobs.BilingualLabels,Jobs.BilingualLabels.Length)){config.ManualJob=(GuideJob)job;changed=true;}
    // Exact typing plus native +/- buttons; Ctrl uses the ten-level increment.
    var presetWidth=ImGui.CalcTextSize("Paliers").X+2*ImGui.GetStyle().FramePadding.X+ImGui.GetFrameHeight();
    ImGui.SetNextItemWidth(width-presetWidth-gap);var level=config.PreviewLevel;
@@ -77,7 +85,8 @@ public static class Panels {
  public static bool Settings(Configuration config, GuideContext state, bool expresswayAvailable, string dllPath, ref int openerStep, Action resetPosition, Action rebuildFont, string? runtimeError=null) {
   var changed=false;
   ImGui.TextColored(Accent,Guide.JobName(config.Resolve(state).Job).ToUpperInvariant());
-  ImGui.SameLine();ImGui.TextColored(Muted,"0.3.0 · expérimental");
+  if(ImGui.GetContentRegionAvail().X>ImGui.CalcTextSize(Guide.JobName(config.Resolve(state).Job).ToUpperInvariant()).X+ImGui.CalcTextSize("1.0.0 · expérimental").X+ImGui.GetStyle().ItemSpacing.X)ImGui.SameLine();
+  ImGui.TextColored(Muted,"1.0.0 · expérimental");
   var level=config.Resolve(state).Level;
   MutedText(config.ManualLevel?$"Fiche niveau {level} · niveau manuel":state.Available?$"Niveau {level} · synchronisation automatique":"Personnage indisponible · choisis un niveau manuel.");
   if(runtimeError!=null)ImGui.TextWrapped(runtimeError);
@@ -99,7 +108,7 @@ public static class Panels {
   ImGui.Spacing();ImGui.Text("Présentation du cycle");ImGui.SetNextItemWidth(-1);
   var layout=(int)config.Layout;
   if(ImGui.Combo("##Affichage",ref layout,Hud.CycleNames,Hud.CycleNames.Length)){config.Layout=(Layout)layout;openerStep=0;changed=true;}
-  MutedText(layout==3&&config.Resolve(state).Job==GuideJob.WhiteMage?"Dégâts courants et ressources conditionnelles.":Hud.Descriptions[layout]);
+  MutedText(layout==3&&config.Resolve(state).Job!=GuideJob.BlackMage?"Boucle de base et ressources conditionnelles.":Hud.Descriptions[layout]);
 
   Section("COMPORTEMENT");
   changed|=ImGui.Checkbox("Proposer à la synchronisation en instance",ref config.SuggestOnSync);
@@ -116,7 +125,8 @@ public static class Panels {
    if(Button("Restaurer l’apparence",ImGui.GetContentRegionAvail().X)){config.HudScale=1;config.BackgroundOpacity=.86f;config.TextOutline=true;config.Expressway=true;rebuildFont();changed=true;}
   }
   if(ImGui.CollapsingHeader("Sources et diagnostic")) {
-   ImGui.TextWrapped("Fiches recoupées avec Icy Veins 7.55 et The Balance. Quêtes de job supposées terminées.");
+   ImGui.TextWrapped(GuideSources.Credit(config.Resolve(state).Job)+". Consultation : 19/09/2026. Quêtes de job supposées terminées.");
+   MutedText("21 jobs de combat. Mage bleu exclu : ses sorts dépendent des apprentissages. Les départs pédagogiques ne remplacent pas une ouverture de raid adaptée au groupe.");
    MutedText("Choix des cibles manuel. Aucun suivi des sorts, cibles, jauges ou dégâts.");
    ImGui.TextWrapped("Noms des sorts : langue du client. Explications et interface : français.");
    ImGui.TextWrapped(dllPath);

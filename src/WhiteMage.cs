@@ -12,7 +12,7 @@ public static class WhiteMage {
   basic.Add(new(Area(s)?Holy(l):Filler(l),"Répéter entre les soins nécessaires"));
   if(l>=74)burst.Add(new(16535,"Seulement si le Lys de sang est prêt"));
   if(l>=92)burst.Add(new(37009,"Après Présence d'esprit ; avant expiration",3));
-  return new(basic.ToArray(),burst.ToArray(),"La survie du groupe passe avant les dégâts. Les soins répondent aux dégâts reçus ou prévus ; ce schéma ne les détecte pas.");
+  return new(basic.ToArray(),burst.ToArray(),"La survie du groupe passe avant les dégâts. Les soins répondent aux dégâts reçus ou prévus ; ce schéma ne les détecte pas.","DÉGÂTS COURANTS","RESSOURCES ET BURST","Reprendre les dégâts entre les soins nécessaires");
  }
  public static List<Reminder> Reminders(GuideContext s){
   var l=s.Level;var r=new List<Reminder>();

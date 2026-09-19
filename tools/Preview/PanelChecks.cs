@@ -26,6 +26,13 @@ internal static unsafe class PanelChecks {
   var reloaded=JsonSerializer.Deserialize<Configuration>(serialized,new JsonSerializerOptions{IncludeFields=true})!;reloaded.Normalize();
   Check(reloaded.ManualLevel&&reloaded.ManualJob==GuideJob.WhiteMage&&reloaded.PreviewLevel==64,"Manual selection persists");
   config.ManualLevel=false;Check(config.Resolve(new(50,Job:GuideJob.BlackMage)).Level==50,"Auto follows sync");
+  foreach(var job in Enum.GetValues<GuideJob>()){
+   config.ManualLevel=true;config.ManualJob=job;config.Targets=8;
+   var json=JsonSerializer.Serialize(config,new JsonSerializerOptions{IncludeFields=true});
+   var saved=JsonSerializer.Deserialize<Configuration>(json,new JsonSerializerOptions{IncludeFields=true})!;saved.Normalize();
+   Check(saved.Resolve(new(Available:false)).Job==job&&saved.Targets==8,"Each imported manual job and exact target count survives reload");
+  }
+  config.ManualLevel=false;
   Check(!config.Resolve(new(Available:false)).Available,"Unknown actual level is not a usable level 100");
   foreach(var level in new[]{-50,101,500}){config.PreviewLevel=level;config.Normalize();Check(config.PreviewLevel==Math.Clamp(level,1,100),"Clamp saved level");}
 
@@ -35,7 +42,7 @@ internal static unsafe class PanelChecks {
    var beforeColor=ImGui.GetStyle().Colors[(int)ImGuiCol.WindowBg];var beforePadding=ImGui.GetStyle().FramePadding;var beforeBorder=ImGui.GetStyle().WindowBorderSize;
    GuidePanel.PushStyle(new Configuration{BackgroundOpacity=.15f,HudScale=1.8f});GuidePanel.PopStyle();
    Check(ImGui.GetStyle().Colors[(int)ImGuiCol.WindowBg]==beforeColor&&ImGui.GetStyle().FramePadding==beforePadding&&ImGui.GetStyle().WindowBorderSize==beforeBorder,"Guide styling leaves other windows unchanged");
-   var io=ImGui.GetIO();io.IniFilename=null;io.DeltaTime=1f/60;io.DisplaySize=new(800,1200);
+   var io=ImGui.GetIO();io.IniFilename=null;io.DeltaTime=1f/60;io.DisplaySize=new(800,1200);io.ConfigFlags|=ImGuiConfigFlags.NavEnableKeyboard;
    var fc=ImGui.ImFontConfig();fc.SizePixels=17;
    ushort[] ranges=[0x20,0x17f,0x2000,0x206f,0x2190,0x21ff,0];
    fixed(ushort* glyphs=ranges){io.Fonts.AddFontFromFileTTF(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts),"segoeui.ttf"),17,fc,glyphs);io.Fonts.Build();}fc.Destroy();
@@ -77,6 +84,16 @@ internal static unsafe class PanelChecks {
    Click(112+8+140-14,12);Check(cfg.PreviewLevel==100,"Integrated manual level clamp");
    cfg.Targets=1;section="opener";step=0;Frame();Click(12+112+20,70);Check(step==1,"Native opener step click");
    Click(12+20,70);Check(step==0,"Native opener returns to first step");
+   section="level";cfg.ManualLevel=true;cfg.ManualJob=GuideJob.BlackMage;Frame();Frame();Frame();
+   Click(width*.5f,row+row*.4f);
+   Check(ImGui.IsPopupOpen("",ImGuiPopupFlags.AnyPopupId|ImGuiPopupFlags.AnyPopupLevel),"Native job combo opens");
+   Click(width*.5f,row*2+ImGui.GetTextLineHeightWithSpacing()*2.5f);
+   Check(cfg.ManualJob==GuideJob.Paladin,$"Native job list selects an imported job (selected {cfg.ManualJob})");
+   section="controls";cfg.ManualLevel=false;cfg.Targets=3;step=7;Frame();
+   Click(width*.84f,row+row*.4f);
+   Check(ImGui.IsPopupOpen("",ImGuiPopupFlags.AnyPopupId|ImGuiPopupFlags.AnyPopupLevel),"Native exact-target popup opens");
+   Click(width*.84f+20,row+row*.4f+8+ImGui.GetTextLineHeightWithSpacing()*5.5f);
+   Check(cfg.Targets==8&&step==0,$"Native exact-target popup selects eight and resets reading step (selected {cfg.Targets})");
    Check((Panels.GuideFlags(true)&ImGuiWindowFlags.NoInputs)==0,"Lock never removes input handling");
    Check((Panels.GuideFlags(true)&ImGuiWindowFlags.NoTitleBar)!=0,"Generic titlebar replaced by integrated header");
   }finally{ImGui.DestroyContext(context);}

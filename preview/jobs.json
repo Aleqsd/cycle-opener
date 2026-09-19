@@ -1,0 +1,170 @@
+[
+  {
+    "id": "BlackMage",
+    "name": "Mage noir",
+    "code": "BLM",
+    "slug": "black-mage",
+    "role": "casters",
+    "patch": "7.55"
+  },
+  {
+    "id": "WhiteMage",
+    "name": "Mage blanc",
+    "code": "WHM",
+    "slug": "white-mage",
+    "role": "healers",
+    "patch": "7.55"
+  },
+  {
+    "id": "Paladin",
+    "name": "Paladin",
+    "code": "PLD",
+    "slug": "paladin",
+    "role": "tanks",
+    "patch": "7.4"
+  },
+  {
+    "id": "Warrior",
+    "name": "Guerrier",
+    "code": "WAR",
+    "slug": "warrior",
+    "role": "tanks",
+    "patch": "7.4"
+  },
+  {
+    "id": "DarkKnight",
+    "name": "Chevalier noir",
+    "code": "DRK",
+    "slug": "dark-knight",
+    "role": "tanks",
+    "patch": "7.5"
+  },
+  {
+    "id": "Gunbreaker",
+    "name": "Pistosabreur",
+    "code": "GNB",
+    "slug": "gunbreaker",
+    "role": "tanks",
+    "patch": "7.4"
+  },
+  {
+    "id": "Scholar",
+    "name": "Érudit",
+    "code": "SCH",
+    "slug": "scholar",
+    "role": "healers",
+    "patch": "7.4"
+  },
+  {
+    "id": "Astrologian",
+    "name": "Astromancien",
+    "code": "AST",
+    "slug": "astrologian",
+    "role": "healers",
+    "patch": "7.3"
+  },
+  {
+    "id": "Sage",
+    "name": "Sage",
+    "code": "SGE",
+    "slug": "sage",
+    "role": "healers",
+    "patch": "7.3"
+  },
+  {
+    "id": "Monk",
+    "name": "Moine",
+    "code": "MNK",
+    "slug": "monk",
+    "role": "melee",
+    "patch": "7.4"
+  },
+  {
+    "id": "Dragoon",
+    "name": "Chevalier dragon",
+    "code": "DRG",
+    "slug": "dragoon",
+    "role": "melee",
+    "patch": "7.5"
+  },
+  {
+    "id": "Ninja",
+    "name": "Ninja",
+    "code": "NIN",
+    "slug": "ninja",
+    "role": "melee",
+    "patch": "7.4 / ouverture 7.1"
+  },
+  {
+    "id": "Samurai",
+    "name": "Samouraï",
+    "code": "SAM",
+    "slug": "samurai",
+    "role": "melee",
+    "patch": "7.4 ; paliers non datés"
+  },
+  {
+    "id": "Reaper",
+    "name": "Faucheur",
+    "code": "RPR",
+    "slug": "reaper",
+    "role": "melee",
+    "patch": "7.55"
+  },
+  {
+    "id": "Viper",
+    "name": "Rôdeur vipère",
+    "code": "VPR",
+    "slug": "viper",
+    "role": "melee",
+    "patch": "7.55"
+  },
+  {
+    "id": "Bard",
+    "name": "Barde",
+    "code": "BRD",
+    "slug": "bard",
+    "role": "ranged",
+    "patch": "7.4"
+  },
+  {
+    "id": "Machinist",
+    "name": "Machiniste",
+    "code": "MCH",
+    "slug": "machinist",
+    "role": "ranged",
+    "patch": "7.2 / bases 7.3"
+  },
+  {
+    "id": "Dancer",
+    "name": "Danseur",
+    "code": "DNC",
+    "slug": "dancer",
+    "role": "ranged",
+    "patch": "7.4"
+  },
+  {
+    "id": "Summoner",
+    "name": "Invocateur",
+    "code": "SMN",
+    "slug": "summoner",
+    "role": "casters",
+    "patch": "7.55"
+  },
+  {
+    "id": "RedMage",
+    "name": "Mage rouge",
+    "code": "RDM",
+    "slug": "red-mage",
+    "role": "casters",
+    "patch": "7.4"
+  },
+  {
+    "id": "Pictomancer",
+    "name": "Pictomancien",
+    "code": "PCT",
+    "slug": "pictomancer",
+    "role": "casters",
+    "patch": "7.4 / officiel 7.5"
+  }
+]

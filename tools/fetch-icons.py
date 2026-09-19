@@ -1,27 +1,18 @@
-"""Local preview assets only. Never included in plugin packaging or Git."""
-import concurrent.futures,json,pathlib,struct,urllib.request
-from bs4 import BeautifulSoup
+"""Preview-only cache; textures are never committed or shipped with the plugin."""
+import concurrent.futures,json,pathlib,re,struct,urllib.request
 from PIL import Image
 root=pathlib.Path(__file__).resolve().parents[1]
 cache=root/'.artifacts/icons';cache.mkdir(exist_ok=True,parents=True)
-spells=json.loads((root/'docs/actions.json').read_text(encoding='utf-8'))
-soups={job:BeautifulSoup(urllib.request.urlopen(f'https://fr.finalfantasyxiv.com/jobguide/{job}/',timeout=30).read(),'html.parser') for job in ['blackmage','whitemage']}
-def obtain(s):
-    f=cache/f'{s["id"]}.png'
+actions={int(m[0]):int(m[1]) for m in re.findall(r'\[\d+\]=new\((\d+),"[^"]+",\d+,(\d+),', (root/'src/Spells.cs').read_text(encoding='utf8'))}
+for a in json.loads((root/'docs/imported-actions.json').read_text(encoding='utf8'))['actions']:actions[a['id']]=a['icon']
+for job in [19,20,21,22,23,24,25,27,28,30,31,32,33,34,35,37,38,39,40,41,42]:actions[62100+job]=62100+job
+def obtain(item):
+    id,icon=item;f=cache/f'{id}.png'
     if not f.exists():
-        n=soups[s.get('job','blackmage')].find('strong',string=s['name'])
-        if not n:raise RuntimeError('Icon missing: '+s['name'])
-        u=n.find_parent('tr').find('img')['src']
-        f.write_bytes(urllib.request.urlopen(u,timeout=20).read())
+        path=f'ui/icon/{icon//1000*1000:06d}/{icon:06d}.tex'
+        req=urllib.request.Request(f'https://v2.xivapi.com/api/asset?path={path}&format=png',headers={'User-Agent':'CycleOpener-local-preview'})
+        f.write_bytes(urllib.request.urlopen(req,timeout=40).read())
     im=Image.open(f).convert('RGBA')
-    (cache/f'{s["id"]}.rgba').write_bytes(struct.pack('<ii',im.width,im.height)+im.tobytes())
-list(concurrent.futures.ThreadPoolExecutor(6).map(obtain,spells))
-print(f'{len(spells)} official icons ready for local preview.')
-for icon in [62124,62125]:
-    f=cache/f'{icon}.png'
-    if not f.exists():
-        req=urllib.request.Request(f'https://v2.xivapi.com/api/asset?path=ui/icon/062000/0{icon}.tex&format=png',headers={'User-Agent':'CycleOpener-local-preview'})
-        f.write_bytes(urllib.request.urlopen(req,timeout=20).read())
-    im=Image.open(f).convert('RGBA')
-    (cache/f'{icon}.rgba').write_bytes(struct.pack('<ii',im.width,im.height)+im.tobytes())
-print('2 job icons ready for local preview (XIVAPI).')
+    (cache/f'{id}.rgba').write_bytes(struct.pack('<ii',im.width,im.height)+im.tobytes())
+with concurrent.futures.ThreadPoolExecutor(6) as pool:list(pool.map(obtain,actions.items()))
+print(f'{len(actions)} action/job icons cached for off-game previews only.')

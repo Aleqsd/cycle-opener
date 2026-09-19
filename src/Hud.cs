@@ -13,11 +13,11 @@ public static class Hud
  public static float Draw(Layout mode,GuideContext context,Func<uint,ImTextureID?> texture,HudLook look,int selectedStep=0,bool preview=false,Action<int>? selectStep=null,bool embedded=false,bool healingOnly=false)
  {
   var origin=ImGui.GetCursorScreenPos();var dl=ImGui.GetWindowDrawList();float scale=look.Scale,w=Math.Max(240,ImGui.GetContentRegionAvail().X/scale);
-  var plan=Guide.Cycle(context);var healer=context.Job==GuideJob.WhiteMage;
-  var accent=healer?0xFFDCF0FFu:Violet;
-  var first=healer?"DÉGÂTS COURANTS":"GLACE · RÉCUPÉRER";
-  var second=healer?"RESSOURCES ET BURST":"FEU · DÉPENSER";
-  var loop=healer?"Reprendre les dégâts entre les soins nécessaires":"Reprendre depuis la glace";
+  var plan=Guide.Cycle(context);var healer=Jobs.Healer(context.Job);var blm=context.Job==GuideJob.BlackMage;
+  var accent=ImGui.GetColorU32(GuidePanel.Accent(context.Job));
+  var first=plan.First;
+  var second=plan.Second;
+  var loop=plan.Loop;
   List<string> Wrap(string value,float width,float fs) {
    var lines=new List<string>();var line="";
    foreach(var word in value.Split(' ')){var next=line.Length==0?word:line+" "+word;if(width>0&&line.Length>0&&ImGui.CalcTextSize(next).X*fs/ImGui.GetFontSize()>width*scale){lines.Add(line);line=word;}else line=next;}
@@ -129,19 +129,19 @@ public static class Hud
      top+=Math.Max(58,h+16);}
     return top;
    }
-   float iceEnd=Column(first,plan.Ice,12,y,healer?accent:Ice);
-   float fireEnd=plan.Fire.Length>0?Column(second,plan.Fire,stacked?12:cw+36,stacked?iceEnd+18:y,healer?accent:Fire):iceEnd;y=Math.Max(iceEnd,fireEnd)+9;
+   float iceEnd=Column(first,plan.Ice,12,y,blm?Ice:accent);
+   float fireEnd=plan.Fire.Length>0?Column(second,plan.Fire,stacked?12:cw+36,stacked?iceEnd+18:y,blm?Fire:accent):iceEnd;y=Math.Max(iceEnd,fireEnd)+9;
    y+=Text(loop,12,y,accent,15,w-24)+15;
   }else if(mode==Layout.Priorites){
    Text("BOUCLE DE BASE",12,y,Violet,14);y+=26;
    string Sequence(Step[] seq)=>string.Join(" → ",seq.Select(x=>Spells.Name(x.Action)+(x.Count>1?$" ×{x.Count}":"")));
-   y+=Text((healer?"Dégâts : ":"Glace : ")+Sequence(plan.Ice),12,y,healer?accent:Ice,15,w-24)+10;
-   if(plan.Fire.Length>0)y+=Text((healer?"Selon ressources : ":"Feu : ")+Sequence(plan.Fire),12,y,healer?accent:Fire,15,w-24)+20;
+   y+=Text((plan.First+" : ")+Sequence(plan.Ice),12,y,blm?Ice:accent,15,w-24)+10;
+   if(plan.Fire.Length>0)y+=Text((plan.Second+" : ")+Sequence(plan.Fire),12,y,blm?Fire:accent,15,w-24)+20;
    Rect(12,y,w-24,1,Line);y+=18;Text("PRIORITÉS CONDITIONNELLES",12,y,Violet,14);y+=29;
    int n=0;foreach(var reminder in Guide.Reminders(context).Where(r=>!embedded||!r.Healing))y=ReminderRow(reminder,y,true,n++);
   }else{
-   y=Phase(first,plan.Ice,y,healer?accent:Ice,mode==Layout.Focus);
-   y=Phase(second,plan.Fire,y+4,healer?accent:Fire,mode==Layout.Focus);
+   y=Phase(first,plan.Ice,y,blm?Ice:accent,mode==Layout.Focus);
+   y=Phase(second,plan.Fire,y+4,blm?Fire:accent,mode==Layout.Focus);
    y+=Text(loop,12,y,accent,14,w-24)+16;
   }
   if(mode!=Layout.Ouverture){
@@ -156,7 +156,7 @@ public static class Hud
   Rect(12,y,w-24,1,Line);y+=13;
   var threshold=Guide.Threshold(context);
   y+=Text(threshold,12,y,Muted,13,w-24)+12;
-  y+=Text("Sources · Icy Veins 7.55 / The Balance",12,y,Muted,12,w-24)+4;
+  y+=Text(GuideSources.Credit(context.Job),12,y,Muted,12,w-24)+4;
   float linkX=12;
   foreach(var source in GuideSources.For(context.Job,mode==Layout.Ouverture)){
    var width=ImGui.CalcTextSize(source.Label).X*12/ImGui.GetFontSize();
@@ -185,10 +185,10 @@ public static class Hud
    dl.AddText(ImGui.GetFont(),size,origin+new Vector2(0,y),Muted,line);y+=size*1.6f;
   }
   Line(Spells.LocalizeText(Guide.Threshold(state)));
-  Line("Sources · Icy Veins 7.55 / The Balance · vérifié le 19/09/2026");
+  Line(GuideSources.Credit(state.Job)+" · consulté le 19/09/2026");
   var links=GuideSources.For(state.Job,opening).ToList();
   if(both){links.RemoveAt(2);links.AddRange(GuideSources.For(state.Job,true).Take(2).Select(s=>s with{Label=s.Label+" · ouverture"}));links.Add(GuideSources.For(state.Job,false)[2]);}
-  if(!opening&&state.Job==GuideJob.WhiteMage)links.Add(new("Soins · The Balance","https://www.thebalanceffxiv.com/jobs/healers/white-mage/basic-guide/"));
+  if(!opening)links.Add(new("Détails · The Balance",$"https://www.thebalanceffxiv.com/jobs/{Jobs.Get(state.Job).Role}/{Jobs.Get(state.Job).Slug}/basic-guide/"));
   var x=0f;
   foreach(var source in links){
    var linkWidth=ImGui.CalcTextSize(source.Label).X*size/ImGui.GetFontSize();
