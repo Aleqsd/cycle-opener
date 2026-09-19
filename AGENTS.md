@@ -17,3 +17,4 @@ Guide statique par niveau pour Mage noir et occultiste, tâche de référence «
 - Dans un clone autonome, le socle parent peut être absent. Ce dépôt compile indépendamment ; appliquer alors les instructions locales disponibles sans créer un socle concurrent.
 
 - Nom public et identité de chargement : Cycle & Opener / `CycleOpener`, dépôt `Aleqsd/cycle-opener`, commande `/cycle`. Le dossier local historique reste `astral-guide/` ; aucun déplacement implicite. Seul le Mage noir est pris en charge actuellement.
+- Diffusion autorisée uniquement sur le GitHub d’Aleqsd et son dépôt personnalisé. Demande explicite : aucune PR ni soumission au catalogue officiel Dalamud ; ne pas activer son suivi.
