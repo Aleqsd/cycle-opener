@@ -1,0 +1,182 @@
+[
+  {
+    "id": 141,
+    "name": "Feu",
+    "icon": 451,
+    "level": 2
+  },
+  {
+    "id": 142,
+    "name": "Glace",
+    "icon": 454,
+    "level": 1
+  },
+  {
+    "id": 144,
+    "name": "Foudre",
+    "icon": 457,
+    "level": 6
+  },
+  {
+    "id": 147,
+    "name": "Extra Feu",
+    "icon": 452,
+    "level": 18
+  },
+  {
+    "id": 149,
+    "name": "Transposition",
+    "icon": 466,
+    "level": 4
+  },
+  {
+    "id": 152,
+    "name": "Méga Feu",
+    "icon": 453,
+    "level": 35
+  },
+  {
+    "id": 153,
+    "name": "Méga Foudre",
+    "icon": 459,
+    "level": 45
+  },
+  {
+    "id": 154,
+    "name": "Méga Glace",
+    "icon": 456,
+    "level": 35
+  },
+  {
+    "id": 156,
+    "name": "Blessure",
+    "icon": 462,
+    "level": 15
+  },
+  {
+    "id": 158,
+    "name": "Vasque de mana",
+    "icon": 2651,
+    "level": 30
+  },
+  {
+    "id": 159,
+    "name": "Gel",
+    "icon": 2653,
+    "level": 40
+  },
+  {
+    "id": 162,
+    "name": "Brasier",
+    "icon": 2652,
+    "level": 50
+  },
+  {
+    "id": 3573,
+    "name": "Manalignements",
+    "icon": 2656,
+    "level": 52
+  },
+  {
+    "id": 3576,
+    "name": "Giga Glace",
+    "icon": 2659,
+    "level": 58
+  },
+  {
+    "id": 3577,
+    "name": "Giga Feu",
+    "icon": 2660,
+    "level": 60
+  },
+  {
+    "id": 7420,
+    "name": "Giga Foudre",
+    "icon": 2662,
+    "level": 64
+  },
+  {
+    "id": 7421,
+    "name": "Triple sort",
+    "icon": 2663,
+    "level": 66
+  },
+  {
+    "id": 7422,
+    "name": "Infect",
+    "icon": 2664,
+    "level": 70
+  },
+  {
+    "id": 7561,
+    "name": "Magie prompte",
+    "icon": 866,
+    "level": 18
+  },
+  {
+    "id": 16505,
+    "name": "Feu du désespoir",
+    "icon": 2665,
+    "level": 72
+  },
+  {
+    "id": 16506,
+    "name": "Âme ombrale",
+    "icon": 2666,
+    "level": 35
+  },
+  {
+    "id": 16507,
+    "name": "Xénoglossie",
+    "icon": 2667,
+    "level": 80
+  },
+  {
+    "id": 25793,
+    "name": "Extra Glace",
+    "icon": 2668,
+    "level": 12
+  },
+  {
+    "id": 25794,
+    "name": "Extra Feu majeur",
+    "icon": 2669,
+    "level": 82
+  },
+  {
+    "id": 25795,
+    "name": "Extra Glace majeure",
+    "icon": 2670,
+    "level": 82
+  },
+  {
+    "id": 25796,
+    "name": "Amplificateur",
+    "icon": 2671,
+    "level": 86
+  },
+  {
+    "id": 25797,
+    "name": "Paradoxe",
+    "icon": 2672,
+    "level": 90
+  },
+  {
+    "id": 36986,
+    "name": "Foudre majeure",
+    "icon": 2673,
+    "level": 92
+  },
+  {
+    "id": 36987,
+    "name": "Extra Foudre majeure",
+    "icon": 2674,
+    "level": 92
+  },
+  {
+    "id": 36989,
+    "name": "Astre flamboyant",
+    "icon": 2151,
+    "level": 100
+  }
+]

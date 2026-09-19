@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+.artifacts/
+plugin/
+releases/
+preview/renders/
+preview/icons/
+*.user
+*.log

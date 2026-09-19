@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>Cycle &amp; Opener — atlas ouvert et boussole</title>
+  <rect x="5" y="5" width="246" height="246" rx="42" fill="#111315"/>
+  <rect x="6" y="6" width="244" height="244" rx="41" fill="none" stroke="#384149" stroke-width="2"/>
+  <path d="M35 103c35-12 65-7 93 9 28-16 58-21 93-9v97c-35-9-65-4-93 11-28-15-58-20-93-11z" fill="#252C32" stroke="#697985" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M47 114c26-6 49-1 71 10v69c-23-9-46-12-71-7zM138 124c22-11 45-16 71-10v72c-25-5-48-2-71 7z" fill="#1C252B"/>
+  <path d="M128 130v77" stroke="#697985" stroke-width="4"/>
+  <path d="m55 162 15-10 17 16 17-12m47 14 13-14 18 10 16-16" fill="none" stroke="#384149" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="128" cy="92" r="53" fill="#111315" stroke="#00B9F7" stroke-width="5"/>
+  <path d="M128 49v8m0 70v8M85 92h8m70 0h8" stroke="#697985" stroke-width="4" stroke-linecap="round"/>
+  <path d="m151 64-13 39-33 17 13-39z" fill="#A579D6"/>
+  <path d="m151 64-23 28-10-11z" fill="#E8EDF0"/>
+  <path d="m151 64-13 39-10-11z" fill="#00B9F7"/>
+  <circle cx="128" cy="92" r="5" fill="#E8EDF0"/>
+</svg>
